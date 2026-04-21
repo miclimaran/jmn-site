@@ -1,20 +1,13 @@
 "use client";
+
 import * as React from "react";
+import { DEFAULT_LANG, LANGS, type Lang } from "@/lib/i18n";
 
-export type Lang = "en" | "id" | "vi" | "ar" | "th";
+export type { Lang } from "@/lib/i18n";
 
-export const LangContext = React.createContext<Lang>("en");
+export const LangContext = React.createContext<Lang>(DEFAULT_LANG);
 
-export const LANGS: Array<{ code: Lang; label: string; flag: string; dir: "ltr" | "rtl" }> = [
-  { code: "en", label: "English",   flag: "🇬🇧", dir: "ltr" },
-  { code: "id", label: "Indonesia", flag: "🇮🇩", dir: "ltr" },
-  { code: "vi", label: "Tiếng Việt",flag: "🇻🇳", dir: "ltr" },
-  { code: "ar", label: "العربية",   flag: "🇸🇦", dir: "rtl" },
-  { code: "th", label: "ไทย",       flag: "🇹🇭", dir: "ltr" },
-];
-
-export const getDir = (lang: Lang) => LANGS.find(l => l.code === lang)?.dir ?? "ltr";
-
+// paste back your full STR object here
 // ── Translations ────────────────────────────────────────────────────────────────
 const STR = {
   en: {
@@ -216,5 +209,8 @@ const STR = {
 
 export const useT = () => {
   const lang = React.useContext(LangContext);
-  return (k: keyof typeof STR["en"]) => (STR[lang]?.[k] ?? STR.en[k] ?? String(k));
+  return (k: keyof typeof STR["en"]) =>
+    STR[lang]?.[k] ?? STR.en[k] ?? String(k);
 };
+
+export { DEFAULT_LANG, LANGS };
