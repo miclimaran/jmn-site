@@ -1,19 +1,27 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useEffect, useMemo, useState } from "react";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
-import { Mail, Phone, Filter, Search, ChevronRight, X, ShieldCheck } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  Filter,
+  Search,
+  ChevronLeft,
+  ChevronRight,
+  X,
+  ShieldCheck,
+} from "lucide-react";
 import { useT } from "@/components/site/Lang";
 import { WHATSAPP_PHONE } from "@/components/site/constants";
 import { PRODUCTS } from "@/components/site/data";
 
-// If you already export these from your data/constants file, import them there and delete these:
 const BRANDS = [
   { name: "Suzuki", key: "suzuki" },
   { name: "Toyota", key: "toyota" },
@@ -31,16 +39,29 @@ const CATEGORIES = [
   "Transmission",
 ] as const;
 
+const ITEMS_PER_PAGE = 6;
+
 type Product = (typeof PRODUCTS)[number];
 
-function useFilteredProducts({ brand, category, q }: { brand: string; category: string; q: string }) {
+function useFilteredProducts({
+  brand,
+  category,
+  q,
+}: {
+  brand: string;
+  category: string;
+  q: string;
+}) {
   return useMemo(() => {
     const term = (q || "").toLowerCase().trim();
+
     return PRODUCTS.filter((p) => {
       const matchBrand = !brand || p.brand === brand;
       const matchCat = !category || p.category === category;
-      const hay = `${p.name} ${p.code} ${p.models.join(" ")} ${p.brand} ${p.category}`.toLowerCase();
+      const hay =
+        `${p.name} ${p.code} ${p.models.join(" ")} ${p.brand} ${p.category}`.toLowerCase();
       const matchQ = !term || hay.includes(term);
+
       return matchBrand && matchCat && matchQ;
     });
   }, [brand, category, q]);
@@ -48,166 +69,374 @@ function useFilteredProducts({ brand, category, q }: { brand: string; category: 
 
 function BrandBadge({ brand }: { brand: string }) {
   const b = BRANDS.find((x) => x.key === brand);
-  return <Badge variant="secondary" className="capitalize">{b?.name || brand}</Badge>;
+
+  return (
+    <Badge variant="secondary" className="rounded-full">
+      {b?.name || brand}
+    </Badge>
+  );
 }
 
-function ProductCard({ p, onQuickView }: { p: Product; onQuickView: (p: Product) => void }) {
+function ProductCard({
+  p,
+  onQuickView,
+}: {
+  p: Product;
+  onQuickView: (p: Product) => void;
+}) {
   return (
-    <Card className="group overflow-hidden hover:shadow-xl transition-shadow duration-300">
-      <div className="relative h-44 w-full overflow-hidden">
-        <motion.img
-          src={p.image}
-          alt={p.name}
-          className="h-full w-full object-cover"
-          whileHover={{ scale: 1.06 }}
-          transition={{ type: "spring", stiffness: 120, damping: 12 }}
-        />
-        <div className="absolute left-2 top-2 flex gap-2">
-          <BrandBadge brand={p.brand} />
-          {p.oem && <Badge className="bg-emerald-600">OEM</Badge>}
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.35 }}
+    >
+      <Card className="group h-full overflow-hidden rounded-2xl border-border/60 bg-card/70 backdrop-blur">
+        <div className="aspect-[16/10] overflow-hidden bg-muted">
+          <img
+            src={p.image}
+            alt={p.name}
+            className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"
+          />
         </div>
-      </div>
-      <CardHeader className="space-y-1">
-        <CardTitle className="text-base flex items-center justify-between gap-2">
-          {p.name}
-          <HoverCard>
-            <HoverCardTrigger><ShieldCheck className="h-4 w-4" /></HoverCardTrigger>
-            <HoverCardContent className="text-xs">Genuine quality — backed by JMN sourcing.</HoverCardContent>
-          </HoverCard>
-        </CardTitle>
-        <p className="text-xs text-muted-foreground">Part No: <span className="font-mono">{p.code}</span></p>
-        <div className="flex flex-wrap gap-1 text-xs text-muted-foreground">
-          {p.models.map((m) => (<span key={m} className="rounded bg-muted px-2 py-0.5">{m}</span>))}
-        </div>
-      </CardHeader>
-      <CardContent className="flex items-center justify-between">
-        <Button variant="outline" size="sm" onClick={() => onQuickView(p)}>Quick view</Button>
-        <a
-          href={`https://wa.me/${WHATSAPP_PHONE.replace(/[^\d]/g, "")}?text=${encodeURIComponent(
-            `Hi JMN, I'm interested in ${p.name} (${p.code}).`
-          )}`}
-          className="text-sm inline-flex items-center gap-2 underline underline-offset-4"
-        >
-          Ask via WhatsApp <ChevronRight className="h-4 w-4" />
-        </a>
-      </CardContent>
-    </Card>
+
+        <CardHeader className="space-y-3">
+          <div className="flex items-center justify-between gap-3">
+            <BrandBadge brand={p.brand} />
+            {p.oem && (
+              <Badge className="rounded-full">
+                OEM
+              </Badge>
+            )}
+          </div>
+
+          <CardTitle className="line-clamp-2 text-lg">{p.name}</CardTitle>
+
+          <p className="text-sm text-muted-foreground">
+            Genuine quality — backed by JMN sourcing.
+          </p>
+        </CardHeader>
+
+        <CardContent className="space-y-4">
+          <div className="rounded-xl border bg-background/70 p-3">
+            <div className="text-xs uppercase tracking-wide text-muted-foreground">
+              Part No
+            </div>
+            <div className="mt-1 font-medium">{p.code}</div>
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            {p.models.map((m) => (
+              <Badge key={m} variant="outline" className="rounded-full">
+                {m}
+              </Badge>
+            ))}
+          </div>
+
+          <div className="flex flex-wrap gap-2 pt-1">
+            <Button
+              variant="outline"
+              onClick={() => onQuickView(p)}
+              className="rounded-xl"
+            >
+              Quick view
+            </Button>
+
+            <Button asChild className="rounded-xl">
+              <a
+                href={`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(
+                  `Hello, I’m interested in ${p.name} (${p.code}).`
+                )}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Ask via WhatsApp
+              </a>
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </motion.div>
   );
 }
 
 export default function ProductGrid() {
   const t = useT();
+
   const [brand, setBrand] = useState("");
   const [category, setCategory] = useState("");
   const [q, setQ] = useState("");
   const [sheetOpen, setSheetOpen] = useState(false);
   const [focus, setFocus] = useState<Product | null>(null);
+  const [page, setPage] = useState(1);
 
   const items = useFilteredProducts({ brand, category, q });
 
+  const totalPages = Math.max(1, Math.ceil(items.length / ITEMS_PER_PAGE));
+
+  const paginatedItems = useMemo(() => {
+    const start = (page - 1) * ITEMS_PER_PAGE;
+    return items.slice(start, start + ITEMS_PER_PAGE);
+  }, [items, page]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [brand, category, q]);
+
+  useEffect(() => {
+    if (page > totalPages) {
+      setPage(totalPages);
+    }
+  }, [page, totalPages]);
+
+  const startItem = items.length === 0 ? 0 : (page - 1) * ITEMS_PER_PAGE + 1;
+  const endItem = Math.min(page * ITEMS_PER_PAGE, items.length);
+
   const filters = (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+    <div className="space-y-4">
       <div>
-        <label className="text-xs text-muted-foreground">Brand</label>
-        <select value={brand} onChange={(e) => setBrand(e.target.value)} className="mt-1 w-full rounded-xl border bg-background px-3 py-2">
+        <label className="text-sm font-medium">Brand</label>
+        <select
+          value={brand}
+          onChange={(e) => setBrand(e.target.value)}
+          className="mt-1 w-full rounded-xl border bg-background px-3 py-2"
+        >
           <option value="">All brands</option>
-          {BRANDS.map((b) => (<option key={b.key} value={b.key} className="capitalize">{b.name}</option>))}
+          {BRANDS.map((b) => (
+            <option key={b.key} value={b.key}>
+              {b.name}
+            </option>
+          ))}
         </select>
       </div>
+
       <div>
-        <label className="text-xs text-muted-foreground">Category</label>
-        <select value={category} onChange={(e) => setCategory(e.target.value)} className="mt-1 w-full rounded-xl border bg-background px-3 py-2">
+        <label className="text-sm font-medium">Category</label>
+        <select
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          className="mt-1 w-full rounded-xl border bg-background px-3 py-2"
+        >
           <option value="">All categories</option>
-          {CATEGORIES.map((c) => (<option key={c} value={c}>{c}</option>))}
+          {CATEGORIES.map((c) => (
+            <option key={c} value={c}>
+              {c}
+            </option>
+          ))}
         </select>
       </div>
+
       <div>
-        <label className="text-xs text-muted-foreground">Search</label>
-        <div className="mt-1 flex items-center gap-2 rounded-xl border px-3">
-          <Search className="h-4 w-4" />
+        <label className="text-sm font-medium">Search</label>
+        <div className="mt-1 flex items-center gap-2 rounded-xl border bg-background px-3">
+          <Search className="h-4 w-4 text-muted-foreground" />
           <input
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search name / code / model…"
             className="w-full bg-transparent py-2 outline-none"
           />
-          {q && (<Button variant="ghost" size="sm" onClick={() => setQ("")}><X className="h-4 w-4" /></Button>)}
+          {q && (
+            <button
+              onClick={() => setQ("")}
+              className="text-muted-foreground transition hover:text-foreground"
+              aria-label="Clear search"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          )}
         </div>
       </div>
     </div>
   );
 
   return (
-    <section id="products" className="relative py-20">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(59,130,246,0.08),transparent_50%),radial-gradient(ellipse_at_bottom,rgba(16,185,129,0.08),transparent_50%)]" />
-      <div className="container max-w-7xl mx-auto px-4 relative">
-        <div className="flex items-center justify-between gap-4 mb-6">
-          <div>
-            <h2 className="text-2xl md:text-4xl font-semibold tracking-tight">{t("products_title")}</h2>
-            <p className="text-muted-foreground mt-1">{t("products_sub")}</p>
+    <section id="products" className="container py-16 md:py-24">
+      <div className="mx-auto max-w-2xl text-center">
+        <Badge variant="outline" className="rounded-full px-4 py-1.5 text-xs">
+          {t("products_title")}
+        </Badge>
+        <h2 className="mt-4 text-3xl font-semibold tracking-tight md:text-5xl">
+          {t("products_title")}
+        </h2>
+        <p className="mt-3 text-muted-foreground">{t("products_sub")}</p>
+      </div>
+
+      <div className="mt-10 grid gap-6 lg:grid-cols-[280px_1fr]">
+        <aside className="hidden lg:block">
+          <Card className="rounded-2xl border-border/60">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-base">
+                <Filter className="h-4 w-4" />
+                {t("quick_filters")}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>{filters}</CardContent>
+          </Card>
+        </aside>
+
+        <div>
+          <div className="mb-4 flex items-center justify-between gap-3 lg:hidden">
+            <div className="text-sm text-muted-foreground">{t("quick_filters")}</div>
+
+            <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+              <SheetTrigger asChild>
+                <Button variant="outline" className="rounded-xl">
+                  <Filter className="mr-2 h-4 w-4" />
+                  {t("quick_filters")}
+                </Button>
+              </SheetTrigger>
+
+              <SheetContent side="bottom" className="rounded-t-3xl">
+                <SheetHeader>
+                  <SheetTitle>{t("quick_filters")}</SheetTitle>
+                </SheetHeader>
+                <div className="mt-6">{filters}</div>
+              </SheetContent>
+            </Sheet>
           </div>
-          <div className="hidden md:block min-w-[540px]">{filters}</div>
-          <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-            <SheetTrigger asChild>
-              <Button className="md:hidden" variant="outline"><Filter className="h-4 w-4 mr-2" /> {t("quick_filters")}</Button>
-            </SheetTrigger>
-            <SheetContent side="bottom" className="max-h-[80vh] overflow-y-auto">
-              <SheetHeader><SheetTitle>{t("quick_filters")}</SheetTitle></SheetHeader>
-              <div className="mt-4 space-y-4">{filters}</div>
-            </SheetContent>
-          </Sheet>
-        </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {items.map((p) => (<ProductCard key={p.id} p={p} onQuickView={(x) => setFocus(x)} />))}
-        </div>
+          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+            {paginatedItems.map((p) => (
+              <ProductCard key={p.id} p={p} onQuickView={(x) => setFocus(x)} />
+            ))}
+          </div>
 
-        <div className="mt-8 flex items-center justify-between flex-wrap gap-3">
-          <div className="text-sm text-muted-foreground">Showing <span className="font-medium">{items.length}</span> of {PRODUCTS.length} demo SKUs</div>
-          <div className="flex items-center gap-3">
-            <a href="/contact" className="underline underline-offset-4 text-sm inline-flex items-center gap-2"><Mail className="h-4 w-4" /> {t("request_full_catalog")}</a>
-            <Button variant="secondary" className="inline-flex items-center gap-2"><Filter className="h-4 w-4" /> {t("download_brochure")}</Button>
+          {items.length === 0 && (
+            <Card className="mt-6 rounded-2xl border-border/60">
+              <CardContent className="py-10 text-center text-muted-foreground">
+                No products found for the selected filters.
+              </CardContent>
+            </Card>
+          )}
+
+          <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
+            <div className="text-sm text-muted-foreground">
+              Showing <span className="font-medium">{startItem}-{endItem}</span> of{" "}
+              <span className="font-medium">{items.length}</span> filtered products
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setPage((prev) => Math.max(1, prev - 1))}
+                disabled={page === 1 || items.length === 0}
+                className="rounded-xl"
+              >
+                <ChevronLeft className="mr-1 h-4 w-4" />
+                Previous
+              </Button>
+
+              <span className="text-sm text-muted-foreground">
+                Page {page} of {totalPages}
+              </span>
+
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setPage((prev) => Math.min(totalPages, prev + 1))}
+                disabled={page === totalPages || items.length === 0}
+                className="rounded-xl"
+              >
+                Next
+                <ChevronRight className="ml-1 h-4 w-4" />
+              </Button>
+
+              <a
+                href="/contact"
+                className="ml-2 inline-flex items-center gap-2 text-sm underline underline-offset-4"
+              >
+                <Mail className="h-4 w-4" />
+                {t("request_full_catalog")}
+              </a>
+
+              <HoverCard>
+                <HoverCardTrigger asChild>
+                  <Button variant="secondary" className="rounded-xl">
+                    <ShieldCheck className="mr-2 h-4 w-4" />
+                    {t("download_brochure")}
+                  </Button>
+                </HoverCardTrigger>
+                <HoverCardContent className="w-72 rounded-2xl">
+                  <div className="text-sm">
+                    Brochure download is not connected yet. You can direct this button to a PDF later.
+                  </div>
+                </HoverCardContent>
+              </HoverCard>
+            </div>
           </div>
         </div>
+      </div>
 
-        <AnimatePresence>
+      <Dialog open={!!focus} onOpenChange={(open) => !open && setFocus(null)}>
+        <DialogContent className="max-w-2xl rounded-3xl">
           {focus && (
-            <Dialog open={!!focus} onOpenChange={() => setFocus(null)}>
-              <DialogContent className="max-w-2xl">
-                <DialogHeader><DialogTitle>{focus.name}</DialogTitle></DialogHeader>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <img src={focus.image} alt={focus.name} className="rounded-xl w-full h-56 object-cover" />
-                  <div className="space-y-3">
-                    <p className="text-sm text-muted-foreground">Part Number</p>
-                    <p className="font-mono text-lg">{focus.code}</p>
-                    <div className="flex gap-2 items-center">
-                      <BrandBadge brand={focus.brand} />
-                      {focus.oem && <Badge className="bg-emerald-600">OEM</Badge>}
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-2xl">{focus.name}</DialogTitle>
+              </DialogHeader>
+
+              <div className="grid gap-6 md:grid-cols-[1.1fr_.9fr]">
+                <div className="overflow-hidden rounded-2xl border bg-muted">
+                  <img
+                    src={focus.image}
+                    alt={focus.name}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+
+                <div className="space-y-4">
+                  <div className="rounded-2xl border p-4">
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground">
+                      Part Number
                     </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground mb-1">Compatible Models</p>
-                      <div className="flex flex-wrap gap-2">{focus.models.map((m) => (<Badge key={m} variant="outline">{m}</Badge>))}</div>
-                    </div>
-                    <div className="pt-2 flex items-center gap-3">
-                      <a
-                        href={`https://wa.me/${WHATSAPP_PHONE.replace(/[^\d]/g, "")}?text=${encodeURIComponent(
-                          `Hi JMN, I'm interested in ${focus.name} (${focus.code}).`
-                        )}`}
-                        className="inline-flex items-center gap-2 rounded-xl border px-4 py-2 hover:bg-muted"
-                      >
-                        <Phone className="h-4 w-4" /> Ask on WhatsApp
-                      </a>
-                      <a href="/contact" className="inline-flex items-center gap-2 underline underline-offset-4">
-                        <Mail className="h-4 w-4" /> Contact sales
-                      </a>
+                    <div className="mt-1 font-medium">{focus.code}</div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2">
+                    <BrandBadge brand={focus.brand} />
+                    {focus.oem && <Badge>OEM</Badge>}
+                  </div>
+
+                  <div>
+                    <div className="mb-2 text-sm font-medium">Compatible Models</div>
+                    <div className="flex flex-wrap gap-2">
+                      {focus.models.map((m) => (
+                        <Badge key={m} variant="outline" className="rounded-full">
+                          {m}
+                        </Badge>
+                      ))}
                     </div>
                   </div>
+
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    <Button asChild className="rounded-xl">
+                      <a
+                        href={`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(
+                          `Hello, I’m interested in ${focus.name} (${focus.code}).`
+                        )}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <Phone className="mr-2 h-4 w-4" />
+                        Ask on WhatsApp
+                      </a>
+                    </Button>
+
+                    <Button asChild variant="outline" className="rounded-xl">
+                      <a href="/contact">
+                        <Mail className="mr-2 h-4 w-4" />
+                        Contact sales
+                      </a>
+                    </Button>
+                  </div>
                 </div>
-              </DialogContent>
-            </Dialog>
+              </div>
+            </>
           )}
-        </AnimatePresence>
-      </div>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }
