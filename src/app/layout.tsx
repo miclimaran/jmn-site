@@ -14,6 +14,11 @@ export const metadata: Metadata = {
   title: "JMN - Suzuki Genuine Parts Distributor",
   description:
     "OEM auto parts distributor based in Indonesia. Multi-brand export supplier.",
+  icons: {
+    icon: "/branding/logo_jmn2.svg",
+    shortcut: "/branding/logo_jmn2.svg",
+    apple: "/branding/logo_jmn2.svg",
+  },
 };
 
 export default async function RootLayout({
