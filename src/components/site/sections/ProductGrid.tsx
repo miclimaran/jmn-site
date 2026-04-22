@@ -5,9 +5,19 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import {
   Mail,
   Phone,
@@ -16,7 +26,6 @@ import {
   ChevronLeft,
   ChevronRight,
   X,
-  ShieldCheck,
 } from "lucide-react";
 import { useT } from "@/components/site/Lang";
 import { WHATSAPP_PHONE } from "@/components/site/constants";
@@ -103,17 +112,13 @@ function ProductCard({
         <CardHeader className="space-y-3">
           <div className="flex items-center justify-between gap-3">
             <BrandBadge brand={p.brand} />
-            {p.oem && (
-              <Badge className="rounded-full">
-                OEM
-              </Badge>
-            )}
+            {p.oem && <Badge className="rounded-full">OEM</Badge>}
           </div>
 
           <CardTitle className="line-clamp-2 text-lg">{p.name}</CardTitle>
 
           <p className="text-sm text-muted-foreground">
-            Genuine quality — backed by JMN sourcing.
+            Genuine quality backed by JMN sourcing.
           </p>
         </CardHeader>
 
@@ -145,7 +150,7 @@ function ProductCard({
             <Button asChild className="rounded-xl">
               <a
                 href={`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(
-                  `Hello, I’m interested in ${p.name} (${p.code}).`
+                  `Hello, I'm interested in ${p.name} (${p.code}).`
                 )}`}
                 target="_blank"
                 rel="noreferrer"
@@ -233,11 +238,12 @@ export default function ProductGrid() {
           <input
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="Search name / code / model…"
+            placeholder="Search name / code / model..."
             className="w-full bg-transparent py-2 outline-none"
           />
           {q && (
             <button
+              type="button"
               onClick={() => setQ("")}
               className="text-muted-foreground transition hover:text-foreground"
               aria-label="Clear search"
@@ -277,7 +283,9 @@ export default function ProductGrid() {
 
         <div>
           <div className="mb-4 flex items-center justify-between gap-3 lg:hidden">
-            <div className="text-sm text-muted-foreground">{t("quick_filters")}</div>
+            <div className="text-sm text-muted-foreground">
+              {t("quick_filters")}
+            </div>
 
             <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
               <SheetTrigger asChild>
@@ -312,8 +320,9 @@ export default function ProductGrid() {
 
           <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
             <div className="text-sm text-muted-foreground">
-              Showing <span className="font-medium">{startItem}-{endItem}</span> of{" "}
-              <span className="font-medium">{items.length}</span> filtered products
+              Showing <span className="font-medium">{startItem}-{endItem}</span>{" "}
+              of <span className="font-medium">{items.length}</span> filtered
+              products
             </div>
 
             <div className="flex flex-wrap items-center gap-2">
@@ -350,20 +359,6 @@ export default function ProductGrid() {
                 <Mail className="h-4 w-4" />
                 {t("request_full_catalog")}
               </a>
-
-              <HoverCard>
-                <HoverCardTrigger asChild>
-                  <Button variant="secondary" className="rounded-xl">
-                    <ShieldCheck className="mr-2 h-4 w-4" />
-                    {t("download_brochure")}
-                  </Button>
-                </HoverCardTrigger>
-                <HoverCardContent className="w-72 rounded-2xl">
-                  <div className="text-sm">
-                    Brochure download is not connected yet. You can direct this button to a PDF later.
-                  </div>
-                </HoverCardContent>
-              </HoverCard>
             </div>
           </div>
         </div>
@@ -400,7 +395,9 @@ export default function ProductGrid() {
                   </div>
 
                   <div>
-                    <div className="mb-2 text-sm font-medium">Compatible Models</div>
+                    <div className="mb-2 text-sm font-medium">
+                      Compatible Models
+                    </div>
                     <div className="flex flex-wrap gap-2">
                       {focus.models.map((m) => (
                         <Badge key={m} variant="outline" className="rounded-full">
@@ -414,7 +411,7 @@ export default function ProductGrid() {
                     <Button asChild className="rounded-xl">
                       <a
                         href={`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(
-                          `Hello, I’m interested in ${focus.name} (${focus.code}).`
+                          `Hello, I'm interested in ${focus.name} (${focus.code}).`
                         )}`}
                         target="_blank"
                         rel="noreferrer"

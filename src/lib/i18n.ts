@@ -11,9 +11,9 @@ export const LANGS: Array<{
 }> = [
   { code: "en", label: "English", flag: "", dir: "ltr" },
   { code: "id", label: "Indonesia", flag: "", dir: "ltr" },
-  { code: "vi", label: "Tiếng Việt", flag: "", dir: "ltr" },
-  { code: "ar", label: "العربية", flag: "", dir: "rtl" },
-  { code: "th", label: "ไทย", flag: "", dir: "ltr" },
+  { code: "vi", label: "Tieng Viet", flag: "", dir: "ltr" },
+  { code: "ar", label: "Arabic", flag: "", dir: "rtl" },
+  { code: "th", label: "Thai", flag: "", dir: "ltr" },
 ];
 
 export const isLang = (value: string): value is Lang =>

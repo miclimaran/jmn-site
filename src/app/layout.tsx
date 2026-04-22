@@ -11,7 +11,7 @@ import {
 } from "@/lib/i18n";
 
 export const metadata: Metadata = {
-  title: "JMN — Suzuki Genuine Parts Distributor",
+  title: "JMN - Suzuki Genuine Parts Distributor",
   description:
     "OEM auto parts distributor based in Indonesia. Multi-brand export supplier.",
 };

@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import { useT } from "@/components/site/Lang";
@@ -17,53 +18,48 @@ export default function Navbar({
   const [open, setOpen] = React.useState(false);
 
   return (
-    // not-prose prevents parent typography (like prose/text-sm) from shrinking nav
-    <header className="sticky top-0 z-50 backdrop-blur bg-background/70 border-b not-prose">
-      <div className="container max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-        <a href="/" className="flex items-center gap-2">
-          {/* ✅ JMN Logo (SVG from /public/branding) */}
+    <header className="sticky top-0 z-50 border-b bg-background/70 backdrop-blur not-prose">
+      <div className="container mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
+        <Link href="/" className="flex items-center gap-2">
           <img
             src="/branding/logo_jmn2.svg"
             alt="JMN logo"
             className="h-16 w-auto"
           />
-          {/* <div className="font-semibold tracking-tight">JMN</div> */}
-        </a>
+        </Link>
 
-        <nav className="hidden md:flex items-center gap-8">
-          <a
-            className="px-2 py-2 text-base md:text-lg font-medium hover:underline underline-offset-4 hover:text-primary transition"
+        <nav className="hidden items-center gap-8 md:flex">
+          <Link
+            className="px-2 py-2 text-base font-medium transition hover:text-primary hover:underline underline-offset-4 md:text-lg"
             href="/products"
           >
             {t("nav_products")}
-          </a>
-          <a
-            className="px-2 py-2 text-base md:text-lg font-medium hover:underline underline-offset-4 hover:text-primary transition"
+          </Link>
+          <Link
+            className="px-2 py-2 text-base font-medium transition hover:text-primary hover:underline underline-offset-4 md:text-lg"
             href="/#intro"
           >
             {t("nav_why")}
-          </a>
-          <a
-            className="px-2 py-2 text-base md:text-lg font-medium hover:underline underline-offset-4 hover:text-primary transition"
+          </Link>
+          <Link
+            className="px-2 py-2 text-base font-medium transition hover:text-primary hover:underline underline-offset-4 md:text-lg"
             href="/#export"
           >
             {t("nav_export")}
-          </a>
-          <a
-            className="px-2 py-2 text-base md:text-lg font-medium hover:underline underline-offset-4 hover:text-primary transition"
+          </Link>
+          <Link
+            className="px-2 py-2 text-base font-medium transition hover:text-primary hover:underline underline-offset-4 md:text-lg"
             href="/contact"
           >
             {t("nav_contact")}
-          </a>
+          </Link>
         </nav>
 
         <div className="flex items-center gap-2">
           <LanguageSwitcher lang={lang} onChange={onLangChange} />
-          <a href="/contact">
-            <Button className="hidden md:inline-flex rounded-xl">
-              {t("nav_contact")}
-            </Button>
-          </a>
+          <Button asChild className="hidden rounded-xl md:inline-flex">
+            <Link href="/contact">{t("nav_contact")}</Link>
+          </Button>
           <Button
             variant="ghost"
             size="icon"
@@ -77,35 +73,35 @@ export default function Navbar({
       </div>
 
       {open && (
-        <div className="md:hidden border-t px-4 py-4 space-y-2 text-lg not-prose">
-          <a
+        <div className="space-y-2 border-t px-4 py-4 text-lg not-prose md:hidden">
+          <Link
             href="/products"
             className="block py-2"
             onClick={() => setOpen(false)}
           >
             {t("nav_products")}
-          </a>
-          <a
+          </Link>
+          <Link
             href="/#intro"
             className="block py-2"
             onClick={() => setOpen(false)}
           >
             {t("nav_why")}
-          </a>
-          <a
+          </Link>
+          <Link
             href="/#export"
             className="block py-2"
             onClick={() => setOpen(false)}
           >
             {t("nav_export")}
-          </a>
-          <a
+          </Link>
+          <Link
             href="/contact"
             className="block py-2"
             onClick={() => setOpen(false)}
           >
             {t("nav_contact")}
-          </a>
+          </Link>
         </div>
       )}
     </header>

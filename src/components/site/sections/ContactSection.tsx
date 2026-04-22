@@ -41,15 +41,14 @@ export default function ContactSection() {
   return (
     <section id="contact" className="py-20">
       <div className="container max-w-5xl mx-auto px-4">
-        <div className="grid md:grid-cols-2 gap-10 items-start">
+        <div className="grid items-start gap-10 md:grid-cols-2">
           <FadeIn>
             <div>
-              <h2 className="text-2xl md:text-4xl font-semibold tracking-tight">
+              <h2 className="text-2xl font-semibold tracking-tight md:text-4xl">
                 {t("contact_title")}
               </h2>
               <p className="mt-2 text-muted-foreground">{t("contact_desc")}</p>
 
-              {/* Contact details */}
               <div className="mt-6 space-y-3 text-sm">
                 <div className="flex items-center gap-3">
                   <Mail className="h-4 w-4" />
@@ -89,9 +88,8 @@ export default function ContactSection() {
             </div>
           </FadeIn>
 
-          {/* Form */}
           <FadeIn delay={0.1}>
-            <Card className="p-6 rounded-2xl shadow-lg">
+            <Card className="rounded-2xl p-6 shadow-lg">
               <form className="space-y-4" onSubmit={handleSubmit}>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
@@ -124,7 +122,7 @@ export default function ContactSection() {
                     rows={6}
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    placeholder="List your part numbers / models / quantities or ask anything…"
+                    placeholder="List your part numbers / models / quantities or ask anything..."
                   />
                 </div>
                 <div className="flex items-center justify-between">
