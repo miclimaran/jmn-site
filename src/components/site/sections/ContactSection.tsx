@@ -126,12 +126,14 @@ export default function ContactSection() {
                   />
                 </div>
                 <div className="flex items-center justify-between">
-                  <Button type="submit" disabled={!valid} className="rounded-xl">
+                  <Button type="submit" disabled={!valid} className="rounded-xl bg-[linear-gradient(135deg,#111827_0%,#374151_100%)] px-5 text-white shadow-[0_18px_42px_-24px_rgba(17,24,39,0.55)] hover:brightness-110">
                     {t("contact_send")}
                   </Button>
                   <a
                     href={`https://wa.me/${WHATSAPP_PHONE.replace(/[^\d]/g, "")}`}
-                    className="inline-flex items-center gap-2 underline underline-offset-4"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full border border-emerald-600/20 bg-emerald-50 px-4 py-2 font-medium text-emerald-700 shadow-sm transition hover:bg-emerald-100"
                   >
                     <Phone className="h-4 w-4" /> {t("contact_chat")}
                   </a>

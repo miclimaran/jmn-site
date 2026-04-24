@@ -9,11 +9,11 @@ export const LANGS: Array<{
   flag: string;
   dir: "ltr" | "rtl";
 }> = [
-  { code: "en", label: "English", flag: "", dir: "ltr" },
-  { code: "id", label: "Indonesia", flag: "", dir: "ltr" },
-  { code: "vi", label: "Tieng Viet", flag: "", dir: "ltr" },
-  { code: "ar", label: "Arabic", flag: "", dir: "rtl" },
-  { code: "th", label: "Thai", flag: "", dir: "ltr" },
+  { code: "en", label: "English", flag: "\u{1F1EC}\u{1F1E7}", dir: "ltr" },
+  { code: "id", label: "Indonesia", flag: "\u{1F1EE}\u{1F1E9}", dir: "ltr" },
+  { code: "vi", label: "Tieng Viet", flag: "\u{1F1FB}\u{1F1F3}", dir: "ltr" },
+  { code: "ar", label: "Arabic", flag: "\u{1F1F8}\u{1F1E6}", dir: "rtl" },
+  { code: "th", label: "Thai", flag: "\u{1F1F9}\u{1F1ED}", dir: "ltr" },
 ];
 
 export const isLang = (value: string): value is Lang =>

@@ -88,40 +88,54 @@ export default function TestimonialsSection() {
                     key={`${it.name}-${i}`}
                     className="
                       snap-start
-                      flex flex-col
+                      group relative flex h-[250px] flex-col
                       flex-shrink-0
-                      min-w-[80%]
-                      sm:min-w-[60%]
-                      md:min-w-[46%]
-                      lg:min-w-[32%]
-                      rounded-2xl
-                      min-h-[190px] md:min-h-[210px]
+                      basis-[85%]
+                      sm:basis-[68%]
+                      md:basis-[48%]
+                      lg:basis-[31%]
+                      max-w-[420px]
+                      overflow-hidden rounded-3xl border-border/70
+                      bg-gradient-to-br from-background via-background to-muted/40
+                      shadow-[0_20px_60px_-32px_rgba(15,23,42,0.22)]
+                      transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_80px_-32px_rgba(15,23,42,0.3)]
+                      md:h-[280px]
                     "
                   >
-                    <CardHeader className="pb-2">
+                    <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-primary/5 to-transparent" />
+
+                    <CardHeader className="relative min-h-[84px] pb-2 md:min-h-[96px]">
                       <CardTitle className="text-base">
                         <div className="flex items-center gap-2">
-                          <Quote className="h-4 w-4 text-muted-foreground" />
+                          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/8 text-primary">
+                            <Quote className="h-4 w-4" />
+                          </div>
                           <span className="font-medium line-clamp-1">
                             {maskedName}
                           </span>
                         </div>
                       </CardTitle>
-                      <div className="text-xs text-muted-foreground line-clamp-1">
+                      <div className="pl-10 text-xs text-muted-foreground line-clamp-2">
                         {maskWords(title)}
                       </div>
                     </CardHeader>
 
-                    <CardContent className="pt-0 flex-1">
-                      <blockquote
-                        className="
-                          border-l-2 pl-4
-                          text-sm leading-relaxed text-muted-foreground
-                          line-clamp-3 md:line-clamp-4
-                        "
-                      >
-                        {quote}
+                    <CardContent className="relative flex flex-1 flex-col pt-0">
+                      <blockquote className="relative flex-1 overflow-hidden border-l-2 border-primary/20 pl-4 text-sm leading-7 text-muted-foreground">
+                        <p className="line-clamp-4 break-words whitespace-normal md:line-clamp-5">
+                          {quote}
+                        </p>
+                        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-background via-background/95 to-transparent" />
                       </blockquote>
+
+                      <div className="mt-4 flex items-center justify-between gap-3 border-t border-border/60 pt-3">
+                        <span className="rounded-full bg-muted px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                          Verified Partner
+                        </span>
+                        <span className="text-xs text-muted-foreground">
+                          Trusted export buyer
+                        </span>
+                      </div>
                     </CardContent>
                   </Card>
                 );

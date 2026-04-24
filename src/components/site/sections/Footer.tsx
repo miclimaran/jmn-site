@@ -17,7 +17,7 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="border-t">
+    <footer className="border-t border-border/60 bg-[linear-gradient(180deg,rgba(243,239,231,0.7),rgba(232,227,217,0.95))]">
       <div className="container mx-auto grid max-w-7xl gap-8 px-4 py-10 md:grid-cols-4">
         <div>
           <div className="mb-1 flex items-center gap-2">
@@ -84,7 +84,12 @@ export default function Footer() {
             </li>
             <li className="flex items-center gap-2">
               <Phone className="h-4 w-4" />
-              <a className="hover:underline" href={SOCIALS.whatsapp}>
+              <a
+                className="hover:underline"
+                href={SOCIALS.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 WhatsApp
               </a>
             </li>

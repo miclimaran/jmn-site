@@ -19,7 +19,7 @@ return (
 <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 mt-0.5 text-emerald-600" /> {t("export_b2")}</li>
 <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 mt-0.5 text-emerald-600" /> {t("export_b3")}</li>
 </ul>
-<div className="mt-6"><a href="/contact"><Button className="rounded-2xl">{t("discuss_shipment")}</Button></a></div>
+<div className="mt-6"><a href="/contact"><Button className="rounded-2xl bg-[linear-gradient(135deg,#1f2937_0%,#111827_100%)] px-6 text-white shadow-[0_18px_42px_-22px_rgba(17,24,39,0.6)] hover:brightness-110">{t("discuss_shipment")}</Button></a></div>
 </FadeIn>
 <FadeIn delay={0.05}>
 <div className="relative aspect-[4/3] rounded-3xl border grid place-items-center overflow-hidden">

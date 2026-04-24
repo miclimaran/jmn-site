@@ -99,8 +99,9 @@ function ProductCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.35 }}
+      className="h-full"
     >
-      <Card className="group h-full overflow-hidden rounded-2xl border-border/60 bg-card/70 backdrop-blur">
+      <Card className="group flex h-full flex-col overflow-hidden rounded-2xl border-border/60 bg-card/70 backdrop-blur">
         <div className="aspect-[16/10] overflow-hidden bg-muted">
           <img
             src={p.image}
@@ -115,14 +116,16 @@ function ProductCard({
             {p.oem && <Badge className="rounded-full">OEM</Badge>}
           </div>
 
-          <CardTitle className="line-clamp-2 text-lg">{p.name}</CardTitle>
+          <CardTitle className="min-h-[3.75rem] line-clamp-2 text-lg leading-snug">
+            {p.name}
+          </CardTitle>
 
-          <p className="text-sm text-muted-foreground">
+          <p className="min-h-[3.5rem] text-sm text-muted-foreground">
             Genuine quality backed by JMN sourcing.
           </p>
         </CardHeader>
 
-        <CardContent className="space-y-4">
+        <CardContent className="flex flex-1 flex-col space-y-4">
           <div className="rounded-xl border bg-background/70 p-3">
             <div className="text-xs uppercase tracking-wide text-muted-foreground">
               Part No
@@ -138,16 +141,16 @@ function ProductCard({
             ))}
           </div>
 
-          <div className="flex flex-wrap gap-2 pt-1">
+          <div className="mt-auto flex flex-wrap gap-2 pt-1">
             <Button
               variant="outline"
               onClick={() => onQuickView(p)}
-              className="rounded-xl"
+              className="rounded-xl border-slate-900/12 bg-white text-slate-900 hover:border-primary/30 hover:bg-primary/5"
             >
               Quick view
             </Button>
 
-            <Button asChild className="rounded-xl">
+            <Button asChild className="rounded-xl bg-[linear-gradient(135deg,#d9480f_0%,#b9380d_100%)] text-white shadow-[0_16px_36px_-22px_rgba(217,72,15,0.6)] hover:brightness-110">
               <a
                 href={`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(
                   `Hello, I'm interested in ${p.name} (${p.code}).`
@@ -257,108 +260,114 @@ export default function ProductGrid() {
   );
 
   return (
-    <section id="products" className="container py-16 md:py-24">
-      <div className="mx-auto max-w-2xl text-center">
-        <Badge variant="outline" className="rounded-full px-4 py-1.5 text-xs">
-          {t("products_title")}
-        </Badge>
-        <h2 className="mt-4 text-3xl font-semibold tracking-tight md:text-5xl">
-          {t("products_title")}
-        </h2>
-        <p className="mt-3 text-muted-foreground">{t("products_sub")}</p>
-      </div>
+    <section id="products" className="py-16 md:py-24">
+      <div className="mx-auto w-full max-w-7xl px-4">
+        <div className="mx-auto max-w-2xl text-center">
+          <Badge variant="outline" className="rounded-full px-4 py-1.5 text-xs">
+            {t("products_title")}
+          </Badge>
+          <h2 className="mt-4 text-3xl font-semibold tracking-tight md:text-5xl">
+            {t("products_title")}
+          </h2>
+          <p className="mt-3 text-muted-foreground">{t("products_sub")}</p>
+        </div>
 
-      <div className="mt-10 grid gap-6 lg:grid-cols-[280px_1fr]">
-        <aside className="hidden lg:block">
-          <Card className="rounded-2xl border-border/60">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-base">
-                <Filter className="h-4 w-4" />
-                {t("quick_filters")}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>{filters}</CardContent>
-          </Card>
-        </aside>
+        <div className="mx-auto mt-10 max-w-6xl rounded-[2rem] border border-border/70 bg-background/90 p-4 shadow-[0_24px_80px_-32px_rgba(15,23,42,0.28)] backdrop-blur sm:p-6 lg:p-8">
+          <div className="grid items-start gap-6 lg:grid-cols-[260px_minmax(0,1fr)] xl:grid-cols-[280px_minmax(0,1fr)]">
+            <aside className="hidden lg:block">
+              <div className="sticky top-24">
+                <Card className="rounded-2xl border-border/60 bg-muted/20 shadow-sm">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-base">
+                      <Filter className="h-4 w-4" />
+                      {t("quick_filters")}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>{filters}</CardContent>
+                </Card>
+              </div>
+            </aside>
 
-        <div>
-          <div className="mb-4 flex items-center justify-between gap-3 lg:hidden">
-            <div className="text-sm text-muted-foreground">
-              {t("quick_filters")}
-            </div>
-
-            <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-              <SheetTrigger asChild>
-                <Button variant="outline" className="rounded-xl">
-                  <Filter className="mr-2 h-4 w-4" />
+            <div className="min-w-0">
+              <div className="mb-4 flex items-center justify-between gap-3 lg:hidden">
+                <div className="text-sm text-muted-foreground">
                   {t("quick_filters")}
-                </Button>
-              </SheetTrigger>
+                </div>
 
-              <SheetContent side="bottom" className="rounded-t-3xl">
-                <SheetHeader>
-                  <SheetTitle>{t("quick_filters")}</SheetTitle>
-                </SheetHeader>
-                <div className="mt-6">{filters}</div>
-              </SheetContent>
-            </Sheet>
-          </div>
+                <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+                  <SheetTrigger asChild>
+                    <Button variant="outline" className="rounded-xl">
+                      <Filter className="mr-2 h-4 w-4" />
+                      {t("quick_filters")}
+                    </Button>
+                  </SheetTrigger>
 
-          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-            {paginatedItems.map((p) => (
-              <ProductCard key={p.id} p={p} onQuickView={(x) => setFocus(x)} />
-            ))}
-          </div>
+                  <SheetContent side="bottom" className="rounded-t-3xl">
+                    <SheetHeader>
+                      <SheetTitle>{t("quick_filters")}</SheetTitle>
+                    </SheetHeader>
+                    <div className="mt-6">{filters}</div>
+                  </SheetContent>
+                </Sheet>
+              </div>
 
-          {items.length === 0 && (
-            <Card className="mt-6 rounded-2xl border-border/60">
-              <CardContent className="py-10 text-center text-muted-foreground">
-                No products found for the selected filters.
-              </CardContent>
-            </Card>
-          )}
+              <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+                {paginatedItems.map((p) => (
+                  <ProductCard key={p.id} p={p} onQuickView={(x) => setFocus(x)} />
+                ))}
+              </div>
 
-          <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
-            <div className="text-sm text-muted-foreground">
-              Showing <span className="font-medium">{startItem}-{endItem}</span>{" "}
-              of <span className="font-medium">{items.length}</span> filtered
-              products
-            </div>
+              {items.length === 0 && (
+                <Card className="mt-6 rounded-2xl border-border/60">
+                  <CardContent className="py-10 text-center text-muted-foreground">
+                    No products found for the selected filters.
+                  </CardContent>
+                </Card>
+              )}
 
-            <div className="flex flex-wrap items-center gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setPage((prev) => Math.max(1, prev - 1))}
-                disabled={page === 1 || items.length === 0}
-                className="rounded-xl"
-              >
-                <ChevronLeft className="mr-1 h-4 w-4" />
-                Previous
-              </Button>
+              <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-border/60 pt-6">
+                <div className="text-sm text-muted-foreground">
+                  Showing <span className="font-medium">{startItem}-{endItem}</span>{" "}
+                  of <span className="font-medium">{items.length}</span> filtered
+                  products
+                </div>
 
-              <span className="text-sm text-muted-foreground">
-                Page {page} of {totalPages}
-              </span>
+                <div className="flex flex-wrap items-center gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setPage((prev) => Math.max(1, prev - 1))}
+                    disabled={page === 1 || items.length === 0}
+                    className="rounded-xl"
+                  >
+                    <ChevronLeft className="mr-1 h-4 w-4" />
+                    Previous
+                  </Button>
 
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setPage((prev) => Math.min(totalPages, prev + 1))}
-                disabled={page === totalPages || items.length === 0}
-                className="rounded-xl"
-              >
-                Next
-                <ChevronRight className="ml-1 h-4 w-4" />
-              </Button>
+                  <span className="text-sm text-muted-foreground">
+                    Page {page} of {totalPages}
+                  </span>
 
-              <a
-                href="/contact"
-                className="ml-2 inline-flex items-center gap-2 text-sm underline underline-offset-4"
-              >
-                <Mail className="h-4 w-4" />
-                {t("request_full_catalog")}
-              </a>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setPage((prev) => Math.min(totalPages, prev + 1))}
+                    disabled={page === totalPages || items.length === 0}
+                    className="rounded-xl"
+                  >
+                    Next
+                    <ChevronRight className="ml-1 h-4 w-4" />
+                  </Button>
+
+                  <a
+                    href="/contact"
+                    className="ml-2 inline-flex items-center gap-2 text-sm underline underline-offset-4"
+                  >
+                    <Mail className="h-4 w-4" />
+                    {t("request_full_catalog")}
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -408,7 +417,7 @@ export default function ProductGrid() {
                   </div>
 
                   <div className="flex flex-wrap gap-2 pt-2">
-                    <Button asChild className="rounded-xl">
+                    <Button asChild className="rounded-xl bg-[linear-gradient(135deg,#d9480f_0%,#b9380d_100%)] text-white shadow-[0_16px_36px_-22px_rgba(217,72,15,0.6)] hover:brightness-110">
                       <a
                         href={`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(
                           `Hello, I'm interested in ${focus.name} (${focus.code}).`
@@ -421,7 +430,7 @@ export default function ProductGrid() {
                       </a>
                     </Button>
 
-                    <Button asChild variant="outline" className="rounded-xl">
+                    <Button asChild variant="outline" className="rounded-xl border-slate-900/12 bg-white text-slate-900 hover:border-primary/30 hover:bg-primary/5">
                       <a href="/contact">
                         <Mail className="mr-2 h-4 w-4" />
                         Contact sales
