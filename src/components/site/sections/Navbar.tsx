@@ -2,7 +2,7 @@
 import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Menu } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useT } from "@/components/site/Lang";
 import LanguageSwitcher from "@/components/site/LanguageSwitcher";
 import type { Lang } from "@/components/site/Lang";
@@ -64,10 +64,11 @@ export default function Navbar({
             variant="ghost"
             size="icon"
             className="md:hidden"
-            onClick={() => setOpen(true)}
-            aria-label="Open menu"
+            onClick={() => setOpen((value) => !value)}
+            aria-expanded={open}
+            aria-label={open ? "Close menu" : "Open menu"}
           >
-            <Menu className="h-5 w-5" />
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
         </div>
       </div>

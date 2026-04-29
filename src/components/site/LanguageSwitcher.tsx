@@ -1,9 +1,10 @@
 "use client";
 import * as React from "react";
+import Image from "next/image";
 import { LANGS, Lang } from "@/components/site/Lang";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import Emoji from "@/components/site/ui/Emoji";
+import { getFlagSrc } from "@/lib/flags";
 
 export default function LanguageSwitcher({
   lang,
@@ -19,7 +20,14 @@ export default function LanguageSwitcher({
       <DropdownMenuTrigger asChild>
         <Button variant="outline" className="rounded-xl">
           <span className="mr-2 inline-flex h-5 w-5 items-center justify-center overflow-hidden rounded-full bg-muted leading-none">
-            <Emoji>{current.flag}</Emoji>
+            <Image
+              src={getFlagSrc(current.flagCode)}
+              alt=""
+              width={20}
+              height={20}
+              unoptimized
+              className="h-full w-full object-cover"
+            />
           </span>
           {current.label}
         </Button>
@@ -28,7 +36,14 @@ export default function LanguageSwitcher({
         {LANGS.map(l => (
           <DropdownMenuItem key={l.code} onClick={() => onChange(l.code)}>
             <span className="mr-2 inline-flex h-5 w-5 items-center justify-center overflow-hidden rounded-full bg-muted leading-none">
-              <Emoji>{l.flag}</Emoji>
+              <Image
+                src={getFlagSrc(l.flagCode)}
+                alt=""
+                width={20}
+                height={20}
+                unoptimized
+                className="h-full w-full object-cover"
+              />
             </span>
             {l.label}
           </DropdownMenuItem>

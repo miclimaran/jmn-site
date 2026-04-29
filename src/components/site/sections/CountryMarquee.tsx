@@ -1,26 +1,27 @@
 "use client";
 import * as React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import Emoji from "@/components/site/ui/Emoji";
+import { type FlagCode, getFlagSrc } from "@/lib/flags";
 
-type Country = { name: string; flag?: string };
+type Country = { name: string; flagCode: FlagCode };
 
 export const DEFAULT_COUNTRIES: Country[] = [
-  { name: "Singapore", flag: "\u{1F1F8}\u{1F1EC}" },
-  { name: "Malaysia", flag: "\u{1F1F2}\u{1F1FE}" },
-  { name: "Philippines", flag: "\u{1F1F5}\u{1F1ED}" },
-  { name: "UAE", flag: "\u{1F1E6}\u{1F1EA}" },
-  { name: "Saudi Arabia", flag: "\u{1F1F8}\u{1F1E6}" },
-  { name: "Qatar", flag: "\u{1F1F6}\u{1F1E6}" },
-  { name: "Egypt", flag: "\u{1F1EA}\u{1F1EC}" },
-  { name: "Kenya", flag: "\u{1F1F0}\u{1F1EA}" },
-  { name: "Nigeria", flag: "\u{1F1F3}\u{1F1EC}" },
-  { name: "South Africa", flag: "\u{1F1FF}\u{1F1E6}" },
-  { name: "India", flag: "\u{1F1EE}\u{1F1F3}" },
-  { name: "Sri Lanka", flag: "\u{1F1F1}\u{1F1F0}" },
-  { name: "Pakistan", flag: "\u{1F1F5}\u{1F1F0}" },
-  { name: "Peru", flag: "\u{1F1F5}\u{1F1EA}" },
-  { name: "Chile", flag: "\u{1F1E8}\u{1F1F1}" },
+  { name: "Singapore", flagCode: "sg" },
+  { name: "Malaysia", flagCode: "my" },
+  { name: "Philippines", flagCode: "ph" },
+  { name: "UAE", flagCode: "ae" },
+  { name: "Saudi Arabia", flagCode: "sa" },
+  { name: "Qatar", flagCode: "qa" },
+  { name: "Egypt", flagCode: "eg" },
+  { name: "Kenya", flagCode: "ke" },
+  { name: "Nigeria", flagCode: "ng" },
+  { name: "South Africa", flagCode: "za" },
+  { name: "India", flagCode: "in" },
+  { name: "Sri Lanka", flagCode: "lk" },
+  { name: "Pakistan", flagCode: "pk" },
+  { name: "Peru", flagCode: "pe" },
+  { name: "Chile", flagCode: "cl" },
 ];
 
 export default function CountryMarquee({
@@ -53,8 +54,15 @@ export default function CountryMarquee({
                 key={`${c.name}-${i}`}
                 className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-background/90 px-3 py-1.5 text-sm shadow-sm backdrop-blur"
               >
-                <span className="emoji-flag inline-flex h-6 w-6 items-center justify-center overflow-hidden rounded-full bg-muted leading-none ring-1 ring-border/60">
-                  <Emoji>{c.flag ?? "\u{1F30D}"}</Emoji>
+                <span className="inline-flex h-6 w-6 items-center justify-center overflow-hidden rounded-full bg-muted leading-none ring-1 ring-border/60">
+                  <Image
+                    src={getFlagSrc(c.flagCode)}
+                    alt=""
+                    width={24}
+                    height={24}
+                    unoptimized
+                    className="h-full w-full object-cover"
+                  />
                 </span>
                 <span className="font-medium">{c.name}</span>
               </span>
