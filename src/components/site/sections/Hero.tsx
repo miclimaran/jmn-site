@@ -46,7 +46,7 @@ export default function Hero() {
               href="/#intro"
               className="inline-flex items-center gap-2 rounded-full border border-slate-900/12 bg-white/80 px-4 py-2 font-medium text-slate-800 shadow-sm transition hover:border-primary/30 hover:text-primary"
             >
-              <PlayCircle className="h-5 w-5" /> Why JMN?
+              <PlayCircle className="h-5 w-5" /> {t("hero_intro_cta")}
             </Link>
           </div>
         </FadeIn>
@@ -57,7 +57,7 @@ export default function Hero() {
                 <CardContent className="p-6">
                   <NumberTicker value={s.value} suffix={s.suffix} />
                   <div className="mt-1 text-sm font-medium text-slate-600">
-                    {s.label}
+                    {t(s.labelKey as Parameters<typeof t>[0])}
                   </div>
                 </CardContent>
               </Card>

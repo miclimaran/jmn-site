@@ -27,14 +27,14 @@ export default function WhyUs() {
 
             {/* tiny trust chips (unique twist) */}
             <div className="mt-4 flex flex-wrap justify-center gap-2 text-xs">
-              <span className="rounded-full border px-2.5 py-1 bg-background/80">OEM Verified</span>
-              <span className="rounded-full border px-2.5 py-1 bg-background/80">Export Docs & HS Code</span>
-              <span className="rounded-full border px-2.5 py-1 bg-background/80">Fast Fulfilment</span>
+              <span className="rounded-full border px-2.5 py-1 bg-background/80">{t("trust_oem")}</span>
+              <span className="rounded-full border px-2.5 py-1 bg-background/80">{t("trust_docs")}</span>
+              <span className="rounded-full border px-2.5 py-1 bg-background/80">{t("trust_fast")}</span>
             </div>
           </div>
         </FadeIn>
 
-        {/* Centered, mobile-first grid — equal height cards */}
+        {/* Centered, mobile-first grid with equal-height cards */}
         <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 max-w-5xl mx-auto auto-rows-[1fr]">
           {FEATURE_ITEMS.map((f, i) => (
             <FadeIn key={i} delay={i * 0.05}>
@@ -53,8 +53,12 @@ export default function WhyUs() {
                     </div>
 
                     <div className="flex flex-col">
-                      <div className="font-medium leading-tight">{f.title}</div>
-                      <div className="text-sm text-muted-foreground mt-1">{f.desc}</div>
+                      <div className="font-medium leading-tight">
+                        {t(f.titleKey as Parameters<typeof t>[0])}
+                      </div>
+                      <div className="text-sm text-muted-foreground mt-1">
+                        {t(f.descKey as Parameters<typeof t>[0])}
+                      </div>
                       <div className="mt-auto" />
                     </div>
                   </CardContent>
@@ -75,7 +79,7 @@ export default function WhyUs() {
               />
               <div className="absolute bottom-3 left-3 hidden sm:flex items-center gap-2 rounded-xl bg-background/80 backdrop-blur px-3 py-2 border">
                 <ShieldCheck className="h-4 w-4 text-emerald-600" />
-                <span className="text-xs">Batch-level traceability</span>
+                <span className="text-xs">{t("batch_traceability")}</span>
               </div>
             </div>
           </div>

@@ -1154,38 +1154,38 @@ export const TESTIMONIALS: Testimonial[] = [
   },
 ];
 
-// --- Feature bullets used on “Why Us” --------------------------------------
+// --- Feature bullets used on "Why Us" ---------------------------------------
 export const FEATURE_ITEMS = [
   {
     icon: Truck,
-    title: "Global Shipping",
-    desc: "Export-ready logistics network reaching Asia, Middle East, Africa, and beyond.",
+    titleKey: "feature_shipping_title",
+    descKey: "feature_shipping_desc",
   },
   {
     icon: ShieldCheck,
-    title: "100% Genuine Parts",
-    desc: "OEM-certified parts with verifiable origin and consistent quality.",
+    titleKey: "feature_genuine_title",
+    descKey: "feature_genuine_desc",
   },
   {
     icon: Boxes,
-    title: "Large Inventory",
-    desc: "Extensive SKUs for Suzuki Genuine Parts plus Toyota, Daihatsu, Mitsubishi.",
+    titleKey: "feature_inventory_title",
+    descKey: "feature_inventory_desc",
   },
   {
     icon: Wrench,
-    title: "Technical Support",
-    desc: "Assistance for fitment compatibility and part number cross-references.",
+    titleKey: "feature_support_title",
+    descKey: "feature_support_desc",
   },
 ] as const;
 
 // --- Stats displayed in Hero ------------------------------------------------
-export type StatCard = { label: string; value: number; suffix?: string };
+export type StatCard = { labelKey: string; value: number; suffix?: string };
 
 export const STAT_CARDS: StatCard[] = [
-  { label: "Years in Trade", value: 12 },
-  { label: "Active SKUs", value: 12000 },
-  { label: "Countries Served", value: 22 },
-  { label: "Fulfillment Accuracy", value: 99.5, suffix: "%" },
+  { labelKey: "stat_years", value: 12 },
+  { labelKey: "stat_skus", value: 12000 },
+  { labelKey: "stat_countries", value: 22 },
+  { labelKey: "stat_accuracy", value: 99.5, suffix: "%" },
 ];
 
 export const BRANDS = [

@@ -3,6 +3,7 @@ import * as React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { type FlagCode, getFlagSrc } from "@/lib/flags";
+import { useT } from "@/components/site/Lang";
 
 type Country = { name: string; flagCode: FlagCode };
 
@@ -26,18 +27,17 @@ export const DEFAULT_COUNTRIES: Country[] = [
 
 export default function CountryMarquee({
   countries = DEFAULT_COUNTRIES,
-  title = "Trusted export lanes",
 }: {
   countries?: Country[];
-  title?: string;
 }) {
+  const t = useT();
   const looped = React.useMemo(() => [...countries, ...countries], [countries]);
 
   return (
     <section className="border-y border-border/60 bg-[linear-gradient(180deg,rgba(247,244,237,0.78),rgba(239,234,225,0.92))] py-10">
       <div className="container mx-auto max-w-7xl px-4">
         <div className="mb-4 text-center text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
-          {title}
+          {t("export_lanes_title")}
         </div>
 
         <div className="relative overflow-hidden">

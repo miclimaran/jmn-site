@@ -130,10 +130,10 @@ export default function TestimonialsSection() {
 
                       <div className="mt-4 flex items-center justify-between gap-3 border-t border-border/60 pt-3">
                         <span className="rounded-full bg-muted px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
-                          Verified Partner
+                          {t("verified_partner")}
                         </span>
                         <span className="text-xs text-muted-foreground">
-                          Trusted export buyer
+                          {t("trusted_export_buyer")}
                         </span>
                       </div>
                     </CardContent>
@@ -143,7 +143,7 @@ export default function TestimonialsSection() {
             </div>
 
             <p className="mt-3 text-center text-xs text-muted-foreground md:hidden">
-              Geser untuk lihat lainnya →
+              {t("swipe_more")}
             </p>
           </div>
 
