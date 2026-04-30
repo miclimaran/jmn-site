@@ -6,7 +6,7 @@ import { MAP_EMBED_SRC, MAP_LINK } from "@/components/site/constants";
 export default function MapSection() {
   const t = useT();
   return (
-    <section id="map" className="py-20">
+    <section id="map" className="py-14 md:py-20">
       <div className="container max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-2xl md:text-4xl font-semibold tracking-tight">

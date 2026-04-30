@@ -8,7 +8,7 @@ import { useT } from "@/components/site/Lang";
 export default function ExportSection() {
 const t = useT();
 return (
-<section id="export" className="py-20">
+<section id="export" className="py-14 md:py-20">
 <div className="container max-w-7xl mx-auto px-4">
 <div className="grid md:grid-cols-2 gap-10 items-center">
 <FadeIn>
@@ -22,7 +22,7 @@ return (
 <div className="mt-6"><a href="/contact"><Button className="rounded-2xl bg-[linear-gradient(135deg,#1f2937_0%,#111827_100%)] px-6 text-white shadow-[0_18px_42px_-22px_rgba(17,24,39,0.6)] hover:brightness-110">{t("discuss_shipment")}</Button></a></div>
 </FadeIn>
 <FadeIn delay={0.05}>
-<div className="relative aspect-[4/3] rounded-3xl border grid place-items-center overflow-hidden">
+<div className="relative aspect-[4/3] rounded-2xl border border-border/70 grid place-items-center overflow-hidden bg-card/70 shadow-[0_24px_80px_-46px_rgba(15,23,42,0.35)]">
 <Globe2 className="h-20 w-20" />
 <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(16,185,129,0.15),transparent_50%),radial-gradient(circle_at_70%_60%,rgba(59,130,246,0.15),transparent_50%)]" />
 </div>

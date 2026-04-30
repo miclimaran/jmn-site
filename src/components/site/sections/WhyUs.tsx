@@ -10,12 +10,10 @@ export default function WhyUs() {
   const t = useT();
 
   return (
-    <section id="intro" className="relative py-20">
-      {/* soft spotlight background */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(50%_50%_at_20%_10%,rgba(59,130,246,0.08),transparent_60%),radial-gradient(50%_50%_at_80%_90%,rgba(16,185,129,0.08),transparent_60%)]" />
+    <section id="intro" className="relative pb-16 pt-10 md:pb-20 md:pt-12">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(55%_55%_at_12%_12%,rgba(37,99,235,0.06),transparent_62%),radial-gradient(45%_45%_at_88%_82%,rgba(14,165,233,0.06),transparent_65%)]" />
 
       <div className="container max-w-7xl mx-auto px-4 relative">
-        {/* Centered header */}
         <FadeIn>
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-2xl md:text-4xl font-semibold tracking-tight">
@@ -25,29 +23,25 @@ export default function WhyUs() {
               {t("why_desc")}
             </p>
 
-            {/* tiny trust chips (unique twist) */}
             <div className="mt-4 flex flex-wrap justify-center gap-2 text-xs">
-              <span className="rounded-full border px-2.5 py-1 bg-background/80">{t("trust_oem")}</span>
-              <span className="rounded-full border px-2.5 py-1 bg-background/80">{t("trust_docs")}</span>
-              <span className="rounded-full border px-2.5 py-1 bg-background/80">{t("trust_fast")}</span>
+              <span className="rounded-full border border-border/70 bg-card/90 px-2.5 py-1">{t("trust_oem")}</span>
+              <span className="rounded-full border border-border/70 bg-card/90 px-2.5 py-1">{t("trust_docs")}</span>
+              <span className="rounded-full border border-border/70 bg-card/90 px-2.5 py-1">{t("trust_fast")}</span>
             </div>
           </div>
         </FadeIn>
 
-        {/* Centered, mobile-first grid with equal-height cards */}
-        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 max-w-5xl mx-auto auto-rows-[1fr]">
+        <div className="mt-9 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 max-w-5xl mx-auto auto-rows-[1fr]">
           {FEATURE_ITEMS.map((f, i) => (
             <FadeIn key={i} delay={i * 0.05}>
               <motion.div
-                whileHover={{ y: -4, rotate: -0.5 }}
+                whileHover={{ y: -3 }}
                 transition={{ type: "spring", stiffness: 220, damping: 20 }}
               >
-                <Card className="h-full rounded-2xl border bg-gradient-to-br from-background to-muted/40 overflow-hidden hover:shadow-lg transition-all">
+                <Card className="h-full rounded-2xl border-border/70 bg-card/92 overflow-hidden shadow-[0_20px_60px_-38px_rgba(15,23,42,0.28)] transition-all hover:border-primary/25 hover:shadow-[0_24px_70px_-40px_rgba(15,23,42,0.38)]">
                   <CardContent className="p-6 flex h-full items-start gap-4">
-                    {/* Icon with halo glow (unique twist) */}
                     <div className="relative">
-                      <div className="absolute inset-0 rounded-xl bg-primary/20 blur-xl opacity-20" />
-                      <div className="relative rounded-xl bg-primary/10 text-primary p-3 ring-1 ring-primary/20">
+                      <div className="relative rounded-xl bg-primary/10 text-primary p-3 ring-1 ring-primary/15">
                         <f.icon className="h-6 w-6" />
                       </div>
                     </div>
@@ -68,10 +62,9 @@ export default function WhyUs() {
           ))}
         </div>
 
-        {/* Responsive visual with trust badge */}
         <FadeIn delay={0.1}>
-          <div className="mt-12 max-w-4xl mx-auto">
-            <div className="relative overflow-hidden rounded-3xl border">
+          <div className="mt-10 max-w-4xl mx-auto">
+            <div className="relative overflow-hidden rounded-2xl border border-border/70 shadow-[0_24px_80px_-48px_rgba(15,23,42,0.38)]">
               <img
                 src="https://images.unsplash.com/photo-1588279107485-4c0a0517ee57?q=80&w=1400&auto=format&fit=crop"
                 alt="Warehouse"

@@ -22,10 +22,7 @@ export default function TestimonialsSection() {
   const lang = React.useContext(LangContext);
   const scrollerRef = React.useRef<HTMLDivElement>(null);
 
-  const items = React.useMemo(() => {
-    const base = TESTIMONIALS;
-    return base.length >= 6 ? base : [...base, ...base, ...base];
-  }, []);
+  const items = TESTIMONIALS;
 
   const scrollBy = (dir: -1 | 1) => {
     const el = scrollerRef.current;
@@ -37,7 +34,7 @@ export default function TestimonialsSection() {
   return (
     <section
       id="testimonials"
-      className="w-full py-20 bg-muted/50 overflow-x-hidden"
+      className="w-full overflow-x-hidden py-14 md:py-20"
     >
       <div className="container mx-auto max-w-7xl px-4">
         <FadeIn>
@@ -65,8 +62,8 @@ export default function TestimonialsSection() {
 
           {/* Scroller */}
           <div className="relative">
-            <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-6 bg-gradient-to-r from-muted/50 to-transparent" />
-            <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-6 bg-gradient-to-l from-muted/50 to-transparent" />
+            <div className="pointer-events-none absolute bottom-0 left-0 top-0 w-6 bg-gradient-to-r from-muted to-transparent" />
+            <div className="pointer-events-none absolute bottom-0 right-0 top-0 w-6 bg-gradient-to-l from-muted to-transparent" />
 
             <div
               ref={scrollerRef}

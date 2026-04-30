@@ -34,7 +34,7 @@ export default function CountryMarquee({
   const looped = React.useMemo(() => [...countries, ...countries], [countries]);
 
   return (
-    <section className="border-y border-border/60 bg-[linear-gradient(180deg,rgba(247,244,237,0.78),rgba(239,234,225,0.92))] py-10">
+    <section className="border-y border-border/60 bg-muted/45 py-8">
       <div className="container mx-auto max-w-7xl px-4">
         <div className="mb-4 text-center text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
           {t("export_lanes_title")}

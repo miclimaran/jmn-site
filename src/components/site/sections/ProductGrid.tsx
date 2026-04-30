@@ -29,7 +29,7 @@ import {
 } from "lucide-react";
 import { useT } from "@/components/site/Lang";
 import { WHATSAPP_PHONE } from "@/components/site/constants";
-import { PRODUCTS } from "@/components/site/data";
+import { makePlaceholder, PRODUCTS } from "@/components/site/data";
 
 const BRANDS = [
   { name: "Suzuki", key: "suzuki" },
@@ -44,6 +44,7 @@ const CATEGORIES = [
   "Braking",
   "Electrical",
   "Suspension",
+  "Steering",
   "Body & Trim",
   "Transmission",
 ] as const;
@@ -106,6 +107,9 @@ function ProductCard({
           <img
             src={p.image}
             alt={p.name}
+            onError={(event) => {
+              event.currentTarget.src = makePlaceholder(p.code);
+            }}
             className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"
           />
         </div>
@@ -260,19 +264,13 @@ export default function ProductGrid() {
   );
 
   return (
-    <section id="products" className="py-16 md:py-24">
+    <section id="products" className="pb-14 pt-5 md:pb-20 md:pt-6">
       <div className="mx-auto w-full max-w-7xl px-4">
         <div className="mx-auto max-w-2xl text-center">
-          <Badge variant="outline" className="rounded-full px-4 py-1.5 text-xs">
-            {t("products_title")}
-          </Badge>
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight md:text-5xl">
-            {t("products_title")}
-          </h2>
-          <p className="mt-3 text-muted-foreground">{t("products_sub")}</p>
+          <p className="text-muted-foreground">{t("products_sub")}</p>
         </div>
 
-        <div className="mx-auto mt-10 max-w-6xl rounded-[2rem] border border-border/70 bg-background/90 p-4 shadow-[0_24px_80px_-32px_rgba(15,23,42,0.28)] backdrop-blur sm:p-6 lg:p-8">
+        <div className="mx-auto mt-8 max-w-6xl rounded-2xl border border-border/70 bg-card/92 p-4 shadow-[0_24px_80px_-36px_rgba(15,23,42,0.3)] backdrop-blur sm:p-6 lg:p-8">
           <div className="grid items-start gap-6 lg:grid-cols-[260px_minmax(0,1fr)] xl:grid-cols-[280px_minmax(0,1fr)]">
             <aside className="hidden lg:block">
               <div className="sticky top-24">
@@ -386,6 +384,9 @@ export default function ProductGrid() {
                   <img
                     src={focus.image}
                     alt={focus.name}
+                    onError={(event) => {
+                      event.currentTarget.src = makePlaceholder(focus.code);
+                    }}
                     className="h-full w-full object-cover"
                   />
                 </div>

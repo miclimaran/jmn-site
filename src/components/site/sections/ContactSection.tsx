@@ -39,7 +39,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-20">
+    <section id="contact" className="py-14 md:py-20">
       <div className="container max-w-5xl mx-auto px-4">
         <div className="grid items-start gap-10 md:grid-cols-2">
           <FadeIn>
@@ -89,7 +89,7 @@ export default function ContactSection() {
           </FadeIn>
 
           <FadeIn delay={0.1}>
-            <Card className="rounded-2xl p-6 shadow-lg">
+            <Card className="rounded-2xl border-border/70 bg-card/92 p-6 shadow-[0_24px_80px_-44px_rgba(15,23,42,0.35)]">
               <form className="space-y-4" onSubmit={handleSubmit}>
                 <div className="grid grid-cols-2 gap-3">
                   <div>

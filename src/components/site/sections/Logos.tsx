@@ -4,17 +4,17 @@ import { BRANDS } from "@/components/site/data";
 
 export default function Logos() {
   return (
-    <section className="py-10">
+    <section className="border-b border-border/60 bg-background py-8">
       <div className="container max-w-6xl mx-auto px-4">
         <div className="text-center text-xs uppercase tracking-wider text-muted-foreground mb-6">
           Trusted by workshops & distributors
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 opacity-100">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 opacity-100">
           {BRANDS.map((b) => (
             <div
               key={b.key}
-              className="h-24 md:h-28 rounded-2xl border bg-background flex items-center justify-center p-4 overflow-hidden"
+              className="h-24 md:h-28 rounded-2xl border border-border/70 bg-card/90 flex items-center justify-center p-4 overflow-hidden shadow-[0_18px_50px_-38px_rgba(15,23,42,0.32)]"
             >
               <img
                 src={b.logo}
