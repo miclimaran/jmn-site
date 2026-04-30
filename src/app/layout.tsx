@@ -15,9 +15,9 @@ export const metadata: Metadata = {
   description:
     "OEM auto parts distributor based in Indonesia. Multi-brand export supplier.",
   icons: {
-    icon: "/branding/logo_jmn2.svg",
-    shortcut: "/branding/logo_jmn2.svg",
-    apple: "/branding/logo_jmn2.svg",
+    icon: "/branding/favicon_jmn.svg",
+    shortcut: "/branding/favicon_jmn.svg",
+    apple: "/branding/favicon_jmn.svg",
   },
 };
 

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#ffffff"/>
+  <rect x="18" y="18" width="476" height="476" rx="96" fill="#ffffff" stroke="#e5e7eb" stroke-width="20"/>
+
+  <g transform="translate(256 258)">
+    <path d="M-126-114c64-34 160-34 232 0-76-18-157-16-232 0z" fill="#20242b"/>
+    <text
+      x="-6"
+      y="42"
+      text-anchor="middle"
+      font-family="Arial Black, Arial, Helvetica, sans-serif"
+      font-size="132"
+      font-weight="900"
+      font-style="italic"
+      letter-spacing="-14"
+    >
+      <tspan fill="#20242b">JM</tspan><tspan fill="#ef2415">N</tspan>
+    </text>
+    <path d="M-98 82h176l-14 24h-176z" fill="#20242b"/>
+    <path d="M90 82h34l-14 24h-34z" fill="#20242b"/>
+  </g>
+</svg>
