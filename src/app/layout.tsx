@@ -42,7 +42,7 @@ export const metadata: Metadata = {
       "Authorized Suzuki genuine parts distributor. 12,000+ SKUs. Export to 22+ countries. FOB · CIF · DAP.",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
         alt: "JMN Parts — Suzuki Genuine Parts Exporter Indonesia",
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     title: "JMN Parts — Suzuki Genuine Parts Exporter Indonesia",
     description:
       "Authorized Suzuki genuine parts distributor. 12,000+ SKUs. Export to 22+ countries.",
-    images: ["/og-image.jpg"],
+    images: ["/opengraph-image"],
   },
   robots: {
     index: true,
