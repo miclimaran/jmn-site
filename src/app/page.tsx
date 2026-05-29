@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Hero from "@/components/site/sections/Hero";
 import Logos from "@/components/site/sections/Logos";
 import WhyUs from "@/components/site/sections/WhyUs";
@@ -8,6 +9,12 @@ import ContactSection from "@/components/site/sections/ContactSection";
 import MapSection from "@/components/site/sections/MapSection";
 import CountryMarquee from "@/components/site/sections/CountryMarquee";
 import SectionFrame from "@/components/site/sections/SectionFrame";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "https://jmn-parts.com",
+  },
+};
 
 export default function HomePage() {
   return (

@@ -10,14 +10,70 @@ import {
   isLang,
 } from "@/lib/i18n";
 
+const SITE_URL = "https://jmn-parts.com";
+
 export const metadata: Metadata = {
-  title: "JMN - Suzuki Genuine Parts Distributor",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "JMN Parts — Suzuki Genuine Parts Exporter Indonesia",
+    template: "%s | JMN Parts",
+  },
   description:
-    "OEM auto parts distributor based in Indonesia. Multi-brand export supplier.",
+    "PT. Jaya Makmur Nugraha — authorized Suzuki genuine parts distributor in Indonesia. OEM auto parts export to Middle East, Africa, and Southeast Asia. FOB · CIF · DAP.",
+  keywords: [
+    "Suzuki genuine parts",
+    "OEM spare parts Indonesia",
+    "auto parts exporter Indonesia",
+    "Japanese car parts supplier",
+    "Suzuki APV parts",
+    "Suzuki Carry parts",
+    "Suzuki Ertiga XL7 parts",
+    "spare parts distributor Jakarta",
+  ],
+  authors: [{ name: "PT. Jaya Makmur Nugraha" }],
+  creator: "PT. Jaya Makmur Nugraha",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: SITE_URL,
+    siteName: "JMN Parts",
+    title: "JMN Parts — Suzuki Genuine Parts Exporter Indonesia",
+    description:
+      "Authorized Suzuki genuine parts distributor. 12,000+ SKUs. Export to 22+ countries. FOB · CIF · DAP.",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "JMN Parts — Suzuki Genuine Parts Exporter Indonesia",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "JMN Parts — Suzuki Genuine Parts Exporter Indonesia",
+    description:
+      "Authorized Suzuki genuine parts distributor. 12,000+ SKUs. Export to 22+ countries.",
+    images: ["/og-image.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   icons: {
     icon: "/branding/favicon_jmn.svg",
     shortcut: "/branding/favicon_jmn.svg",
     apple: "/branding/favicon_jmn.svg",
+  },
+  alternates: {
+    canonical: SITE_URL,
   },
 };
 

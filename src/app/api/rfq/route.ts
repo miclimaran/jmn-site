@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
     const { error } = await resend.emails.send({
       from: "JMN Parts RFQ <onboarding@resend.dev>",
       to: [toAddress],
-      reply_to: email,
+      replyTo: email,
       subject: `RFQ — ${destination} — ${incoterms} — ${name}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">

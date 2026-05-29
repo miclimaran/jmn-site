@@ -1,3 +1,7 @@
+// Site
+export const SITE_URL = "https://jmn-parts.com";
+export const SITE_NAME = "PT. Jaya Makmur Nugraha";
+
 // Contact
 export const COMPANY_EMAIL = "jaya_makmur_nugraha@yahoo.com";
 export const WHATSAPP_PHONE = "+6281310108525"; // E.164 format
