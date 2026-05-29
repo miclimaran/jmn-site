@@ -264,7 +264,7 @@ export default function ProductGrid() {
   );
 
   return (
-    <section id="products" className="pb-14 pt-5 md:pb-20 md:pt-6">
+    <section className="pb-14 pt-5 md:pb-20 md:pt-6">
       <div className="mx-auto w-full max-w-7xl px-4">
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-muted-foreground">{t("products_sub")}</p>

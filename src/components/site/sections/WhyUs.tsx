@@ -123,7 +123,7 @@ export default function WhyUs() {
   const t = useT();
 
   return (
-    <section id="intro" className="relative pb-16 pt-10 md:pb-20 md:pt-12">
+    <section className="relative pb-16 pt-10 md:pb-20 md:pt-12">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(55%_55%_at_12%_12%,rgba(37,99,235,0.06),transparent_62%),radial-gradient(45%_45%_at_88%_82%,rgba(14,165,233,0.06),transparent_65%)]" />
 
       <div className="container max-w-7xl mx-auto px-4 relative">

@@ -178,6 +178,11 @@ body {
   overflow-x: hidden;
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 7rem;
+}
+
 /* optional tapi membantu di iOS Safari */
 *,
 *::before,

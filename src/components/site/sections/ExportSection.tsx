@@ -122,7 +122,7 @@ export default function ExportSection() {
   const t = useT();
 
   return (
-    <section id="export" className="py-14 md:py-20">
+    <section className="py-14 md:py-20">
       <div className="container max-w-7xl mx-auto px-4">
         <div className="grid items-center gap-10 md:grid-cols-[0.9fr_1.1fr]">
           <FadeIn>

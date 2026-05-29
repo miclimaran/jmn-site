@@ -39,7 +39,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-14 md:py-20">
+    <section className="py-14 md:py-20">
       <div className="container max-w-5xl mx-auto px-4">
         <div className="grid items-start gap-10 md:grid-cols-2">
           <FadeIn>

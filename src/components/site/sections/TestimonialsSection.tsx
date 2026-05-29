@@ -33,7 +33,6 @@ export default function TestimonialsSection() {
 
   return (
     <section
-      id="testimonials"
       className="w-full overflow-x-hidden py-14 md:py-20"
     >
       <div className="container mx-auto max-w-7xl px-4">

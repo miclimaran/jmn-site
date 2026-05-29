@@ -16,27 +16,27 @@ export default function HomePage() {
       <CountryMarquee />
       <Logos />
 
-      <SectionFrame labelKey="about_label">
+      <SectionFrame id="intro" labelKey="about_label">
         <WhyUs />
       </SectionFrame>
 
-      <SectionFrame labelKey="product_label" tone="muted">
+      <SectionFrame id="products" labelKey="product_label" tone="muted">
         <ProductGrid />
       </SectionFrame>
 
-      <SectionFrame labelKey="testimonials_label">
+      <SectionFrame id="testimonials" labelKey="testimonials_label">
         <TestimonialsSection />
       </SectionFrame>
 
-      <SectionFrame labelKey="export_label" tone="muted">
+      <SectionFrame id="export" labelKey="export_label" tone="muted">
         <ExportSection />
       </SectionFrame>
 
-      <SectionFrame labelKey="contact_label">
+      <SectionFrame id="contact" labelKey="contact_label">
         <ContactSection />
       </SectionFrame>
 
-      <SectionFrame labelKey="location_label" tone="muted">
+      <SectionFrame id="map" labelKey="location_label" tone="muted">
         <MapSection />
       </SectionFrame>
     </main>
