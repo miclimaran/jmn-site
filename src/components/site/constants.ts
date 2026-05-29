@@ -1,5 +1,5 @@
 // Site
-export const SITE_URL = "https://jmn-parts.com";
+export const SITE_URL = "https://jmnautoparts.com";
 export const SITE_NAME = "PT. Jaya Makmur Nugraha";
 
 // Contact

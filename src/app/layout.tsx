@@ -10,7 +10,7 @@ import {
   isLang,
 } from "@/lib/i18n";
 
-const SITE_URL = "https://jmn-parts.com";
+const SITE_URL = "https://jmnautoparts.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

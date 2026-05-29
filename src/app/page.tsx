@@ -12,7 +12,7 @@ import SectionFrame from "@/components/site/sections/SectionFrame";
 
 export const metadata: Metadata = {
   alternates: {
-    canonical: "https://jmn-parts.com",
+    canonical: "https://jmnautoparts.com",
   },
 };
 

@@ -99,7 +99,7 @@ export default function OgImage() {
           ))}
 
           <div style={{ flex: 1 }} />
-          <span style={{ color: "#475569", fontSize: "18px" }}>jmn-parts.com</span>
+          <span style={{ color: "#475569", fontSize: "18px" }}>jmnautoparts.com</span>
         </div>
       </div>
     ),

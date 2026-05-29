@@ -9,13 +9,13 @@ export const metadata: Metadata = {
   description:
     "Browse 100+ Suzuki genuine OEM spare parts for APV, New Carry, All New Ertiga, and XL7. Filter by brand, category, or part number. Request a quote via WhatsApp.",
   alternates: {
-    canonical: "https://jmn-parts.com/products",
+    canonical: "https://jmnautoparts.com/products",
   },
   openGraph: {
     title: "Product Catalog | JMN Parts",
     description:
       "100+ Suzuki genuine OEM spare parts — APV, New Carry, Ertiga, XL7. Filter & search by brand, category, or part number.",
-    url: "https://jmn-parts.com/products",
+    url: "https://jmnautoparts.com/products",
     images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
   },
 };
