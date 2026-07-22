@@ -9,8 +9,44 @@ import {
   getDir,
   isLang,
 } from "@/lib/i18n";
+import { COMPANY_EMAIL, SOCIALS, WHATSAPP_PHONE } from "@/components/site/constants";
 
 const SITE_URL = "https://jmnautoparts.com";
+
+const ORGANIZATION_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "AutoPartsStore",
+  "@id": `${SITE_URL}/#organization`,
+  name: "PT. Jaya Makmur Nugraha (JMN Parts)",
+  alternateName: "JMN Parts",
+  url: SITE_URL,
+  logo: `${SITE_URL}/branding/logo_jmn2.svg`,
+  image: `${SITE_URL}/opengraph-image`,
+  description:
+    "Authorized Suzuki genuine parts distributor in Indonesia, exporting OEM auto parts (Suzuki, Toyota, Daihatsu, Mitsubishi) worldwide with FOB, CIF, and DAP terms.",
+  email: COMPANY_EMAIL,
+  telephone: WHATSAPP_PHONE,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Jl. Karang Anyar Permai 55 Blok C1.4",
+    addressLocality: "Jakarta",
+    addressRegion: "Daerah Khusus Ibukota Jakarta",
+    postalCode: "10740",
+    addressCountry: "ID",
+  },
+  areaServed: {
+    "@type": "GeoShape",
+    name: "Worldwide export — Middle East, Africa, Southeast Asia",
+  },
+  sameAs: [SOCIALS.instagram],
+  makesOffer: {
+    "@type": "Offer",
+    itemOffered: {
+      "@type": "Product",
+      name: "Suzuki Genuine OEM Spare Parts",
+    },
+  },
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -93,6 +129,10 @@ export default async function RootLayout({
   return (
     <html lang={initialLang} dir={initialDir} className="h-full">
       <body className="h-full overflow-x-hidden bg-background text-foreground antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION_JSON_LD) }}
+        />
         <ClientRoot initialLang={initialLang}>{children}</ClientRoot>
       </body>
     </html>

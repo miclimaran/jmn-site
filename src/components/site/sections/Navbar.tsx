@@ -49,6 +49,12 @@ export default function Navbar({
           </Link>
           <Link
             className="px-2 py-2 text-base font-medium transition hover:text-primary hover:underline underline-offset-4 md:text-lg"
+            href="/blog"
+          >
+            {t("nav_blog")}
+          </Link>
+          <Link
+            className="px-2 py-2 text-base font-medium transition hover:text-primary hover:underline underline-offset-4 md:text-lg"
             href="/contact"
           >
             {t("nav_contact")}
@@ -95,6 +101,13 @@ export default function Navbar({
             onClick={() => setOpen(false)}
           >
             {t("nav_export")}
+          </Link>
+          <Link
+            href="/blog"
+            className="block py-2"
+            onClick={() => setOpen(false)}
+          >
+            {t("nav_blog")}
           </Link>
           <Link
             href="/contact"

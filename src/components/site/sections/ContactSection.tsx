@@ -84,6 +84,18 @@ export default function ContactSection() {
                   <AccordionTrigger>{t("faq_ship")}</AccordionTrigger>
                   <AccordionContent>{t("faq_ship_a")}</AccordionContent>
                 </AccordionItem>
+                <AccordionItem value="item-3">
+                  <AccordionTrigger>{t("faq_howbuy")}</AccordionTrigger>
+                  <AccordionContent>{t("faq_howbuy_a")}</AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-4">
+                  <AccordionTrigger>{t("faq_moq")}</AccordionTrigger>
+                  <AccordionContent>{t("faq_moq_a")}</AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-5">
+                  <AccordionTrigger>{t("faq_countries")}</AccordionTrigger>
+                  <AccordionContent>{t("faq_countries_a")}</AccordionContent>
+                </AccordionItem>
               </Accordion>
             </div>
           </FadeIn>

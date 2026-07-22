@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     description:
       "Reach out for parts inquiries, export quotes, or business partnerships. Jakarta, Indonesia.",
     url: "https://jmnautoparts.com/contact",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
   },
 };
 

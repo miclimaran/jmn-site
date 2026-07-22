@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     description:
       "100+ Suzuki genuine OEM spare parts — APV, New Carry, Ertiga, XL7. Filter & search by brand, category, or part number.",
     url: "https://jmnautoparts.com/products",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
   },
 };
 
@@ -24,9 +24,32 @@ const TOTAL_PRODUCTS = PRODUCTS.length;
 const CATEGORIES = [...new Set(PRODUCTS.map((p) => p.category))].length;
 const BRANDS_COUNT = [...new Set(PRODUCTS.map((p) => p.brand))].length;
 
+const BREADCRUMB_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://jmnautoparts.com",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Products",
+      item: "https://jmnautoparts.com/products",
+    },
+  ],
+};
+
 export default function ProductsPage() {
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(BREADCRUMB_JSON_LD) }}
+      />
       {/* ── Page hero ── */}
       <section className="border-b border-border/60 bg-[linear-gradient(180deg,rgba(248,250,252,0.98)_0%,rgba(241,245,249,0.98)_100%)]">
         <div className="container mx-auto max-w-7xl px-4 pb-10 pt-24 md:pt-28">
@@ -56,7 +79,7 @@ export default function ProductsPage() {
               <div className="flex items-center gap-2 rounded-2xl border border-border/70 bg-white px-4 py-2.5 shadow-sm">
                 <PackageSearch className="h-4 w-4 text-primary" />
                 <span className="text-sm font-medium">
-                  {TOTAL_PRODUCTS}+ Parts
+                  {TOTAL_PRODUCTS}+ Featured Parts (12,000+ SKUs in full catalog)
                 </span>
               </div>
               <div className="flex items-center gap-2 rounded-2xl border border-border/70 bg-white px-4 py-2.5 shadow-sm">
