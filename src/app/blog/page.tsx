@@ -62,7 +62,7 @@ export default function BlogIndexPage() {
                 className="block rounded-2xl border border-border/70 bg-card/90 p-6 shadow-sm transition hover:border-primary/30 hover:shadow-md"
               >
                 <div className="text-xs uppercase tracking-wide text-muted-foreground">
-                  {formatDate(post.date)}
+                  {formatDate(post.date)} · {post.readingTimeMinutes} min read
                 </div>
                 <h2 className="mt-2 text-xl font-semibold tracking-tight">
                   {post.title}

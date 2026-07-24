@@ -26,10 +26,13 @@ import {
   ChevronLeft,
   ChevronRight,
   X,
+  ClipboardCheck,
+  ClipboardPlus,
 } from "lucide-react";
 import { useT } from "@/components/site/Lang";
 import { WHATSAPP_PHONE } from "@/components/site/constants";
 import { makePlaceholder, PRODUCTS } from "@/components/site/data";
+import { useInquiryList } from "@/components/site/InquiryListContext";
 
 const BRANDS = [
   { name: "Suzuki", key: "suzuki" },
@@ -94,6 +97,9 @@ function ProductCard({
   p: Product;
   onQuickView: (p: Product) => void;
 }) {
+  const { isInList, addItem, removeItem } = useInquiryList();
+  const inList = isInList(p.code);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
@@ -165,6 +171,27 @@ function ProductCard({
                 Ask via WhatsApp
               </a>
             </Button>
+
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() =>
+                inList ? removeItem(p.code) : addItem({ code: p.code, name: p.name })
+              }
+              className={`rounded-xl border-slate-900/12 ${
+                inList ? "bg-emerald-50 text-emerald-700 hover:bg-emerald-100" : "bg-white text-slate-900 hover:border-primary/30 hover:bg-primary/5"
+              }`}
+            >
+              {inList ? (
+                <>
+                  <ClipboardCheck className="mr-2 h-4 w-4" /> Added
+                </>
+              ) : (
+                <>
+                  <ClipboardPlus className="mr-2 h-4 w-4" /> Add to Inquiry
+                </>
+              )}
+            </Button>
           </div>
         </CardContent>
       </Card>
@@ -174,6 +201,7 @@ function ProductCard({
 
 export default function ProductGrid() {
   const t = useT();
+  const { isInList, addItem, removeItem } = useInquiryList();
 
   const [brand, setBrand] = useState("");
   const [category, setCategory] = useState("");
@@ -181,6 +209,11 @@ export default function ProductGrid() {
   const [sheetOpen, setSheetOpen] = useState(false);
   const [focus, setFocus] = useState<Product | null>(null);
   const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    const initialQuery = new URLSearchParams(window.location.search).get("q");
+    if (initialQuery) setQ(initialQuery);
+  }, []);
 
   const items = useFilteredProducts({ brand, category, q });
 
@@ -317,8 +350,28 @@ export default function ProductGrid() {
 
               {items.length === 0 && (
                 <Card className="mt-6 rounded-2xl border-border/60">
-                  <CardContent className="py-10 text-center text-muted-foreground">
-                    No products found for the selected filters.
+                  <CardContent className="flex flex-col items-center gap-4 py-10 text-center">
+                    <p className="text-muted-foreground">
+                      {brand
+                        ? `We may not have every ${BRANDS.find((b) => b.key === brand)?.name ?? brand} part listed yet — ask us directly, we likely have it in stock.`
+                        : "No products found for the selected filters. Ask us directly — we likely have it in stock."}
+                    </p>
+                    <Button
+                      asChild
+                      className="rounded-xl bg-[linear-gradient(135deg,#d9480f_0%,#b9380d_100%)] text-white shadow-[0_16px_36px_-22px_rgba(217,72,15,0.6)] hover:brightness-110"
+                    >
+                      <a
+                        href={`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(
+                          brand
+                            ? `Hello, I'm looking for ${BRANDS.find((b) => b.key === brand)?.name ?? brand} spare parts that aren't listed on your site yet.`
+                            : "Hello, I'm looking for a specific spare part that isn't listed on your site."
+                        )}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <Phone className="mr-2 h-4 w-4" /> Ask via WhatsApp
+                      </a>
+                    </Button>
                   </CardContent>
                 </Card>
               )}
@@ -436,6 +489,31 @@ export default function ProductGrid() {
                         <Mail className="mr-2 h-4 w-4" />
                         Contact sales
                       </a>
+                    </Button>
+
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() =>
+                        isInList(focus.code)
+                          ? removeItem(focus.code)
+                          : addItem({ code: focus.code, name: focus.name })
+                      }
+                      className={`rounded-xl border-slate-900/12 ${
+                        isInList(focus.code)
+                          ? "bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
+                          : "bg-white text-slate-900 hover:border-primary/30 hover:bg-primary/5"
+                      }`}
+                    >
+                      {isInList(focus.code) ? (
+                        <>
+                          <ClipboardCheck className="mr-2 h-4 w-4" /> Added
+                        </>
+                      ) : (
+                        <>
+                          <ClipboardPlus className="mr-2 h-4 w-4" /> Add to Inquiry
+                        </>
+                      )}
                     </Button>
                   </div>
                 </div>

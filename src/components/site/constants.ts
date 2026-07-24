@@ -17,6 +17,7 @@ export const WHATSAPP_NUMBER_DIGITS = WHATSAPP_PHONE.replace(/[^\d]/g, "");
 export const SOCIALS = {
   instagram: "https://instagram.com/jmn.parts",
   whatsapp: `https://wa.me/${WHATSAPP_NUMBER_DIGITS}`,
+  zalo: `https://zalo.me/${WHATSAPP_NUMBER_DIGITS}`,
   wechatId: "JMN_Official", // display as text
   wechatQr: "/wechat-qr.png", // put the QR image in /public
 };

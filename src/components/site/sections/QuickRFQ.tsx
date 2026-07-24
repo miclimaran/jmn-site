@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-import { CheckCircle2, Loader2, AlertCircle } from "lucide-react";
+import { CheckCircle2, Loader2, AlertCircle, X } from "lucide-react";
 import { COMPANY_EMAIL } from "@/components/site/constants";
+import { useInquiryList } from "@/components/site/InquiryListContext";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -16,6 +17,7 @@ export default function QuickRFQ({
   open: boolean;
   onOpenChange: (v: boolean) => void;
 }) {
+  const { items, removeItem, clear } = useInquiryList();
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [company, setCompany] = React.useState("");
@@ -24,6 +26,13 @@ export default function QuickRFQ({
   const [parts, setParts] = React.useState("");
   const [status, setStatus] = React.useState<Status>("idle");
   const [errorMsg, setErrorMsg] = React.useState("");
+
+  React.useEffect(() => {
+    if (open && items.length > 0 && parts.trim() === "") {
+      setParts(items.map((item) => `${item.code} — ${item.name}`).join("\n"));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
 
   const valid =
     name.trim() && /.+@.+\..+/.test(email) && destination.trim() && parts.trim();
@@ -65,6 +74,7 @@ export default function QuickRFQ({
       }
 
       setStatus("success");
+      clear();
     } catch (err) {
       const message =
         err instanceof Error ? err.message : "Failed to send. Please try again.";
@@ -163,6 +173,26 @@ export default function QuickRFQ({
               <label className="text-xs text-muted-foreground">
                 Part numbers / quantities (one per line)
               </label>
+              {items.length > 0 && (
+                <div className="mb-2 mt-1 flex flex-wrap gap-1.5">
+                  {items.map((item) => (
+                    <span
+                      key={item.code}
+                      className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-700"
+                    >
+                      {item.code}
+                      <button
+                        type="button"
+                        onClick={() => removeItem(item.code)}
+                        aria-label={`Remove ${item.code} from inquiry`}
+                        className="text-emerald-700/70 hover:text-emerald-900"
+                      >
+                        <X className="h-3 w-3" />
+                      </button>
+                    </span>
+                  ))}
+                </div>
+              )}
               <Textarea
                 rows={8}
                 value={parts}

@@ -6,6 +6,7 @@ import { getDir, LANG_COOKIE_NAME, type Lang } from "@/lib/i18n";
 import Navbar from "@/components/site/sections/Navbar";
 import Footer from "@/components/site/sections/Footer";
 import FloatingContact from "@/components/site/ui/FloatingContact";
+import { InquiryListProvider } from "@/components/site/InquiryListContext";
 
 export default function ClientRoot({
   children,
@@ -25,13 +26,15 @@ export default function ClientRoot({
 
   return (
     <LangContext.Provider value={lang}>
-      <div className="min-h-screen text-foreground bg-site relative">
-        <div className="pointer-events-none absolute inset-0 bg-grid" />
-        <Navbar lang={lang} onLangChange={setLang} />
-        {children}
-        <FloatingContact />
-        <Footer />
-      </div>
+      <InquiryListProvider>
+        <div className="min-h-screen text-foreground bg-site relative">
+          <div className="pointer-events-none absolute inset-0 bg-grid" />
+          <Navbar lang={lang} onLangChange={setLang} />
+          {children}
+          <FloatingContact />
+          <Footer />
+        </div>
+      </InquiryListProvider>
     </LangContext.Provider>
   );
 }

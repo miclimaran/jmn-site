@@ -1,9 +1,10 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { PlayCircle } from "lucide-react";
+import { PlayCircle, Search } from "lucide-react";
 import { useT } from "@/components/site/Lang";
 import { STAT_CARDS } from "@/components/site/data";
 import FadeIn from "@/components/site/ui/FadeIn";
@@ -12,6 +13,14 @@ import NumberTicker from "@/components/site/ui/NumberTicker";
 
 export default function Hero() {
   const t = useT();
+  const router = useRouter();
+  const [query, setQuery] = React.useState("");
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    const term = query.trim();
+    router.push(term ? `/products?q=${encodeURIComponent(term)}` : "/products");
+  };
 
   return (
     <section className="relative overflow-hidden border-b border-border/60">
@@ -50,7 +59,29 @@ export default function Hero() {
             </Link>
           </div>
         </FadeIn>
-        <FadeIn delay={0.25}>
+        <FadeIn delay={0.2}>
+          <form
+            onSubmit={handleSearch}
+            className="mt-6 flex max-w-md items-center gap-2"
+          >
+            <div className="flex flex-1 items-center gap-2 rounded-2xl border border-slate-900/12 bg-white/90 px-4 py-2.5 shadow-sm backdrop-blur">
+              <Search className="h-4 w-4 text-muted-foreground" />
+              <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder={t("hero_search_placeholder")}
+                className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+              />
+            </div>
+            <Button
+              type="submit"
+              className="rounded-2xl bg-slate-900 px-5 text-white hover:bg-slate-800"
+            >
+              {t("hero_search_button")}
+            </Button>
+          </form>
+        </FadeIn>
+        <FadeIn delay={0.28}>
           <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4">
             {STAT_CARDS.map((s, i) => (
               <Card key={i} className="rounded-2xl border-border/70 bg-card/88 text-slate-950 shadow-[0_24px_48px_-28px_rgba(15,23,42,0.24)] backdrop-blur-md">

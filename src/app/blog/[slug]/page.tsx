@@ -150,7 +150,7 @@ export default async function BlogPostPage({
             {post.title}
           </h1>
           <p className="mt-3 text-sm text-muted-foreground">
-            Published {formatDate(post.date)}
+            Published {formatDate(post.date)} · {post.readingTimeMinutes} min read
           </p>
         </div>
       </section>

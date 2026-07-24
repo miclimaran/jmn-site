@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Contact } from "lucide-react";
 import FadeIn from "@/components/site/ui/FadeIn";
 import { useT } from "@/components/site/Lang";
 import {
@@ -71,6 +71,16 @@ export default function ContactSection() {
                     rel="noreferrer"
                   >
                     {COMPANY_ADDRESS}
+                  </a>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Contact className="h-4 w-4" />
+                  <a
+                    className="underline underline-offset-4"
+                    href="/api/vcard"
+                    download="jmn-parts-contact.vcf"
+                  >
+                    Save our contact card
                   </a>
                 </div>
               </div>

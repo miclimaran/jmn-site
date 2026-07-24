@@ -8,6 +8,7 @@ import {
   Instagram,
   MessageCircle,
   QrCode,
+  Send,
 } from "lucide-react";
 import {
   COMPANY_EMAIL,
@@ -121,6 +122,14 @@ export default function Footer() {
               <MessageCircle className="h-4 w-4" /> WhatsApp
             </a>
             <a
+              href={SOCIALS.zalo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm hover:bg-muted"
+            >
+              <Send className="h-4 w-4" /> Zalo
+            </a>
+            <a
               href={SOCIALS.wechatQr}
               target="_blank"
               rel="noopener noreferrer"
@@ -135,7 +144,15 @@ export default function Footer() {
       <div className="border-t text-xs text-muted-foreground">
         <div className="container mx-auto flex items-center justify-between px-4 py-4">
           <span>(c) {new Date().getFullYear()} JMN. All rights reserved.</span>
-          <span>Terms | Privacy</span>
+          <span className="flex items-center gap-2">
+            <Link href="/terms" className="hover:underline">
+              Terms
+            </Link>
+            <span aria-hidden>|</span>
+            <Link href="/privacy" className="hover:underline">
+              Privacy
+            </Link>
+          </span>
         </div>
       </div>
     </footer>

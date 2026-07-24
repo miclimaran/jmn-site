@@ -12,7 +12,15 @@ export type BlogPost = {
   updated: string;
   keywords: string[];
   content: string;
+  readingTimeMinutes: number;
 };
+
+const WORDS_PER_MINUTE = 200;
+
+function estimateReadingTime(content: string): number {
+  const wordCount = content.trim().split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.round(wordCount / WORDS_PER_MINUTE));
+}
 
 export function getAllPosts(): BlogPost[] {
   const files = fs.readdirSync(BLOG_DIR).filter((file) => file.endsWith(".md"));
@@ -30,6 +38,7 @@ export function getAllPosts(): BlogPost[] {
       updated: (data.updated as string | undefined) ?? (data.date as string),
       keywords: (data.keywords as string[] | undefined) ?? [],
       content,
+      readingTimeMinutes: estimateReadingTime(content),
     };
   });
 
