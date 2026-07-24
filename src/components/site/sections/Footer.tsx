@@ -23,6 +23,8 @@ export default function Footer() {
         <div>
           <div className="mb-1 flex items-center gap-2">
             <Link href="/" className="flex items-center gap-2">
+              {/* Vector SVG logo — next/image offers no optimization for vector art */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/branding/logo_jmn2.svg"
                 alt="JMN logo"

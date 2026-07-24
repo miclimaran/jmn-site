@@ -31,7 +31,7 @@ import {
 } from "lucide-react";
 import { useT } from "@/components/site/Lang";
 import { WHATSAPP_PHONE } from "@/components/site/constants";
-import { makePlaceholder, PRODUCTS } from "@/components/site/data";
+import { displayName, makePlaceholder, PRODUCTS } from "@/components/site/data";
 import { useInquiryList } from "@/components/site/InquiryListContext";
 
 const BRANDS = [
@@ -110,9 +110,11 @@ function ProductCard({
     >
       <Card className="group flex h-full flex-col overflow-hidden rounded-2xl border-border/60 bg-card/70 backdrop-blur">
         <div className="aspect-[16/10] overflow-hidden bg-muted">
+          {/* Falls back to a data-URI placeholder until a real photo exists — next/image can't optimize either source here */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={p.image}
-            alt={p.name}
+            alt={displayName(p.name)}
             onError={(event) => {
               event.currentTarget.src = makePlaceholder(p.code);
             }}
@@ -127,7 +129,7 @@ function ProductCard({
           </div>
 
           <CardTitle className="min-h-[3.75rem] line-clamp-2 text-lg leading-snug">
-            {p.name}
+            {displayName(p.name)}
           </CardTitle>
 
           <p className="min-h-[3.5rem] text-sm text-muted-foreground">
@@ -163,7 +165,7 @@ function ProductCard({
             <Button asChild className="rounded-xl bg-[linear-gradient(135deg,#d9480f_0%,#b9380d_100%)] text-white shadow-[0_16px_36px_-22px_rgba(217,72,15,0.6)] hover:brightness-110">
               <a
                 href={`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(
-                  `Hello, I'm interested in ${p.name} (${p.code}).`
+                  `Hello, I'm interested in ${displayName(p.name)} (${p.code}).`
                 )}`}
                 target="_blank"
                 rel="noreferrer"
@@ -176,7 +178,9 @@ function ProductCard({
               type="button"
               variant="outline"
               onClick={() =>
-                inList ? removeItem(p.code) : addItem({ code: p.code, name: p.name })
+                inList
+                  ? removeItem(p.code)
+                  : addItem({ code: p.code, name: displayName(p.name) })
               }
               className={`rounded-xl border-slate-900/12 ${
                 inList ? "bg-emerald-50 text-emerald-700 hover:bg-emerald-100" : "bg-white text-slate-900 hover:border-primary/30 hover:bg-primary/5"
@@ -429,14 +433,16 @@ export default function ProductGrid() {
           {focus && (
             <>
               <DialogHeader>
-                <DialogTitle className="text-2xl">{focus.name}</DialogTitle>
+                <DialogTitle className="text-2xl">{displayName(focus.name)}</DialogTitle>
               </DialogHeader>
 
               <div className="grid gap-6 md:grid-cols-[1.1fr_.9fr]">
                 <div className="overflow-hidden rounded-2xl border bg-muted">
+                  {/* Falls back to a data-URI placeholder until a real photo exists — next/image can't optimize either source here */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={focus.image}
-                    alt={focus.name}
+                    alt={displayName(focus.name)}
                     onError={(event) => {
                       event.currentTarget.src = makePlaceholder(focus.code);
                     }}
@@ -474,7 +480,7 @@ export default function ProductGrid() {
                     <Button asChild className="rounded-xl bg-[linear-gradient(135deg,#d9480f_0%,#b9380d_100%)] text-white shadow-[0_16px_36px_-22px_rgba(217,72,15,0.6)] hover:brightness-110">
                       <a
                         href={`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(
-                          `Hello, I'm interested in ${focus.name} (${focus.code}).`
+                          `Hello, I'm interested in ${displayName(focus.name)} (${focus.code}).`
                         )}`}
                         target="_blank"
                         rel="noreferrer"
@@ -497,7 +503,7 @@ export default function ProductGrid() {
                       onClick={() =>
                         isInList(focus.code)
                           ? removeItem(focus.code)
-                          : addItem({ code: focus.code, name: focus.name })
+                          : addItem({ code: focus.code, name: displayName(focus.name) })
                       }
                       className={`rounded-xl border-slate-900/12 ${
                         isInList(focus.code)

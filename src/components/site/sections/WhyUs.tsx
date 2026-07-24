@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { ChevronLeft, ChevronRight, ShieldCheck } from "lucide-react";
 import FadeIn from "@/components/site/ui/FadeIn";
+import FallbackImage from "@/components/site/ui/FallbackImage";
 import { useT } from "@/components/site/Lang";
 import { FEATURE_ITEMS } from "@/components/site/data";
 
@@ -56,15 +57,13 @@ function WarehouseCarousel() {
                   delay: imageIndex * 0.06,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className="group relative overflow-hidden rounded-xl bg-muted shadow-[0_18px_44px_-30px_rgba(15,23,42,0.75)]"
+                className="group relative aspect-[3/4] overflow-hidden rounded-xl bg-muted shadow-[0_18px_44px_-30px_rgba(15,23,42,0.75)]"
               >
-                <img
+                <FallbackImage
                   src={image}
-                  alt={`Warehouse ${((index + imageIndex) % WAREHOUSE_IMAGES.length) + 1}`}
-                  onError={(event) => {
-                    event.currentTarget.src = WAREHOUSE_FALLBACK;
-                  }}
-                  className="aspect-[3/4] w-full object-cover transition duration-700 group-hover:scale-[1.035]"
+                  fallback={WAREHOUSE_FALLBACK}
+                  alt={`JMN warehouse photo ${((index + imageIndex) % WAREHOUSE_IMAGES.length) + 1}`}
+                  className="object-cover transition duration-700 group-hover:scale-[1.035]"
                 />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/18 via-transparent to-white/10" />
               </motion.div>

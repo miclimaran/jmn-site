@@ -21,6 +21,8 @@ export default function Navbar({
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/84 shadow-[0_10px_30px_-24px_rgba(15,23,42,0.5)] backdrop-blur-xl not-prose">
       <div className="container mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
         <Link href="/" className="flex items-center gap-2">
+          {/* Vector SVG logo — next/image offers no optimization for vector art */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/branding/logo_jmn2.svg"
             alt="JMN logo"

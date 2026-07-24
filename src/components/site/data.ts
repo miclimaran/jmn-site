@@ -15,21 +15,30 @@ export const MODELS_ERTIGA_XL7 = ["All New Ertiga", "XL7"];
 export const makePlaceholder = (code: string) =>
   `data:image/svg+xml;utf8,${encodeURIComponent(`
     <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
-      <rect width="1200" height="800" fill="#f3f4f6"/>
-      <rect x="40" y="40" width="1120" height="720" rx="24" fill="#e5e7eb" stroke="#d1d5db"/>
-      <text x="600" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-size="42" fill="#374151">
-        Suzuki Genuine Part
-      </text>
-      <text x="600" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" fill="#6b7280">
-        ${code}
-      </text>
-      <text x="600" y="470" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#9ca3af">
-        Image placeholder
-      </text>
+      <defs>
+        <linearGradient id="jmnph" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#0f172a"/>
+          <stop offset="0.6" stop-color="#1e293b"/>
+          <stop offset="1" stop-color="#241014"/>
+        </linearGradient>
+      </defs>
+      <rect width="1200" height="800" fill="url(#jmnph)"/>
+      <rect x="0" y="0" width="1200" height="12" fill="#ef4444"/>
+      <text x="600" y="345" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="150" font-weight="900" letter-spacing="-6" fill="#f1f5f9">JM<tspan fill="#ef4444">N</tspan></text>
+      <text x="600" y="435" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="32" letter-spacing="10" fill="#94a3b8">GENUINE OEM PART</text>
+      <text x="600" y="540" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700" fill="#e2e8f0">${code}</text>
     </svg>
   `)}`;
 
 export const getProductImage = (code: string) => `/products/${code}.jpg`;
+
+/**
+ * Strips the internal "(Verify description)" annotation from a product name
+ * for public display. The raw data keeps the note so unverified entries stay
+ * flagged in source.
+ */
+export const displayName = (name: string) =>
+  name.replace(/\s*\(verify description\)/gi, "").trim();
 
 export const PRODUCTS = [
   // APV

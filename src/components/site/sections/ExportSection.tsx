@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, ChevronLeft, ChevronRight, Ship } from "lucide-react";
 import FadeIn from "@/components/site/ui/FadeIn";
+import FallbackImage from "@/components/site/ui/FallbackImage";
 import { useT } from "@/components/site/Lang";
 
 const EXPORT_IMAGES = [
@@ -55,15 +56,13 @@ function ExportCarousel() {
                   delay: imageIndex * 0.06,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className="group relative overflow-hidden rounded-xl bg-slate-950 shadow-[0_18px_44px_-30px_rgba(15,23,42,0.75)]"
+                className="group relative aspect-[3/4] overflow-hidden rounded-xl bg-slate-950 shadow-[0_18px_44px_-30px_rgba(15,23,42,0.75)]"
               >
-                <img
+                <FallbackImage
                   src={image}
+                  fallback={EXPORT_FALLBACK}
                   alt={`Export container shipment ${((index + imageIndex) % EXPORT_IMAGES.length) + 1}`}
-                  onError={(event) => {
-                    event.currentTarget.src = EXPORT_FALLBACK;
-                  }}
-                  className="aspect-[3/4] w-full object-contain transition duration-700 group-hover:scale-[1.025]"
+                  className="object-contain transition duration-700 group-hover:scale-[1.025]"
                 />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/20 via-transparent to-white/10" />
               </motion.div>

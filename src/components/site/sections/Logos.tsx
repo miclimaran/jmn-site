@@ -16,6 +16,8 @@ export default function Logos() {
               key={b.key}
               className="h-24 md:h-28 rounded-2xl border border-border/70 bg-card/90 flex items-center justify-center p-4 overflow-hidden shadow-[0_18px_50px_-38px_rgba(15,23,42,0.32)]"
             >
+              {/* Vector SVG brand logo — next/image offers no optimization for vector art */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={b.logo}
                 alt={`${b.name} logo`}
