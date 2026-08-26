@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Hero from "@/components/site/sections/Hero";
 import Logos from "@/components/site/sections/Logos";
 import WhyUs from "@/components/site/sections/WhyUs";
+import WarehouseGallery from "@/components/site/sections/WarehouseGallery";
 import ProductGrid from "@/components/site/sections/ProductGrid";
 import TestimonialsSection from "@/components/site/sections/TestimonialsSection";
 import ExportSection from "@/components/site/sections/ExportSection";
@@ -72,23 +73,27 @@ export default function HomePage() {
         <WhyUs />
       </SectionFrame>
 
-      <SectionFrame id="products" labelKey="product_label" tone="muted">
+      <SectionFrame id="warehouse" labelKey="warehouse_label" tone="muted">
+        <WarehouseGallery />
+      </SectionFrame>
+
+      <SectionFrame id="products" labelKey="product_label">
         <ProductGrid />
       </SectionFrame>
 
-      <SectionFrame id="testimonials" labelKey="testimonials_label">
+      <SectionFrame id="testimonials" labelKey="testimonials_label" tone="muted">
         <TestimonialsSection />
       </SectionFrame>
 
-      <SectionFrame id="export" labelKey="export_label" tone="muted">
+      <SectionFrame id="export" labelKey="export_label">
         <ExportSection />
       </SectionFrame>
 
-      <SectionFrame id="contact" labelKey="contact_label">
+      <SectionFrame id="contact" labelKey="contact_label" tone="muted">
         <ContactSection />
       </SectionFrame>
 
-      <SectionFrame id="map" labelKey="location_label" tone="muted">
+      <SectionFrame id="map" labelKey="location_label">
         <MapSection />
       </SectionFrame>
     </main>

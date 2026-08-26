@@ -7,12 +7,14 @@ import { CheckCircle2, ChevronLeft, ChevronRight, Ship } from "lucide-react";
 import FadeIn from "@/components/site/ui/FadeIn";
 import FallbackImage from "@/components/site/ui/FallbackImage";
 import { useT } from "@/components/site/Lang";
+import { EXPORT_PHOTOS } from "@/components/site/exportPhotos";
 
+// Watermarked WebP from scripts/optimize-export.mjs, plus our own dispatch
+// photos — the loading step that precedes the container shots.
 const EXPORT_IMAGES = [
-  "/export/export-1.jpeg",
-  "/export/export-2.jpeg",
-  "/export/export-3.jpeg",
-  "/export/export-4.jpeg",
+  ...EXPORT_PHOTOS.map((photo) => photo.src),
+  "/warehouse/export-truck-loading.webp",
+  "/warehouse/export-truck-loaded.webp",
 ];
 
 const EXPORT_FALLBACK =

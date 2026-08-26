@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Un-watermarked source photos. This repo is public, so committing these would
+# put the clean originals one click away on GitHub and make the watermark on
+# the published WebP files pointless. Keep them locally (and backed up) — they
+# are only needed to re-run `npm run images`.
+/assets/

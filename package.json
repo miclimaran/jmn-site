@@ -6,7 +6,10 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "images:warehouse": "node scripts/optimize-warehouse.mjs",
+    "images:export": "node scripts/optimize-export.mjs",
+    "images": "npm run images:warehouse && npm run images:export"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.12",

@@ -1109,13 +1109,26 @@ export const PRODUCTS = [
 ];
 
 // --- Testimonials -----------------------------------------------------------
+// ⚠️  The entries below are PLACEHOLDER COPY, not real customers — invented
+//     names, workshops, and companies. They must be replaced with real,
+//     attributable quotes before this section goes live; the cards render a
+//     "Verified Partner" badge, which makes shipping invented quotes actively
+//     misleading. See docs/TESTIMONI.md for how to collect real ones.
 export type Testimonial = {
   name: string;
   title_en: string;
   title_id: string;
   quote_en: string;
   quote_id: string;
-  image?: string;
+  /** Country or destination port — the detail buyers actually check. */
+  country?: string;
+  /** What was shipped: volume, part family, route. Specifics beat adjectives. */
+  context_en?: string;
+  context_id?: string;
+  /** Month the feedback was given, e.g. "2026-07". */
+  date?: string;
+  /** False until you hold the original message/email from the customer. */
+  verified?: boolean;
 };
 
 export const TESTIMONIALS: Testimonial[] = [
@@ -1127,8 +1140,6 @@ export const TESTIMONIALS: Testimonial[] = [
       "JMN is our #1 supplier. Their parts are always genuine, and the fulfillment accuracy saves us from costly delays. Their team is knowledgeable and incredibly responsive.",
     quote_id:
       "JMN adalah pemasok #1 kami. Suku cadangnya selalu asli, dan akurasi pemenuhannya menyelamatkan kami dari penundaan yang mahal. Tim mereka berpengetahuan luas dan sangat responsif.",
-    image:
-      "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400&auto=format&fit=crop",
   },
   {
     name: "Ahmad Yani",
@@ -1138,8 +1149,6 @@ export const TESTIMONIALS: Testimonial[] = [
       "The quality of Suzuki Genuine Parts from JMN is unmatched. Our customers notice the difference, and it has improved our workshop's reputation significantly.",
     quote_id:
       "Kualitas Suku Cadang Asli Suzuki dari JMN tidak ada tandingannya. Pelanggan kami merasakan perbedaannya, dan itu telah meningkatkan reputasi bengkel kami secara signifikan.",
-    image:
-      "https://images.unsplash.com/photo-1557862921-37829c790f19?q=80&w=400&auto=format&fit=crop",
   },
   {
     name: "Rina Wijaya",
@@ -1149,8 +1158,6 @@ export const TESTIMONIALS: Testimonial[] = [
       "For our international clients, JMN's export documentation is always perfect. They handle consolidation and logistics professionally, making them a reliable partner for global trade.",
     quote_id:
       "Untuk klien internasional kami, dokumentasi ekspor JMN selalu sempurna. Mereka menangani konsolidasi dan logistik secara profesional, menjadikan mereka mitra yang andal untuk perdagangan global.",
-    image:
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&auto=format&fit=crop",
   },
   {
     name: "Adi Nugroho",
