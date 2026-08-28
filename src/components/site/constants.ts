@@ -33,3 +33,26 @@ export const MAP_EMBED_SRC =
 // "View on Google Maps" link (you can keep this or replace with your Share link)
 export const MAP_LINK =
   "https://maps.app.goo.gl/WsKKnHDvsYSHskJo9";
+
+// Company history
+// JMN was founded and became an authorized Suzuki Genuine Parts distributor in
+// the same month, October 1989.
+export const FOUNDED_YEAR = 1989;
+export const FOUNDED_MONTH = 10; // October
+export const FOUNDED_LABEL = "October 1989";
+
+/**
+ * Completed years in business, counted from the founding month so the figure is
+ * never overstated. Derived rather than hardcoded — the previous "12" had gone
+ * stale by more than two decades.
+ */
+export function yearsInTrade(now: Date = new Date()): number {
+  const years = now.getFullYear() - FOUNDED_YEAR;
+  const beforeAnniversary = now.getMonth() + 1 < FOUNDED_MONTH;
+  return beforeAnniversary ? years - 1 : years;
+}
+
+// Leadership
+export const COMPANY_DIRECTOR = "Solaiman Limaran";
+export const COMPANY_DIRECTOR_TITLE_EN = "President Director";
+export const COMPANY_DIRECTOR_TITLE_ID = "Direktur Utama";

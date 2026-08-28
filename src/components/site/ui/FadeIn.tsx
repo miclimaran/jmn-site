@@ -1,7 +1,16 @@
 "use client";
-import * as React from "react";
-import { motion } from "framer-motion";
 
+import * as React from "react";
+import Reveal from "@/components/site/ui/Reveal";
+
+/**
+ * Kept for the call sites that already use it. It now delegates to `Reveal`,
+ * so the shared easing, blur-in and reduced-motion handling apply everywhere
+ * without touching every section.
+ *
+ * New code should reach for `Reveal` / `RevealGroup` directly — they expose
+ * direction and stagger, which this signature cannot.
+ */
 export default function FadeIn({
   children,
   delay = 0,
@@ -9,14 +18,5 @@ export default function FadeIn({
   children: React.ReactNode;
   delay?: number;
 }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.6, delay }}
-    >
-      {children}
-    </motion.div>
-  );
+  return <Reveal delay={delay}>{children}</Reveal>;
 }

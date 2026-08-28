@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 
 import "./globals.css";
 import ClientRoot from "@/components/site/ClientRoot";
+import ScrollProgress from "@/components/site/ui/ScrollProgress";
 import {
   DEFAULT_LANG,
   LANG_COOKIE_NAME,
@@ -133,6 +134,7 @@ export default async function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION_JSON_LD) }}
         />
+        <ScrollProgress />
         <ClientRoot initialLang={initialLang}>{children}</ClientRoot>
       </body>
     </html>

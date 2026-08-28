@@ -2,11 +2,12 @@
 
 import * as React from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Camera, ChevronLeft, ChevronRight, X } from "lucide-react";
 import FadeIn from "@/components/site/ui/FadeIn";
 import { useT } from "@/components/site/Lang";
 import { WAREHOUSE_PHOTOS } from "@/components/site/warehousePhotos";
+import { SPRING, VIEWPORT, revealVariants, staggerContainer } from "@/lib/motion";
 
 type TKey = Parameters<ReturnType<typeof useT>>[0];
 
@@ -112,6 +113,7 @@ function LightboxBody({
 
 export default function WarehouseGallery() {
   const t = useT();
+  const reduced = useReducedMotion() ?? false;
   const [openIndex, setOpenIndex] = React.useState<number | null>(null);
   const railRef = React.useRef<HTMLDivElement>(null);
   const [edges, setEdges] = React.useState({ start: false, end: true });
@@ -206,19 +208,27 @@ export default function WarehouseGallery() {
               the next photo peeks in so the rail reads as continuous. Photos
               keep their own aspect ratio at a shared height — no forced crop,
               no captions. */}
-          <div
+          <motion.div
             ref={railRef}
             onScroll={syncEdges}
+            initial="hidden"
+            whileInView="visible"
+            viewport={VIEWPORT}
+            variants={staggerContainer(reduced ? 0.02 : 0.07)}
             className="flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-smooth px-4 pb-3 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {WAREHOUSE_PHOTOS.map((photo, i) => (
-              <button
+              <motion.button
                 key={photo.src}
                 type="button"
                 onClick={() => setOpenIndex(i)}
                 aria-label={`${t("wh_open" as TKey)}: ${photo.alt}`}
                 style={{ aspectRatio: `${photo.width} / ${photo.height}` }}
-                className="group relative h-56 shrink-0 snap-start overflow-hidden rounded-2xl bg-muted ring-1 ring-slate-950/10 transition duration-300 hover:ring-primary/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:h-72 lg:h-[24rem]"
+                variants={revealVariants("up", reduced)}
+                whileHover={reduced ? undefined : { y: -6 }}
+                whileTap={reduced ? undefined : { scale: 0.985 }}
+                transition={SPRING}
+                className="group relative h-56 shrink-0 snap-start overflow-hidden rounded-2xl bg-muted ring-1 ring-slate-950/10 transition-shadow duration-500 hover:shadow-[0_30px_60px_-30px_rgba(15,23,42,0.5)] hover:ring-primary/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:h-72 lg:h-[24rem]"
               >
                 <Image
                   src={photo.src}
@@ -230,11 +240,13 @@ export default function WarehouseGallery() {
                   // The first few are on screen immediately; lazy-loading them
                   // just leaves visible blur placeholders on arrival.
                   loading={i < 3 ? "eager" : "lazy"}
-                  className="object-cover transition duration-700 group-hover:scale-[1.04]"
+                  className="object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]"
                 />
-              </button>
+                {/* Vignette deepens on hover so the lifted tile reads as raised. */}
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/25 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+              </motion.button>
             ))}
-          </div>
+          </motion.div>
         </div>
       </FadeIn>
 

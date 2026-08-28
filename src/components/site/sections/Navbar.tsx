@@ -16,9 +16,25 @@ export default function Navbar({
 }) {
   const t = useT();
   const [open, setOpen] = React.useState(false);
+  const [scrolled, setScrolled] = React.useState(false);
+
+  // Header tightens once the page leaves the top — a small cue that costs one
+  // passive listener and no layout work.
+  React.useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/84 shadow-[0_10px_30px_-24px_rgba(15,23,42,0.5)] backdrop-blur-xl not-prose">
+    <header
+      className={`not-prose sticky top-0 z-50 border-b transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        scrolled
+          ? "border-border/70 bg-background/92 shadow-[0_14px_40px_-26px_rgba(15,23,42,0.6)] backdrop-blur-2xl"
+          : "border-border/40 bg-background/70 shadow-none backdrop-blur-xl"
+      }`}
+    >
       <div className="container mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
         <Link href="/" className="flex items-center gap-2">
           {/* Vector SVG logo — next/image offers no optimization for vector art */}
@@ -26,37 +42,43 @@ export default function Navbar({
           <img
             src="/branding/logo_jmn2.svg"
             alt="JMN logo"
-            className="h-16 w-auto"
+            className={`w-auto transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${scrolled ? "h-12" : "h-16"}`}
           />
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
           <Link
-            className="px-2 py-2 text-base font-medium transition hover:text-primary hover:underline underline-offset-4 md:text-lg"
+            className="link-sweep px-2 py-2 text-base font-medium transition-colors duration-300 hover:text-primary md:text-lg"
             href="/products"
           >
             {t("nav_products")}
           </Link>
           <Link
-            className="px-2 py-2 text-base font-medium transition hover:text-primary hover:underline underline-offset-4 md:text-lg"
+            className="link-sweep px-2 py-2 text-base font-medium transition-colors duration-300 hover:text-primary md:text-lg"
+            href="/about"
+          >
+            {t("about_label")}
+          </Link>
+          <Link
+            className="link-sweep px-2 py-2 text-base font-medium transition-colors duration-300 hover:text-primary md:text-lg"
             href="/#intro"
           >
             {t("nav_why")}
           </Link>
           <Link
-            className="px-2 py-2 text-base font-medium transition hover:text-primary hover:underline underline-offset-4 md:text-lg"
+            className="link-sweep px-2 py-2 text-base font-medium transition-colors duration-300 hover:text-primary md:text-lg"
             href="/#export"
           >
             {t("nav_export")}
           </Link>
           <Link
-            className="px-2 py-2 text-base font-medium transition hover:text-primary hover:underline underline-offset-4 md:text-lg"
+            className="link-sweep px-2 py-2 text-base font-medium transition-colors duration-300 hover:text-primary md:text-lg"
             href="/blog"
           >
             {t("nav_blog")}
           </Link>
           <Link
-            className="px-2 py-2 text-base font-medium transition hover:text-primary hover:underline underline-offset-4 md:text-lg"
+            className="link-sweep px-2 py-2 text-base font-medium transition-colors duration-300 hover:text-primary md:text-lg"
             href="/contact"
           >
             {t("nav_contact")}
@@ -89,6 +111,13 @@ export default function Navbar({
             onClick={() => setOpen(false)}
           >
             {t("nav_products")}
+          </Link>
+          <Link
+            href="/about"
+            className="block py-2"
+            onClick={() => setOpen(false)}
+          >
+            {t("about_label")}
           </Link>
           <Link
             href="/#intro"

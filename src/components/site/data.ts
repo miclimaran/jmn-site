@@ -1,4 +1,5 @@
 import { Truck, Wrench, ShieldCheck, Boxes } from "lucide-react";
+import { yearsInTrade } from "@/components/site/constants";
 
 // --- Products ---------------------------------------------------------------
 // NOTE:
@@ -1198,7 +1199,10 @@ export const FEATURE_ITEMS = [
 export type StatCard = { labelKey: string; value: number; suffix?: string };
 
 export const STAT_CARDS: StatCard[] = [
-  { labelKey: "stat_years", value: 12 },
+  // Derived from the October 1989 founding date. The hardcoded "12" here was
+  // wrong by 24 years and understated the company on every page load.
+  { labelKey: "stat_years", value: yearsInTrade() },
+  // TODO(JMN): these three are still unconfirmed figures.
   { labelKey: "stat_skus", value: 12000 },
   { labelKey: "stat_countries", value: 22 },
   { labelKey: "stat_accuracy", value: 99.5, suffix: "%" },
