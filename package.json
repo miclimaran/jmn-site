@@ -9,7 +9,8 @@
     "lint": "eslint",
     "images:warehouse": "node scripts/optimize-warehouse.mjs",
     "images:export": "node scripts/optimize-export.mjs",
-    "images": "npm run images:warehouse && npm run images:export"
+    "images": "npm run images:warehouse && npm run images:export && npm run images:og",
+    "images:og": "node scripts/make-og-bg.mjs"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.12",

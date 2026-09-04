@@ -25,6 +25,7 @@ const ORGANIZATION_JSON_LD = {
   image: `${SITE_URL}/opengraph-image`,
   description:
     "Authorized Suzuki genuine parts distributor in Indonesia, exporting OEM auto parts (Suzuki, Toyota, Daihatsu, Mitsubishi) worldwide with FOB, CIF, and DAP terms.",
+  foundingDate: "1989-10",
   email: COMPANY_EMAIL,
   telephone: WHATSAPP_PHONE,
   address: {
@@ -52,11 +53,14 @@ const ORGANIZATION_JSON_LD = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "JMN Parts — Suzuki Genuine Parts Exporter Indonesia",
+    default: "JMN Parts — Suzuki Genuine Parts Distributor Since 1989",
     template: "%s | JMN Parts",
   },
+  // Leads with the founding year: it is the strongest claim on this site that
+  // a buyer can actually verify, and unlike the SKU and accuracy figures it is
+  // confirmed. Kept under ~155 characters so Google shows it whole.
   description:
-    "PT. Jaya Makmur Nugraha — authorized Suzuki genuine parts distributor in Indonesia. OEM auto parts export to Middle East, Africa, and Southeast Asia. FOB · CIF · DAP.",
+    "Authorized Suzuki Genuine Parts distributor in Jakarta since 1989. OEM parts for Suzuki, Toyota, Daihatsu and Mitsubishi, exported worldwide.",
   keywords: [
     "Suzuki genuine parts",
     "OEM spare parts Indonesia",
@@ -74,23 +78,23 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: SITE_URL,
     siteName: "JMN Parts",
-    title: "JMN Parts — Suzuki Genuine Parts Exporter Indonesia",
+    title: "JMN Parts — Suzuki Genuine Parts Distributor Since 1989",
     description:
-      "Authorized Suzuki genuine parts distributor. 12,000+ SKUs. Export to 22+ countries. FOB · CIF · DAP.",
+      "Authorized Suzuki Genuine Parts distributor in Jakarta since 1989. Suzuki, Toyota, Daihatsu and Mitsubishi OEM parts, exported worldwide.",
     images: [
       {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "JMN Parts — Suzuki Genuine Parts Exporter Indonesia",
+        alt: "JMN Parts — authorized Suzuki Genuine Parts distributor in Jakarta since 1989",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "JMN Parts — Suzuki Genuine Parts Exporter Indonesia",
+    title: "JMN Parts — Suzuki Genuine Parts Distributor Since 1989",
     description:
-      "Authorized Suzuki genuine parts distributor. 12,000+ SKUs. Export to 22+ countries.",
+      "Authorized Suzuki Genuine Parts distributor in Jakarta since 1989. OEM parts exported worldwide.",
     images: ["/opengraph-image"],
   },
   robots: {
