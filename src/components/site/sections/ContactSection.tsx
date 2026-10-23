@@ -9,11 +9,12 @@ import FadeIn from "@/components/site/ui/FadeIn";
 import { useT } from "@/components/site/Lang";
 import {
   COMPANY_EMAIL,
-  COMPANY_PHONE_DISPLAY,
-  COMPANY_PHONE_TEL,
   COMPANY_ADDRESS,
   MAP_LINK,
-  WHATSAPP_PHONE,
+  WHATSAPP_CONTACTS,
+  WHATSAPP_PRIMARY,
+  telLink,
+  waLink,
 } from "@/components/site/constants";
 import {
   Accordion,
@@ -56,12 +57,26 @@ export default function ContactSection() {
                     {COMPANY_EMAIL}
                   </a>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Phone className="h-4 w-4" />
-                  <a className="underline underline-offset-4" href={COMPANY_PHONE_TEL}>
-                    {COMPANY_PHONE_DISPLAY}
-                  </a>
-                </div>
+                {/* Both lines listed here — this is the page people come to
+                    when they want a way to reach us, so showing only one hides
+                    a working channel. */}
+                {WHATSAPP_CONTACTS.map((contact, i) => (
+                  <div key={contact.phone} className="flex items-center gap-3">
+                    {/* Icon on the first row only; a repeated icon reads as two
+                        unrelated facts rather than one list of phone lines. */}
+                    {i === 0 ? (
+                      <Phone className="h-4 w-4 shrink-0" />
+                    ) : (
+                      <span className="h-4 w-4 shrink-0" aria-hidden />
+                    )}
+                    <a
+                      className="underline underline-offset-4"
+                      href={telLink(contact.phone)}
+                    >
+                      {contact.display}
+                    </a>
+                  </div>
+                ))}
                 <div className="flex items-center gap-3">
                   <MapPin className="h-4 w-4" />
                   <a
@@ -152,7 +167,7 @@ export default function ContactSection() {
                     {t("contact_send")}
                   </Button>
                   <a
-                    href={`https://wa.me/${WHATSAPP_PHONE.replace(/[^\d]/g, "")}`}
+                    href={waLink(WHATSAPP_PRIMARY.phone)}
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center gap-2 rounded-full border border-emerald-600/20 bg-emerald-50 px-4 py-2 font-medium text-emerald-700 shadow-sm transition hover:bg-emerald-100"

@@ -4,14 +4,47 @@ export const SITE_NAME = "PT. Jaya Makmur Nugraha";
 
 // Contact
 export const COMPANY_EMAIL = "jaya_makmur_nugraha@yahoo.com";
-export const WHATSAPP_PHONE = "+6281310108525"; // E.164 format
 
-// Friendly phone text + tel: link
-export const COMPANY_PHONE_DISPLAY = "(+62) 813-1010-8525";
-export const COMPANY_PHONE_TEL = `tel:${WHATSAPP_PHONE.replace(/[^\d+]/g, "")}`;
+export type WhatsappContact = {
+  /** E.164, leading + included. */
+  phone: string;
+  /** Human-readable form for on-page text. */
+  display: string;
+};
 
-// Precompute a clean WA number (digits only, for wa.me)
-export const WHATSAPP_NUMBER_DIGITS = WHATSAPP_PHONE.replace(/[^\d]/g, "");
+/**
+ * WhatsApp lines, in priority order.
+ *
+ * Surfaces that list ways to reach us (contact page, footer) show every entry.
+ * Single-action buttons — the floating bubble, the per-product enquiry links —
+ * deliberately use `WHATSAPP_PRIMARY` only: making someone choose a number
+ * before they can ask a question costs more enquiries than a second line wins.
+ */
+export const WHATSAPP_CONTACTS: WhatsappContact[] = [
+  { phone: "+6281310108525", display: "(+62) 813-1010-8525" },
+  { phone: "+6281289968210", display: "(+62) 812-8996-8210" },
+];
+
+export const WHATSAPP_PRIMARY = WHATSAPP_CONTACTS[0];
+
+/** wa.me rejects the leading +, so strip to digits for every link. */
+export const waDigits = (phone: string) => phone.replace(/[^\d]/g, "");
+
+/** Builds a wa.me link, optionally pre-filling the message. */
+export const waLink = (phone: string, text?: string) =>
+  `https://wa.me/${waDigits(phone)}${
+    text ? `?text=${encodeURIComponent(text)}` : ""
+  }`;
+
+/** tel: href for a contact. */
+export const telLink = (phone: string) => `tel:${phone.replace(/[^\d+]/g, "")}`;
+
+// Primary-line aliases. Existing call sites keep working unchanged, and
+// anything that needs both lines reads WHATSAPP_CONTACTS instead.
+export const WHATSAPP_PHONE = WHATSAPP_PRIMARY.phone;
+export const COMPANY_PHONE_DISPLAY = WHATSAPP_PRIMARY.display;
+export const COMPANY_PHONE_TEL = telLink(WHATSAPP_PRIMARY.phone);
+export const WHATSAPP_NUMBER_DIGITS = waDigits(WHATSAPP_PRIMARY.phone);
 
 // Social media
 export const SOCIALS = {

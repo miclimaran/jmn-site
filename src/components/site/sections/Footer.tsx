@@ -13,7 +13,9 @@ import {
 import {
   COMPANY_EMAIL,
   SOCIALS,
-  WHATSAPP_NUMBER_DIGITS,
+  WHATSAPP_CONTACTS,
+  WHATSAPP_PRIMARY,
+  waLink,
 } from "@/components/site/constants";
 
 export default function Footer() {
@@ -95,17 +97,26 @@ export default function Footer() {
                 {COMPANY_EMAIL}
               </a>
             </li>
-            <li className="flex items-center gap-2">
-              <Phone className="h-4 w-4" />
-              <a
-                className="hover:underline"
-                href={SOCIALS.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                WhatsApp
-              </a>
-            </li>
+            {/* The actual numbers rather than the word "WhatsApp": in the
+                footer people are looking for a number to save or dial, and the
+                social row below already carries the one-tap chat link. */}
+            {WHATSAPP_CONTACTS.map((contact, i) => (
+              <li key={contact.phone} className="flex items-center gap-2">
+                {i === 0 ? (
+                  <Phone className="h-4 w-4 shrink-0" />
+                ) : (
+                  <span className="h-4 w-4 shrink-0" aria-hidden />
+                )}
+                <a
+                  className="hover:underline"
+                  href={waLink(contact.phone)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {contact.display}
+                </a>
+              </li>
+            ))}
             <li className="flex items-center gap-2">
               <MapPin className="h-4 w-4" /> Central Jakarta
             </li>
@@ -121,7 +132,7 @@ export default function Footer() {
               <Instagram className="h-4 w-4" /> Instagram
             </a>
             <a
-              href={`https://wa.me/${WHATSAPP_NUMBER_DIGITS}`}
+              href={waLink(WHATSAPP_PRIMARY.phone)}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm hover:bg-muted"

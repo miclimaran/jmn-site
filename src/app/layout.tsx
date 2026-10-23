@@ -10,7 +10,11 @@ import {
   getDir,
   isLang,
 } from "@/lib/i18n";
-import { COMPANY_EMAIL, SOCIALS, WHATSAPP_PHONE } from "@/components/site/constants";
+import {
+  COMPANY_EMAIL,
+  SOCIALS,
+  WHATSAPP_CONTACTS,
+} from "@/components/site/constants";
 
 const SITE_URL = "https://jmnautoparts.com";
 
@@ -27,7 +31,7 @@ const ORGANIZATION_JSON_LD = {
     "Authorized Suzuki genuine parts distributor in Indonesia, exporting OEM auto parts (Suzuki, Toyota, Daihatsu, Mitsubishi) worldwide with FOB, CIF, and DAP terms.",
   foundingDate: "1989-10",
   email: COMPANY_EMAIL,
-  telephone: WHATSAPP_PHONE,
+  telephone: WHATSAPP_CONTACTS.map((c) => c.phone),
   address: {
     "@type": "PostalAddress",
     streetAddress: "Jl. Karang Anyar Permai 55 Blok C1.4",

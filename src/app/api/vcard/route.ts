@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import {
   COMPANY_EMAIL,
   COMPANY_ADDRESS,
-  WHATSAPP_PHONE,
+  WHATSAPP_CONTACTS,
 } from "@/components/site/constants";
 
 function escapeVCard(value: string) {
@@ -21,7 +21,8 @@ export async function GET() {
     "FN:JMN Parts (PT. Jaya Makmur Nugraha)",
     "ORG:PT. Jaya Makmur Nugraha",
     "TITLE:Suzuki Genuine Parts Distributor & Exporter",
-    `TEL;TYPE=CELL,VOICE:${WHATSAPP_PHONE}`,
+    // Every line, so saving the card gets both numbers.
+    ...WHATSAPP_CONTACTS.map((c) => `TEL;TYPE=CELL,VOICE:${c.phone}`),
     `EMAIL:${escapeVCard(COMPANY_EMAIL)}`,
     `ADR;TYPE=WORK:;;${escapeVCard(COMPANY_ADDRESS)};;;;`,
     "URL:https://jmnautoparts.com",

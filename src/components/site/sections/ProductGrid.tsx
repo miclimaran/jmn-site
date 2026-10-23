@@ -30,7 +30,7 @@ import {
   ClipboardPlus,
 } from "lucide-react";
 import { useT } from "@/components/site/Lang";
-import { WHATSAPP_PHONE } from "@/components/site/constants";
+import { WHATSAPP_PRIMARY, waLink } from "@/components/site/constants";
 import { displayName, makePlaceholder, PRODUCTS } from "@/components/site/data";
 import { useInquiryList } from "@/components/site/InquiryListContext";
 
@@ -164,9 +164,10 @@ function ProductCard({
 
             <Button asChild className="rounded-xl bg-[linear-gradient(135deg,#d9480f_0%,#b9380d_100%)] text-white shadow-[0_16px_36px_-22px_rgba(217,72,15,0.6)] hover:brightness-110">
               <a
-                href={`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(
-                  `Hello, I'm interested in ${displayName(p.name)} (${p.code}).`
-                )}`}
+                href={waLink(
+                  WHATSAPP_PRIMARY.phone,
+                  `Hello, I'm interested in ${displayName(p.name)} (${p.code}).`,
+                )}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -365,11 +366,12 @@ export default function ProductGrid() {
                       className="rounded-xl bg-[linear-gradient(135deg,#d9480f_0%,#b9380d_100%)] text-white shadow-[0_16px_36px_-22px_rgba(217,72,15,0.6)] hover:brightness-110"
                     >
                       <a
-                        href={`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(
+                        href={waLink(
+                          WHATSAPP_PRIMARY.phone,
                           brand
                             ? `Hello, I'm looking for ${BRANDS.find((b) => b.key === brand)?.name ?? brand} spare parts that aren't listed on your site yet.`
-                            : "Hello, I'm looking for a specific spare part that isn't listed on your site."
-                        )}`}
+                            : "Hello, I'm looking for a specific spare part that isn't listed on your site.",
+                        )}
                         target="_blank"
                         rel="noreferrer"
                       >
@@ -479,9 +481,10 @@ export default function ProductGrid() {
                   <div className="flex flex-wrap gap-2 pt-2">
                     <Button asChild className="rounded-xl bg-[linear-gradient(135deg,#d9480f_0%,#b9380d_100%)] text-white shadow-[0_16px_36px_-22px_rgba(217,72,15,0.6)] hover:brightness-110">
                       <a
-                        href={`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(
-                          `Hello, I'm interested in ${displayName(focus.name)} (${focus.code}).`
-                        )}`}
+                        href={waLink(
+                          WHATSAPP_PRIMARY.phone,
+                          `Hello, I'm interested in ${displayName(focus.name)} (${focus.code}).`,
+                        )}
                         target="_blank"
                         rel="noreferrer"
                       >
