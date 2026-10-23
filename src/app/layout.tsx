@@ -112,11 +112,11 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  icons: {
-    icon: "/branding/favicon_jmn.svg",
-    shortcut: "/branding/favicon_jmn.svg",
-    apple: "/branding/favicon_jmn.svg",
-  },
+  // No `icons` entry on purpose. favicon.ico, icon.png and apple-icon.png live
+  // in src/app, where Next's file convention serves them and writes the <link>
+  // tags itself. Declaring icons here as well produced competing tags, and the
+  // SVG that won is unreadable at the 16px Google renders. Regenerate the files
+  // with `npm run images:icons`.
   alternates: {
     canonical: SITE_URL,
   },
