@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ChevronRight, Mail, Phone } from "lucide-react";
+import { ChevronRight, Mail } from "lucide-react";
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { getAllPosts, getPostBySlug } from "@/lib/blog";
-import { WHATSAPP_PHONE } from "@/components/site/constants";
+import WhatsappLinks from "@/components/site/ui/WhatsappLinks";
 
 const SITE_URL = "https://jmnautoparts.com";
 
@@ -176,14 +176,7 @@ export default async function BlogPostPage({
               >
                 <Mail className="h-4 w-4" /> Contact Sales
               </Link>
-              <a
-                href={`https://wa.me/${WHATSAPP_PHONE.replace(/[^\d]/g, "")}`}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl border border-emerald-600/20 bg-emerald-50 px-5 py-2.5 text-sm font-medium text-emerald-700 hover:bg-emerald-100"
-              >
-                <Phone className="h-4 w-4" /> Chat on WhatsApp
-              </a>
+              <WhatsappLinks className="inline-flex items-center gap-2 rounded-xl border border-emerald-600/20 bg-emerald-50 px-5 py-2.5 text-sm font-medium text-emerald-700 hover:bg-emerald-100" />
             </div>
           </div>
         </div>

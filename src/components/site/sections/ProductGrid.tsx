@@ -20,7 +20,6 @@ import {
 } from "@/components/ui/dialog";
 import {
   Mail,
-  Phone,
   Filter,
   Search,
   ChevronLeft,
@@ -31,6 +30,7 @@ import {
 } from "lucide-react";
 import { useT } from "@/components/site/Lang";
 import { WHATSAPP_PRIMARY, waLink } from "@/components/site/constants";
+import WhatsappLinks from "@/components/site/ui/WhatsappLinks";
 import { displayName, makePlaceholder, PRODUCTS } from "@/components/site/data";
 import { useInquiryList } from "@/components/site/InquiryListContext";
 
@@ -361,23 +361,16 @@ export default function ProductGrid() {
                         ? `We may not have every ${BRANDS.find((b) => b.key === brand)?.name ?? brand} part listed yet — ask us directly, we likely have it in stock.`
                         : "No products found for the selected filters. Ask us directly — we likely have it in stock."}
                     </p>
-                    <Button
-                      asChild
-                      className="rounded-xl bg-[linear-gradient(135deg,#d9480f_0%,#b9380d_100%)] text-white shadow-[0_16px_36px_-22px_rgba(217,72,15,0.6)] hover:brightness-110"
-                    >
-                      <a
-                        href={waLink(
-                          WHATSAPP_PRIMARY.phone,
+                    <div className="flex flex-wrap justify-center gap-2">
+                      <WhatsappLinks
+                        message={
                           brand
                             ? `Hello, I'm looking for ${BRANDS.find((b) => b.key === brand)?.name ?? brand} spare parts that aren't listed on your site yet.`
-                            : "Hello, I'm looking for a specific spare part that isn't listed on your site.",
-                        )}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <Phone className="mr-2 h-4 w-4" /> Ask via WhatsApp
-                      </a>
-                    </Button>
+                            : "Hello, I'm looking for a specific spare part that isn't listed on your site."
+                        }
+                        className="inline-flex items-center gap-2 rounded-xl bg-[linear-gradient(135deg,#d9480f_0%,#b9380d_100%)] px-5 py-2.5 text-sm font-medium text-white shadow-[0_16px_36px_-22px_rgba(217,72,15,0.6)] transition hover:brightness-110"
+                      />
+                    </div>
                   </CardContent>
                 </Card>
               )}
@@ -479,19 +472,12 @@ export default function ProductGrid() {
                   </div>
 
                   <div className="flex flex-wrap gap-2 pt-2">
-                    <Button asChild className="rounded-xl bg-[linear-gradient(135deg,#d9480f_0%,#b9380d_100%)] text-white shadow-[0_16px_36px_-22px_rgba(217,72,15,0.6)] hover:brightness-110">
-                      <a
-                        href={waLink(
-                          WHATSAPP_PRIMARY.phone,
-                          `Hello, I'm interested in ${displayName(focus.name)} (${focus.code}).`,
-                        )}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <Phone className="mr-2 h-4 w-4" />
-                        Ask on WhatsApp
-                      </a>
-                    </Button>
+                    {/* The detail view is where someone decides to enquire, so
+                        both lines are offered here rather than just the first. */}
+                    <WhatsappLinks
+                      message={`Hello, I'm interested in ${displayName(focus.name)} (${focus.code}).`}
+                      className="inline-flex items-center gap-2 rounded-xl bg-[linear-gradient(135deg,#d9480f_0%,#b9380d_100%)] px-4 py-2.5 text-sm font-medium text-white shadow-[0_16px_36px_-22px_rgba(217,72,15,0.6)] transition hover:brightness-110"
+                    />
 
                     <Button asChild variant="outline" className="rounded-xl border-slate-900/12 bg-white text-slate-900 hover:border-primary/30 hover:bg-primary/5">
                       <a href="/contact">
