@@ -120,6 +120,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: SITE_URL,
   },
+  // The feed is advertised with a <link> in the layout below, not here. Next
+  // replaces the whole `alternates` object when a page defines its own, and
+  // every page on this site does — so a `types` entry at the root would be
+  // dropped on every route and silently never ship.
 };
 
 export default async function RootLayout({
@@ -138,6 +142,15 @@ export default async function RootLayout({
   return (
     <html lang={initialLang} dir={initialDir} className="h-full">
       <body className="h-full overflow-x-hidden bg-background text-foreground antialiased">
+        {/* Hoisted into <head> by React. Declared here rather than in the
+            metadata export so it survives pages that set their own
+            `alternates`. */}
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="JMN Parts — export &amp; OEM parts notes"
+          href={`${SITE_URL}/feed.xml`}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION_JSON_LD) }}
