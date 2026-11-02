@@ -1,174 +1,138 @@
 "use client";
+
 import * as React from "react";
 import Link from "next/link";
+import { useT } from "@/components/site/Lang";
 import {
-  Mail,
-  Phone,
-  MapPin,
-  Instagram,
-  MessageCircle,
-  QrCode,
-  Send,
-} from "lucide-react";
-import {
+  COMPANY_ADDRESS,
   COMPANY_EMAIL,
+  FOUNDED_LABEL,
+  SITE_NAME,
   SOCIALS,
   WHATSAPP_CONTACTS,
-  WHATSAPP_PRIMARY,
   waLink,
 } from "@/components/site/constants";
 
+/**
+ * Footer: four hairline columns, no gradient, no social pills.
+ *
+ * Labels reuse the nav keys so they follow the language switcher; the two
+ * invented "Support" links ("Request Catalog", "Become a reseller") are gone —
+ * both pointed at the same contact page.
+ */
 export default function Footer() {
+  const t = useT();
+
   return (
-    <footer className="border-t border-border/60 bg-[linear-gradient(180deg,rgba(243,239,231,0.7),rgba(232,227,217,0.95))]">
-      <div className="container mx-auto grid max-w-7xl gap-8 px-4 py-10 md:grid-cols-4">
+    <footer className="border-t border-line bg-paper-2">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-4">
         <div>
-          <div className="mb-1 flex items-center gap-2">
-            <Link href="/" className="flex items-center gap-2">
-              {/* Vector SVG logo — next/image offers no optimization for vector art */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/branding/logo_jmn2.svg"
-                alt="JMN logo"
-                className="h-15 w-auto"
-              />
-              <span className="sr-only">JMN</span>
-            </Link>
-          </div>
-          <p className="text-sm text-muted-foreground">
-            Suzuki Genuine Parts distributor based in Jakarta, Indonesia.
-            Multi-brand export supplier.
+          {/* Vector SVG logo — next/image offers no optimization for vector art */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/branding/logo_jmn2.svg" alt="JMN" className="h-10 w-auto" />
+          <p className="mt-3 text-xs leading-relaxed text-ink-2">
+            {SITE_NAME}
+            <br />
+            Suzuki Genuine Parts · {FOUNDED_LABEL}
           </p>
         </div>
 
-        <div>
-          <div className="mb-3 font-medium">Company</div>
-          <ul className="space-y-2 text-sm">
+        <nav>
+          <h2 className="eyebrow">{t("nav_products")}</h2>
+          <ul className="mt-3 space-y-2 text-sm">
             <li>
-              <Link href="/" className="hover:underline">
-                Home
+              <Link href="/products" className="hover:text-accent">
+                {t("product_label")}
               </Link>
             </li>
             <li>
-              <Link href="/about" className="hover:underline">
-                About Us
+              <Link href="/#terms" className="hover:text-accent">
+                {t("nav_terms")}
               </Link>
             </li>
             <li>
-              <Link href="/products" className="hover:underline">
-                Products
+              <Link href="/#how-to-order" className="hover:text-accent">
+                {t("nav_how")}
               </Link>
             </li>
             <li>
-              <Link href="/blog" className="hover:underline">
-                Blog
-              </Link>
-            </li>
-            <li>
-              <Link href="/contact" className="hover:underline">
-                Contact
+              <Link href="/#rfq" className="hover:text-accent">
+                {t("nav_contact")}
               </Link>
             </li>
           </ul>
-        </div>
+        </nav>
 
-        <div>
-          <div className="mb-3 font-medium">Support</div>
-          <ul className="space-y-2 text-sm">
+        <nav>
+          <h2 className="eyebrow">{t("about_label")}</h2>
+          <ul className="mt-3 space-y-2 text-sm">
             <li>
-              <Link href="/contact" className="hover:underline">
-                Request Catalog
+              <Link href="/about" className="hover:text-accent">
+                {t("about_label")}
               </Link>
             </li>
             <li>
-              <Link href="/contact" className="hover:underline">
-                Become a reseller
+              <Link href="/blog" className="hover:text-accent">
+                {t("nav_blog")}
               </Link>
+            </li>
+            <li>
+              <a
+                href={SOCIALS.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-accent"
+              >
+                Instagram
+              </a>
             </li>
           </ul>
-        </div>
+        </nav>
 
         <div>
-          <div className="mb-3 font-medium">Get in touch</div>
-          <ul className="space-y-2 text-sm">
-            <li className="flex items-center gap-2">
-              <Mail className="h-4 w-4" />
-              <a className="hover:underline" href={`mailto:${COMPANY_EMAIL}`}>
+          <h2 className="eyebrow">{t("nav_contact")}</h2>
+          <ul className="mt-3 space-y-2 text-sm">
+            <li>
+              <a
+                href={`mailto:${COMPANY_EMAIL}`}
+                className="pn break-all hover:text-accent"
+              >
                 {COMPANY_EMAIL}
               </a>
             </li>
-            {/* The actual numbers rather than the word "WhatsApp": in the
-                footer people are looking for a number to save or dial, and the
-                social row below already carries the one-tap chat link. */}
-            {WHATSAPP_CONTACTS.map((contact, i) => (
-              <li key={contact.phone} className="flex items-center gap-2">
-                {i === 0 ? (
-                  <Phone className="h-4 w-4 shrink-0" />
-                ) : (
-                  <span className="h-4 w-4 shrink-0" aria-hidden />
-                )}
+            {WHATSAPP_CONTACTS.map((contact) => (
+              <li key={contact.phone}>
                 <a
-                  className="hover:underline"
                   href={waLink(contact.phone)}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="pn hover:text-accent"
                 >
                   {contact.display}
                 </a>
               </li>
             ))}
-            <li className="flex items-center gap-2">
-              <MapPin className="h-4 w-4" /> Central Jakarta
+            <li className="text-xs leading-relaxed text-ink-2">
+              {COMPANY_ADDRESS}
             </li>
           </ul>
-
-          <div className="mt-4 flex items-center gap-3">
-            <a
-              href={SOCIALS.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm hover:bg-muted"
-            >
-              <Instagram className="h-4 w-4" /> Instagram
-            </a>
-            <a
-              href={waLink(WHATSAPP_PRIMARY.phone)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm hover:bg-muted"
-            >
-              <MessageCircle className="h-4 w-4" /> WhatsApp
-            </a>
-            <a
-              href={SOCIALS.zalo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm hover:bg-muted"
-            >
-              <Send className="h-4 w-4" /> Zalo
-            </a>
-            <a
-              href={SOCIALS.wechatQr}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm hover:bg-muted"
-            >
-              <QrCode className="h-4 w-4" /> WeChat
-            </a>
-          </div>
         </div>
       </div>
 
-      <div className="border-t text-xs text-muted-foreground">
-        <div className="container mx-auto flex items-center justify-between px-4 py-4">
-          <span>(c) {new Date().getFullYear()} JMN. All rights reserved.</span>
-          <span className="flex items-center gap-2">
-            <Link href="/terms" className="hover:underline">
+      <div className="border-t border-line">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-4 text-xs text-ink-3 sm:px-6">
+          <span>
+            © {new Date().getFullYear()} {SITE_NAME}
+          </span>
+          <span className="flex items-center gap-3">
+            <Link href="/terms" className="hover:text-accent">
               Terms
             </Link>
-            <span aria-hidden>|</span>
-            <Link href="/privacy" className="hover:underline">
+            <Link href="/privacy" className="hover:text-accent">
               Privacy
+            </Link>
+            <Link href="/feed.xml" className="hover:text-accent">
+              RSS
             </Link>
           </span>
         </div>

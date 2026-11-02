@@ -27,8 +27,7 @@ export default function ClientRoot({
   return (
     <LangContext.Provider value={lang}>
       <InquiryListProvider>
-        <div className="min-h-screen text-foreground bg-site relative">
-          <div className="pointer-events-none absolute inset-0 bg-grid" />
+        <div className="relative min-h-screen bg-paper text-ink">
           <Navbar lang={lang} onLangChange={setLang} />
           {children}
           <FloatingContact />

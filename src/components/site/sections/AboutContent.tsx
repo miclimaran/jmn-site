@@ -60,13 +60,12 @@ export default function AboutContent() {
   const directorTitle =
     lang === "id" ? COMPANY_DIRECTOR_TITLE_ID : COMPANY_DIRECTOR_TITLE_EN;
 
-  const stats = [
-    { value: years, suffix: "", label: t("stat_years") },
-    // TODO(JMN): these three are still unconfirmed — same figures as the homepage.
-    { value: 12000, suffix: "+", label: t("stat_skus") },
-    { value: 22, suffix: "+", label: t("stat_countries") },
-    { value: 99.5, suffix: "%", label: t("stat_accuracy") },
-  ];
+  // Only the derived figure is left. "12,000+ active SKUs", "22+ countries
+  // served" and "99.5% fulfillment accuracy" were removed from this page and
+  // from the homepage in the redesign: nobody has confirmed any of the three,
+  // and a buyer who checks one and finds it wrong stops checking the rest.
+  // Put them back here the day you can evidence them.
+  const stats = [{ value: years, suffix: "", label: t("stat_years") }];
 
   const photos = [
     { photo: AISLE_PHOTO, caption: c.captions.aisle },

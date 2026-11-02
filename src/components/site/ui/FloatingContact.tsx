@@ -1,28 +1,34 @@
 "use client";
+
 import * as React from "react";
-import { Button } from "@/components/ui/button";
-import { MessageCircle, ClipboardList, X } from "lucide-react";
+import { ClipboardList, X } from "lucide-react";
 import QuickRFQ from "@/components/site/sections/QuickRFQ";
+import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
+import { useHomeCopy } from "@/components/site/useHomeCopy";
 import { WHATSAPP_CONTACTS, waLink } from "@/components/site/constants";
 import { useInquiryList } from "@/components/site/InquiryListContext";
 
 const GREETING = "Hi JMN, I'd like an export quote.";
 
+/**
+ * Two persistent actions, bottom right: WhatsApp and the RFQ drawer.
+ *
+ * Square and flat now, matching the rest of the site, and the badge counts the
+ * parts a buyer has collected while browsing the catalog.
+ */
 export default function FloatingContact() {
+  const copy = useHomeCopy();
   const [open, setOpen] = React.useState(false);
   const [showLines, setShowLines] = React.useState(false);
   const { items } = useInquiryList();
 
-  // With a single line the bubble stays a one-tap link — making someone open a
-  // menu to reach the only number there is would be pure friction.
   const single = WHATSAPP_CONTACTS.length === 1;
 
   return (
     <>
-      <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-2">
-        {/* Lines fan out above the bubble so the bubble itself keeps its spot. */}
+      <div className="fixed bottom-0 end-0 z-50 flex flex-col items-end gap-px p-3">
         {showLines && !single && (
-          <div className="flex flex-col items-end gap-2">
+          <div className="mb-1 flex flex-col items-end gap-px">
             {WHATSAPP_CONTACTS.map((contact) => (
               <a
                 key={contact.phone}
@@ -30,57 +36,58 @@ export default function FloatingContact() {
                 target="_blank"
                 rel="noreferrer"
                 onClick={() => setShowLines(false)}
-                className="inline-flex items-center gap-2 rounded-full border border-emerald-600/25 bg-white px-4 py-2.5 text-sm font-medium text-emerald-700 shadow-lg transition hover:bg-emerald-50"
+                className="btn pn bg-paper text-xs shadow-[0_1px_0_rgba(0,0,0,0.12)]"
               >
-                <MessageCircle className="h-4 w-4 shrink-0" />
+                <WhatsAppIcon className="h-4 w-4" />
                 {contact.display}
               </a>
             ))}
           </div>
         )}
 
-        <div className="flex gap-2">
+        <div className="flex gap-px">
           {single ? (
             <a
               href={waLink(WHATSAPP_CONTACTS[0].phone, GREETING)}
               target="_blank"
               rel="noreferrer"
+              className="btn btn--ink"
+              aria-label={copy.hero.whatsapp}
             >
-              <Button className="h-12 w-12 rounded-full" aria-label="WhatsApp">
-                <MessageCircle className="h-5 w-5" />
-              </Button>
+              <WhatsAppIcon className="h-5 w-5" />
             </a>
           ) : (
-            <Button
-              onClick={() => setShowLines((v) => !v)}
-              className="h-12 w-12 rounded-full"
+            <button
+              type="button"
+              onClick={() => setShowLines((value) => !value)}
+              className="btn btn--ink"
               aria-expanded={showLines}
-              aria-label={
-                showLines ? "Close WhatsApp numbers" : "Show WhatsApp numbers"
-              }
+              aria-label={copy.hero.whatsapp}
             >
               {showLines ? (
                 <X className="h-5 w-5" />
               ) : (
-                <MessageCircle className="h-5 w-5" />
+                <WhatsAppIcon className="h-5 w-5" />
               )}
-            </Button>
+            </button>
           )}
 
-          <Button
+          <button
+            type="button"
             onClick={() => setOpen(true)}
-            className="relative inline-flex h-12 items-center gap-2 rounded-full px-4"
+            className="btn btn--accent relative"
           >
-            <ClipboardList className="h-5 w-5" />
-            <span className="hidden sm:inline">Quick RFQ</span>
+            <ClipboardList className="h-4 w-4" />
+            <span className="hidden sm:inline">{copy.rfq.submit}</span>
             {items.length > 0 && (
-              <span className="absolute -right-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-emerald-500 px-1 text-xs font-semibold text-white">
+              <span className="pn absolute -top-2 end-[-0.4rem] min-w-5 border border-ink bg-paper px-1 text-[0.6875rem] font-semibold text-ink">
                 {items.length}
               </span>
             )}
-          </Button>
+          </button>
         </div>
       </div>
+
       <QuickRFQ open={open} onOpenChange={setOpen} />
     </>
   );

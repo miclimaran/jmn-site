@@ -1,101 +1,46 @@
 import type { Metadata } from "next";
 import Hero from "@/components/site/sections/Hero";
-import Logos from "@/components/site/sections/Logos";
-import WhyUs from "@/components/site/sections/WhyUs";
-import WarehouseGallery from "@/components/site/sections/WarehouseGallery";
-import ProductGrid from "@/components/site/sections/ProductGrid";
-import TestimonialsSection from "@/components/site/sections/TestimonialsSection";
-import ExportSection from "@/components/site/sections/ExportSection";
-import ContactSection from "@/components/site/sections/ContactSection";
-import MapSection from "@/components/site/sections/MapSection";
-import CountryMarquee from "@/components/site/sections/CountryMarquee";
-import SectionFrame from "@/components/site/sections/SectionFrame";
+import HowToOrder from "@/components/site/sections/HowToOrder";
+import TradeTerms from "@/components/site/sections/TradeTerms";
+import BrandsCategories from "@/components/site/sections/BrandsCategories";
+import StockProof from "@/components/site/sections/StockProof";
+import CompanyStory from "@/components/site/sections/CompanyStory";
+import ContactRfq from "@/components/site/sections/ContactRfq";
 
 export const metadata: Metadata = {
+  description:
+    "Send a part number list and get stock, price and lead time per line. Authorized Suzuki Genuine Parts distributor in Jakarta since October 1989; also Toyota, Daihatsu and Mitsubishi, packed and documented for export.",
   alternates: {
     canonical: "https://jmnautoparts.com",
   },
 };
 
-const FAQ_ITEMS = [
-  {
-    question: "What information helps us quote faster?",
-    answer:
-      "Part numbers (OEM if possible), vehicle model/year, target quantities, destination port, preferred Incoterms, and required lead time.",
-  },
-  {
-    question: "Do you ship internationally?",
-    answer:
-      "Yes — we dispatch globally with export documentation and multiple forwarders (air & sea).",
-  },
-  {
-    question: "How do I buy spare parts from JMN?",
-    answer:
-      "Send us your part numbers or vehicle model via WhatsApp or the contact form. We confirm stock and price, issue a Proforma Invoice, and ship once payment terms are agreed.",
-  },
-  {
-    question: "Is there a minimum order quantity (MOQ) for export?",
-    answer:
-      "We accommodate both small trial orders and full-container export orders. Let us know your target volume and we'll advise the most cost-effective shipping option.",
-  },
-  {
-    question: "Which countries do you export spare parts to?",
-    answer:
-      "We regularly export Suzuki genuine parts to the Middle East, Africa, and Southeast Asia, with experience shipping to 22+ countries.",
-  },
-];
-
-const FAQ_JSON_LD = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQ_ITEMS.map((item) => ({
-    "@type": "Question",
-    name: item.question,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: item.answer,
-    },
-  })),
-};
-
+/**
+ * Homepage.
+ *
+ * Order follows what an importer actually asks, in order: can you quote my
+ * list → how does ordering work → what are your terms → what do you carry →
+ * can I see the goods → who are you → here is my list.
+ *
+ * Removed in the redesign, on purpose:
+ *   - the four-number stat bar (three of the four figures were unconfirmed)
+ *   - the scrolling country marquee (which countries is still unconfirmed)
+ *   - the "Trusted by" manufacturer logo wall, which read as an endorsement
+ *   - the four icon feature cards ("Global Shipping", "Technical Support")
+ *   - the testimonials, all four of which were invented placeholder copy
+ *   - the FAQ structured data, whose answers quoted those same figures
+ * None of them should come back without the facts to support them.
+ */
 export default function HomePage() {
   return (
-    <main className="min-h-screen w-full overflow-x-hidden">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSON_LD) }}
-      />
+    <main>
       <Hero />
-      <CountryMarquee />
-      <Logos />
-
-      <SectionFrame id="intro" labelKey="about_label">
-        <WhyUs />
-      </SectionFrame>
-
-      <SectionFrame id="warehouse" labelKey="warehouse_label" tone="muted">
-        <WarehouseGallery />
-      </SectionFrame>
-
-      <SectionFrame id="products" labelKey="product_label">
-        <ProductGrid />
-      </SectionFrame>
-
-      <SectionFrame id="testimonials" labelKey="testimonials_label" tone="muted">
-        <TestimonialsSection />
-      </SectionFrame>
-
-      <SectionFrame id="export" labelKey="export_label">
-        <ExportSection />
-      </SectionFrame>
-
-      <SectionFrame id="contact" labelKey="contact_label" tone="muted">
-        <ContactSection />
-      </SectionFrame>
-
-      <SectionFrame id="map" labelKey="location_label">
-        <MapSection />
-      </SectionFrame>
+      <HowToOrder />
+      <TradeTerms />
+      <BrandsCategories />
+      <StockProof />
+      <CompanyStory />
+      <ContactRfq index="06" />
     </main>
   );
 }

@@ -1,28 +1,29 @@
 import type { Metadata } from "next";
-import ContactSection from "@/components/site/sections/ContactSection";
-import MapSection from "@/components/site/sections/MapSection";
+import ContactRfq from "@/components/site/sections/ContactRfq";
+import { SITE_URL } from "@/components/site/constants";
 
 export const metadata: Metadata = {
-  title: "Contact Us",
+  title: "Contact",
   description:
-    "Get in touch with PT. Jaya Makmur Nugraha for spare parts inquiries, export quotes, or business partnerships. Located in Jakarta, Indonesia.",
-  alternates: {
-    canonical: "https://jmnautoparts.com/contact",
-  },
+    "Email, WhatsApp and the Jakarta warehouse address for PT. Jaya Makmur Nugraha, plus the RFQ form — paste a part number list or attach your Excel file.",
+  alternates: { canonical: `${SITE_URL}/contact` },
   openGraph: {
-    title: "Contact Us | JMN Parts",
+    title: "Contact | JMN Parts",
     description:
-      "Reach out for parts inquiries, export quotes, or business partnerships. Jakarta, Indonesia.",
-    url: "https://jmnautoparts.com/contact",
+      "Email, WhatsApp, warehouse address, and the RFQ form. Jakarta, Indonesia.",
+    url: `${SITE_URL}/contact`,
     images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
   },
 };
 
+/**
+ * Contact page — the same section the homepage ends with, so there is one
+ * contact block and one RFQ form on the site, not two of each.
+ */
 export default function ContactPage() {
   return (
     <main>
-      <ContactSection />
-      <MapSection />
+      <ContactRfq />
     </main>
   );
 }

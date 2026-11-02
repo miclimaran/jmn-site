@@ -1,522 +1,230 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import {
-  Mail,
-  Filter,
-  Search,
-  ChevronLeft,
-  ChevronRight,
-  X,
-  ClipboardCheck,
-  ClipboardPlus,
-} from "lucide-react";
+import * as React from "react";
+import Link from "next/link";
+import { ClipboardCheck, ClipboardPlus, Search, X } from "lucide-react";
 import { useT } from "@/components/site/Lang";
-import { WHATSAPP_PRIMARY, waLink } from "@/components/site/constants";
-import WhatsappLinks from "@/components/site/ui/WhatsappLinks";
-import { displayName, makePlaceholder, PRODUCTS } from "@/components/site/data";
+import { useHomeCopy } from "@/components/site/useHomeCopy";
+import { BRANDS, displayName } from "@/components/site/data";
+import { ALL_PARTS, categoryCounts, normalizePn, type Part } from "@/lib/parts";
 import { useInquiryList } from "@/components/site/InquiryListContext";
+import WhatsappLinks from "@/components/site/ui/WhatsappLinks";
 
-const BRANDS = [
-  { name: "Suzuki", key: "suzuki" },
-  { name: "Toyota", key: "toyota" },
-  { name: "Daihatsu", key: "daihatsu" },
-  { name: "Mitsubishi", key: "mitsubishi" },
-] as const;
-
-const CATEGORIES = [
-  "Engine",
-  "Filters",
-  "Braking",
-  "Electrical",
-  "Suspension",
-  "Steering",
-  "Body & Trim",
-  "Transmission",
-] as const;
-
-const ITEMS_PER_PAGE = 6;
-
-type Product = (typeof PRODUCTS)[number];
-
-function useFilteredProducts({
-  brand,
-  category,
-  q,
-}: {
-  brand: string;
-  category: string;
-  q: string;
-}) {
-  return useMemo(() => {
-    const term = (q || "").toLowerCase().trim();
-
-    return PRODUCTS.filter((p) => {
-      const matchBrand = !brand || p.brand === brand;
-      const matchCat = !category || p.category === category;
-      const hay =
-        `${p.name} ${p.code} ${p.models.join(" ")} ${p.brand} ${p.category}`.toLowerCase();
-      const matchQ = !term || hay.includes(term);
-
-      return matchBrand && matchCat && matchQ;
-    });
-  }, [brand, category, q]);
-}
-
-function BrandBadge({ brand }: { brand: string }) {
-  const b = BRANDS.find((x) => x.key === brand);
-
-  return (
-    <Badge variant="secondary" className="rounded-full">
-      {b?.name || brand}
-    </Badge>
-  );
-}
-
-function ProductCard({
-  p,
-  onQuickView,
-}: {
-  p: Product;
-  onQuickView: (p: Product) => void;
-}) {
-  const { isInList, addItem, removeItem } = useInquiryList();
-  const inList = isInList(p.code);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.35 }}
-      className="h-full"
-    >
-      <Card className="group flex h-full flex-col overflow-hidden rounded-2xl border-border/60 bg-card/70 backdrop-blur">
-        <div className="aspect-[16/10] overflow-hidden bg-muted">
-          {/* Falls back to a data-URI placeholder until a real photo exists — next/image can't optimize either source here */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={p.image}
-            alt={displayName(p.name)}
-            onError={(event) => {
-              event.currentTarget.src = makePlaceholder(p.code);
-            }}
-            className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"
-          />
-        </div>
-
-        <CardHeader className="space-y-3">
-          <div className="flex items-center justify-between gap-3">
-            <BrandBadge brand={p.brand} />
-            {p.oem && <Badge className="rounded-full">OEM</Badge>}
-          </div>
-
-          <CardTitle className="min-h-[3.75rem] line-clamp-2 text-lg leading-snug">
-            {displayName(p.name)}
-          </CardTitle>
-
-          <p className="min-h-[3.5rem] text-sm text-muted-foreground">
-            Genuine quality backed by JMN sourcing.
-          </p>
-        </CardHeader>
-
-        <CardContent className="flex flex-1 flex-col space-y-4">
-          <div className="rounded-xl border bg-background/70 p-3">
-            <div className="text-xs uppercase tracking-wide text-muted-foreground">
-              Part No
-            </div>
-            <div className="mt-1 font-medium">{p.code}</div>
-          </div>
-
-          <div className="flex flex-wrap gap-2">
-            {p.models.map((m) => (
-              <Badge key={m} variant="outline" className="rounded-full">
-                {m}
-              </Badge>
-            ))}
-          </div>
-
-          <div className="mt-auto flex flex-wrap gap-2 pt-1">
-            <Button
-              variant="outline"
-              onClick={() => onQuickView(p)}
-              className="rounded-xl border-slate-900/12 bg-white text-slate-900 hover:border-primary/30 hover:bg-primary/5"
-            >
-              Quick view
-            </Button>
-
-            <Button asChild className="rounded-xl bg-[linear-gradient(135deg,#d9480f_0%,#b9380d_100%)] text-white shadow-[0_16px_36px_-22px_rgba(217,72,15,0.6)] hover:brightness-110">
-              <a
-                href={waLink(
-                  WHATSAPP_PRIMARY.phone,
-                  `Hello, I'm interested in ${displayName(p.name)} (${p.code}).`,
-                )}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Ask via WhatsApp
-              </a>
-            </Button>
-
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() =>
-                inList
-                  ? removeItem(p.code)
-                  : addItem({ code: p.code, name: displayName(p.name) })
-              }
-              className={`rounded-xl border-slate-900/12 ${
-                inList ? "bg-emerald-50 text-emerald-700 hover:bg-emerald-100" : "bg-white text-slate-900 hover:border-primary/30 hover:bg-primary/5"
-              }`}
-            >
-              {inList ? (
-                <>
-                  <ClipboardCheck className="mr-2 h-4 w-4" /> Added
-                </>
-              ) : (
-                <>
-                  <ClipboardPlus className="mr-2 h-4 w-4" /> Add to Inquiry
-                </>
-              )}
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-    </motion.div>
-  );
-}
-
+/**
+ * The catalog, as a table.
+ *
+ * It was a paginated grid of image cards, six per page, every card carrying the
+ * same sentence ("Genuine quality backed by JMN sourcing") under a different
+ * part name. A buyer scanning for numbers wants rows: all of them, searchable,
+ * with the number in mono and a link to the part page.
+ *
+ * Filtering is client-side over ~100 rows, so there is no pagination and no
+ * loading state to design.
+ */
 export default function ProductGrid() {
   const t = useT();
+  const copy = useHomeCopy();
   const { isInList, addItem, removeItem } = useInquiryList();
 
-  const [brand, setBrand] = useState("");
-  const [category, setCategory] = useState("");
-  const [q, setQ] = useState("");
-  const [sheetOpen, setSheetOpen] = useState(false);
-  const [focus, setFocus] = useState<Product | null>(null);
-  const [page, setPage] = useState(1);
+  const [brand, setBrand] = React.useState("");
+  const [category, setCategory] = React.useState("");
+  const [query, setQuery] = React.useState("");
 
-  useEffect(() => {
-    const initialQuery = new URLSearchParams(window.location.search).get("q");
-    if (initialQuery) setQ(initialQuery);
+  const categories = React.useMemo(() => categoryCounts(), []);
+
+  React.useEffect(() => {
+    const initial = new URLSearchParams(window.location.search).get("q");
+    if (initial) setQuery(initial);
   }, []);
 
-  const items = useFilteredProducts({ brand, category, q });
+  const rows = React.useMemo(() => {
+    const term = query.trim().toLowerCase();
+    const pnTerm = normalizePn(query);
 
-  const totalPages = Math.max(1, Math.ceil(items.length / ITEMS_PER_PAGE));
+    return ALL_PARTS.filter((part) => {
+      if (brand && part.brand !== brand) return false;
+      if (category && part.category !== category) return false;
+      if (!term) return true;
 
-  const paginatedItems = useMemo(() => {
-    const start = (page - 1) * ITEMS_PER_PAGE;
-    return items.slice(start, start + ITEMS_PER_PAGE);
-  }, [items, page]);
+      const haystack =
+        `${part.name} ${part.code} ${part.models.join(" ")} ${part.brand} ${part.category}`.toLowerCase();
+      return (
+        haystack.includes(term) ||
+        (pnTerm.length >= 3 && normalizePn(part.code).includes(pnTerm))
+      );
+    });
+  }, [brand, category, query]);
 
-  useEffect(() => {
-    setPage(1);
-  }, [brand, category, q]);
-
-  useEffect(() => {
-    if (page > totalPages) {
-      setPage(totalPages);
-    }
-  }, [page, totalPages]);
-
-  const startItem = items.length === 0 ? 0 : (page - 1) * ITEMS_PER_PAGE + 1;
-  const endItem = Math.min(page * ITEMS_PER_PAGE, items.length);
-
-  const filters = (
-    <div className="space-y-4">
-      <div>
-        <label className="text-sm font-medium">Brand</label>
-        <select
-          value={brand}
-          onChange={(e) => setBrand(e.target.value)}
-          className="mt-1 w-full rounded-xl border bg-background px-3 py-2"
-        >
-          <option value="">All brands</option>
-          {BRANDS.map((b) => (
-            <option key={b.key} value={b.key}>
-              {b.name}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div>
-        <label className="text-sm font-medium">Category</label>
-        <select
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          className="mt-1 w-full rounded-xl border bg-background px-3 py-2"
-        >
-          <option value="">All categories</option>
-          {CATEGORIES.map((c) => (
-            <option key={c} value={c}>
-              {c}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div>
-        <label className="text-sm font-medium">Search</label>
-        <div className="mt-1 flex items-center gap-2 rounded-xl border bg-background px-3">
-          <Search className="h-4 w-4 text-muted-foreground" />
-          <input
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-            placeholder="Search name / code / model..."
-            className="w-full bg-transparent py-2 outline-none"
-          />
-          {q && (
-            <button
-              type="button"
-              onClick={() => setQ("")}
-              className="text-muted-foreground transition hover:text-foreground"
-              aria-label="Clear search"
-            >
-              <X className="h-4 w-4" />
-            </button>
-          )}
-        </div>
-      </div>
-    </div>
-  );
+  const toggle = (part: Part) => {
+    if (isInList(part.code)) removeItem(part.code);
+    else addItem({ code: part.code, name: displayName(part.name) });
+  };
 
   return (
-    <section className="pb-14 pt-5 md:pb-20 md:pt-6">
-      <div className="mx-auto w-full max-w-7xl px-4">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="text-muted-foreground">{t("products_sub")}</p>
+    <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+      {/* Toolbar */}
+      <div className="flex flex-col gap-3 border-b border-line pb-4 sm:flex-row sm:items-end">
+        <div className="flex-1">
+          <label className="field-label" htmlFor="cat-search">
+            {t("hero_search_placeholder")}
+          </label>
+          <div className="flex items-center gap-2 border border-line-strong px-3">
+            <Search className="h-4 w-4 shrink-0 text-ink-3" />
+            <input
+              id="cat-search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              className="pn w-full bg-transparent py-2.5 text-sm outline-none"
+              spellCheck={false}
+              autoComplete="off"
+            />
+            {query && (
+              <button
+                type="button"
+                onClick={() => setQuery("")}
+                aria-label="Clear search"
+                className="text-ink-3 hover:text-accent"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            )}
+          </div>
         </div>
 
-        <div className="mx-auto mt-8 max-w-6xl rounded-2xl border border-border/70 bg-card/92 p-4 shadow-[0_24px_80px_-36px_rgba(15,23,42,0.3)] backdrop-blur sm:p-6 lg:p-8">
-          <div className="grid items-start gap-6 lg:grid-cols-[260px_minmax(0,1fr)] xl:grid-cols-[280px_minmax(0,1fr)]">
-            <aside className="hidden lg:block">
-              <div className="sticky top-24">
-                <Card className="rounded-2xl border-border/60 bg-muted/20 shadow-sm">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-base">
-                      <Filter className="h-4 w-4" />
-                      {t("quick_filters")}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>{filters}</CardContent>
-                </Card>
-              </div>
-            </aside>
+        <div className="grid grid-cols-2 gap-3 sm:w-[22rem]">
+          <div>
+            <label className="field-label" htmlFor="cat-brand">
+              {copy.part.labelBrand}
+            </label>
+            <select
+              id="cat-brand"
+              className="field"
+              value={brand}
+              onChange={(event) => setBrand(event.target.value)}
+            >
+              <option value="">—</option>
+              {BRANDS.map((item) => (
+                <option key={item.key} value={item.key}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+          </div>
 
-            <div className="min-w-0">
-              <div className="mb-4 flex items-center justify-between gap-3 lg:hidden">
-                <div className="text-sm text-muted-foreground">
-                  {t("quick_filters")}
-                </div>
-
-                <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-                  <SheetTrigger asChild>
-                    <Button variant="outline" className="rounded-xl">
-                      <Filter className="mr-2 h-4 w-4" />
-                      {t("quick_filters")}
-                    </Button>
-                  </SheetTrigger>
-
-                  <SheetContent side="bottom" className="rounded-t-3xl">
-                    <SheetHeader>
-                      <SheetTitle>{t("quick_filters")}</SheetTitle>
-                    </SheetHeader>
-                    <div className="mt-6">{filters}</div>
-                  </SheetContent>
-                </Sheet>
-              </div>
-
-              <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-                {paginatedItems.map((p) => (
-                  <ProductCard key={p.id} p={p} onQuickView={(x) => setFocus(x)} />
-                ))}
-              </div>
-
-              {items.length === 0 && (
-                <Card className="mt-6 rounded-2xl border-border/60">
-                  <CardContent className="flex flex-col items-center gap-4 py-10 text-center">
-                    <p className="text-muted-foreground">
-                      {brand
-                        ? `We may not have every ${BRANDS.find((b) => b.key === brand)?.name ?? brand} part listed yet — ask us directly, we likely have it in stock.`
-                        : "No products found for the selected filters. Ask us directly — we likely have it in stock."}
-                    </p>
-                    <div className="flex flex-wrap justify-center gap-2">
-                      <WhatsappLinks
-                        message={
-                          brand
-                            ? `Hello, I'm looking for ${BRANDS.find((b) => b.key === brand)?.name ?? brand} spare parts that aren't listed on your site yet.`
-                            : "Hello, I'm looking for a specific spare part that isn't listed on your site."
-                        }
-                        className="inline-flex items-center gap-2 rounded-xl bg-[linear-gradient(135deg,#d9480f_0%,#b9380d_100%)] px-5 py-2.5 text-sm font-medium text-white shadow-[0_16px_36px_-22px_rgba(217,72,15,0.6)] transition hover:brightness-110"
-                      />
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
-
-              <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-border/60 pt-6">
-                <div className="text-sm text-muted-foreground">
-                  Showing <span className="font-medium">{startItem}-{endItem}</span>{" "}
-                  of <span className="font-medium">{items.length}</span> filtered
-                  products
-                </div>
-
-                <div className="flex flex-wrap items-center gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setPage((prev) => Math.max(1, prev - 1))}
-                    disabled={page === 1 || items.length === 0}
-                    className="rounded-xl"
-                  >
-                    <ChevronLeft className="mr-1 h-4 w-4" />
-                    Previous
-                  </Button>
-
-                  <span className="text-sm text-muted-foreground">
-                    Page {page} of {totalPages}
-                  </span>
-
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setPage((prev) => Math.min(totalPages, prev + 1))}
-                    disabled={page === totalPages || items.length === 0}
-                    className="rounded-xl"
-                  >
-                    Next
-                    <ChevronRight className="ml-1 h-4 w-4" />
-                  </Button>
-
-                  <a
-                    href="/contact"
-                    className="ml-2 inline-flex items-center gap-2 text-sm underline underline-offset-4"
-                  >
-                    <Mail className="h-4 w-4" />
-                    {t("request_full_catalog")}
-                  </a>
-                </div>
-              </div>
-            </div>
+          <div>
+            <label className="field-label" htmlFor="cat-category">
+              {copy.brands.catsTitle}
+            </label>
+            <select
+              id="cat-category"
+              className="field"
+              value={category}
+              onChange={(event) => setCategory(event.target.value)}
+            >
+              <option value="">—</option>
+              {categories.map((item) => (
+                <option key={item.category} value={item.category}>
+                  {item.category} ({item.count})
+                </option>
+              ))}
+            </select>
           </div>
         </div>
       </div>
 
-      <Dialog open={!!focus} onOpenChange={(open) => !open && setFocus(null)}>
-        <DialogContent className="max-w-2xl rounded-3xl">
-          {focus && (
-            <>
-              <DialogHeader>
-                <DialogTitle className="text-2xl">{displayName(focus.name)}</DialogTitle>
-              </DialogHeader>
+      <p className="pn mt-3 text-xs text-ink-3">
+        {rows.length} / {ALL_PARTS.length}
+      </p>
 
-              <div className="grid gap-6 md:grid-cols-[1.1fr_.9fr]">
-                <div className="overflow-hidden rounded-2xl border bg-muted">
-                  {/* Falls back to a data-URI placeholder until a real photo exists — next/image can't optimize either source here */}
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={focus.image}
-                    alt={displayName(focus.name)}
-                    onError={(event) => {
-                      event.currentTarget.src = makePlaceholder(focus.code);
-                    }}
-                    className="h-full w-full object-cover"
-                  />
-                </div>
+      {rows.length === 0 ? (
+        <div className="hair mt-6 bg-paper-2 p-6">
+          <p className="max-w-xl text-sm leading-relaxed text-ink-2">
+            {copy.part.notListed}
+          </p>
+          <div className="mt-4">
+            <WhatsappLinks
+              message={
+                query
+                  ? `Hi JMN, do you have ${query}? It is not listed on your site.`
+                  : "Hi JMN, I am looking for parts that are not listed on your site."
+              }
+              className="btn btn--accent"
+            />
+          </div>
+        </div>
+      ) : (
+        <table className="spec mt-4">
+          <thead>
+            <tr>
+              <th scope="col">{copy.part.labelPartNumber}</th>
+              <th scope="col">{copy.part.labelName}</th>
+              <th scope="col" className="hidden md:table-cell">
+                {copy.part.labelFits}
+              </th>
+              <th scope="col" className="hidden lg:table-cell">
+                {copy.part.labelCategory}
+              </th>
+              <th scope="col" className="text-end">
+                <span className="sr-only">{copy.part.addToRfq}</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((part) => {
+              const inList = isInList(part.code);
 
-                <div className="space-y-4">
-                  <div className="rounded-2xl border p-4">
-                    <div className="text-xs uppercase tracking-wide text-muted-foreground">
-                      Part Number
-                    </div>
-                    <div className="mt-1 font-medium">{focus.code}</div>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2">
-                    <BrandBadge brand={focus.brand} />
-                    {focus.oem && <Badge>OEM</Badge>}
-                  </div>
-
-                  <div>
-                    <div className="mb-2 text-sm font-medium">
-                      Compatible Models
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {focus.models.map((m) => (
-                        <Badge key={m} variant="outline" className="rounded-full">
-                          {m}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {/* The detail view is where someone decides to enquire, so
-                        both lines are offered here rather than just the first. */}
-                    <WhatsappLinks
-                      message={`Hello, I'm interested in ${displayName(focus.name)} (${focus.code}).`}
-                      className="inline-flex items-center gap-2 rounded-xl bg-[linear-gradient(135deg,#d9480f_0%,#b9380d_100%)] px-4 py-2.5 text-sm font-medium text-white shadow-[0_16px_36px_-22px_rgba(217,72,15,0.6)] transition hover:brightness-110"
-                    />
-
-                    <Button asChild variant="outline" className="rounded-xl border-slate-900/12 bg-white text-slate-900 hover:border-primary/30 hover:bg-primary/5">
-                      <a href="/contact">
-                        <Mail className="mr-2 h-4 w-4" />
-                        Contact sales
-                      </a>
-                    </Button>
-
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={() =>
-                        isInList(focus.code)
-                          ? removeItem(focus.code)
-                          : addItem({ code: focus.code, name: displayName(focus.name) })
-                      }
-                      className={`rounded-xl border-slate-900/12 ${
-                        isInList(focus.code)
-                          ? "bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
-                          : "bg-white text-slate-900 hover:border-primary/30 hover:bg-primary/5"
-                      }`}
+              return (
+                <tr key={part.code} className="align-top">
+                  <td className="pn whitespace-nowrap pe-4">
+                    <Link
+                      href={`/parts/${part.code}`}
+                      className="text-ink underline decoration-line-strong underline-offset-4 hover:text-accent"
                     >
-                      {isInList(focus.code) ? (
+                      {part.code}
+                    </Link>
+                  </td>
+                  <td className="pe-4 text-ink">{displayName(part.name)}</td>
+                  <td className="hidden pe-4 md:table-cell">
+                    {part.models.join(" · ")}
+                  </td>
+                  <td className="hidden pe-4 lg:table-cell">{part.category}</td>
+                  <td className="text-end">
+                    <button
+                      type="button"
+                      onClick={() => toggle(part)}
+                      className="btn btn--quiet px-2.5 py-1.5 text-xs"
+                      aria-pressed={inList}
+                    >
+                      {inList ? (
                         <>
-                          <ClipboardCheck className="mr-2 h-4 w-4" /> Added
+                          <ClipboardCheck className="h-3.5 w-3.5" />
+                          <span className="hidden sm:inline">
+                            {copy.part.added}
+                          </span>
                         </>
                       ) : (
                         <>
-                          <ClipboardPlus className="mr-2 h-4 w-4" /> Add to Inquiry
+                          <ClipboardPlus className="h-3.5 w-3.5" />
+                          <span className="hidden sm:inline">
+                            {copy.part.addToRfq}
+                          </span>
                         </>
                       )}
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </>
-          )}
-        </DialogContent>
-      </Dialog>
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      )}
+
+      <p className="mt-8 border-t border-line pt-4 text-sm text-ink-2">
+        {copy.hero.note}{" "}
+        <Link href="/#rfq" className="text-ink underline underline-offset-4 hover:text-accent">
+          {t("request_full_catalog")}
+        </Link>
+      </p>
     </section>
   );
 }

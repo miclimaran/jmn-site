@@ -1,5 +1,6 @@
 import { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/blog";
+import { ALL_PARTS } from "@/lib/parts";
 
 const SITE_URL = "https://jmnautoparts.com";
 
@@ -9,6 +10,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(post.updated),
     changeFrequency: "monthly",
     priority: 0.6,
+  }));
+
+  // One entry per part number. These are the pages a buyer can reach from a
+  // search for the number itself, so they rank above the catalog page.
+  const partPages: MetadataRoute.Sitemap = ALL_PARTS.map((part) => ({
+    url: `${SITE_URL}/parts/${part.code}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.7,
   }));
 
   return [
@@ -54,6 +64,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "yearly",
       priority: 0.3,
     },
+    ...partPages,
     ...blogPosts,
   ];
 }

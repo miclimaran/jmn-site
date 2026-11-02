@@ -1,6 +1,3 @@
-import { Truck, Wrench, ShieldCheck, Boxes } from "lucide-react";
-import { yearsInTrade } from "@/components/site/constants";
-
 // --- Products ---------------------------------------------------------------
 // NOTE:
 // - Use this as website starter content.
@@ -13,21 +10,21 @@ export const MODELS_APV = ["APV"];
 export const MODELS_NEW_CARRY = ["New Carry"];
 export const MODELS_ERTIGA_XL7 = ["All New Ertiga", "XL7"];
 
+/**
+ * Stand-in plate for a part with no photograph yet.
+ *
+ * Flat paper and ink rather than the old dark gradient: on a page full of
+ * hairlines a glossy navy tile is the one thing that looks like a template.
+ * It states the number and says plainly that the photo is missing, so an empty
+ * slot never passes for a product shot.
+ */
 export const makePlaceholder = (code: string) =>
   `data:image/svg+xml;utf8,${encodeURIComponent(`
-    <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
-      <defs>
-        <linearGradient id="jmnph" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#0f172a"/>
-          <stop offset="0.6" stop-color="#1e293b"/>
-          <stop offset="1" stop-color="#241014"/>
-        </linearGradient>
-      </defs>
-      <rect width="1200" height="800" fill="url(#jmnph)"/>
-      <rect x="0" y="0" width="1200" height="12" fill="#ef4444"/>
-      <text x="600" y="345" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="150" font-weight="900" letter-spacing="-6" fill="#f1f5f9">JM<tspan fill="#ef4444">N</tspan></text>
-      <text x="600" y="435" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="32" letter-spacing="10" fill="#94a3b8">GENUINE OEM PART</text>
-      <text x="600" y="540" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700" fill="#e2e8f0">${code}</text>
+    <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
+      <rect width="1200" height="900" fill="#f6f6f4"/>
+      <rect x="0" y="0" width="1200" height="8" fill="#c71f1f"/>
+      <text x="600" y="430" text-anchor="middle" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="54" fill="#171716">${code}</text>
+      <text x="600" y="500" text-anchor="middle" font-family="IBM Plex Sans, ui-sans-serif, sans-serif" font-size="28" letter-spacing="6" fill="#807e77">NO PHOTO YET</text>
     </svg>
   `)}`;
 
@@ -1109,104 +1106,18 @@ export const PRODUCTS = [
   },
 ];
 
-// --- Testimonials -----------------------------------------------------------
-// ⚠️  The entries below are PLACEHOLDER COPY, not real customers — invented
-//     names, workshops, and companies. They must be replaced with real,
-//     attributable quotes before this section goes live; the cards render a
-//     "Verified Partner" badge, which makes shipping invented quotes actively
-//     misleading. See docs/TESTIMONI.md for how to collect real ones.
-export type Testimonial = {
-  name: string;
-  title_en: string;
-  title_id: string;
-  quote_en: string;
-  quote_id: string;
-  /** Country or destination port — the detail buyers actually check. */
-  country?: string;
-  /** What was shipped: volume, part family, route. Specifics beat adjectives. */
-  context_en?: string;
-  context_id?: string;
-  /** Month the feedback was given, e.g. "2026-07". */
-  date?: string;
-  /** False until you hold the original message/email from the customer. */
-  verified?: boolean;
-};
-
-export const TESTIMONIALS: Testimonial[] = [
-  {
-    name: "Budi Santoso",
-    title_en: "Owner, Mitra Motor Workshop",
-    title_id: "Pemilik, Bengkel Mitra Motor",
-    quote_en:
-      "JMN is our #1 supplier. Their parts are always genuine, and the fulfillment accuracy saves us from costly delays. Their team is knowledgeable and incredibly responsive.",
-    quote_id:
-      "JMN adalah pemasok #1 kami. Suku cadangnya selalu asli, dan akurasi pemenuhannya menyelamatkan kami dari penundaan yang mahal. Tim mereka berpengetahuan luas dan sangat responsif.",
-  },
-  {
-    name: "Ahmad Yani",
-    title_en: "Lead Mechanic, Jaya Abadi Service",
-    title_id: "Kepala Mekanik, Servis Jaya Abadi",
-    quote_en:
-      "The quality of Suzuki Genuine Parts from JMN is unmatched. Our customers notice the difference, and it has improved our workshop's reputation significantly.",
-    quote_id:
-      "Kualitas Suku Cadang Asli Suzuki dari JMN tidak ada tandingannya. Pelanggan kami merasakan perbedaannya, dan itu telah meningkatkan reputasi bengkel kami secara signifikan.",
-  },
-  {
-    name: "Rina Wijaya",
-    title_en: "Procurement Manager, Global Auto Exports",
-    title_id: "Manajer Pengadaan, Global Auto Exports",
-    quote_en:
-      "For our international clients, JMN's export documentation is always perfect. They handle consolidation and logistics professionally, making them a reliable partner for global trade.",
-    quote_id:
-      "Untuk klien internasional kami, dokumentasi ekspor JMN selalu sempurna. Mereka menangani konsolidasi dan logistik secara profesional, menjadikan mereka mitra yang andal untuk perdagangan global.",
-  },
-  {
-    name: "Adi Nugroho",
-    title_en: "Procurement Lead, Nusantara Autoparts",
-    title_id: "Kepala Pengadaan, Nusantara Autoparts",
-    quote_en:
-      "Great consolidation and fast response times. Export docs are always correct.",
-    quote_id:
-      "Konsolidasi rapi dan respon cepat. Dokumen ekspor selalu benar.",
-  },
-];
-
-// --- Feature bullets used on "Why Us" ---------------------------------------
-export const FEATURE_ITEMS = [
-  {
-    icon: Truck,
-    titleKey: "feature_shipping_title",
-    descKey: "feature_shipping_desc",
-  },
-  {
-    icon: ShieldCheck,
-    titleKey: "feature_genuine_title",
-    descKey: "feature_genuine_desc",
-  },
-  {
-    icon: Boxes,
-    titleKey: "feature_inventory_title",
-    descKey: "feature_inventory_desc",
-  },
-  {
-    icon: Wrench,
-    titleKey: "feature_support_title",
-    descKey: "feature_support_desc",
-  },
-] as const;
-
-// --- Stats displayed in Hero ------------------------------------------------
-export type StatCard = { labelKey: string; value: number; suffix?: string };
-
-export const STAT_CARDS: StatCard[] = [
-  // Derived from the October 1989 founding date. The hardcoded "12" here was
-  // wrong by 24 years and understated the company on every page load.
-  { labelKey: "stat_years", value: yearsInTrade() },
-  // TODO(JMN): these three are still unconfirmed figures.
-  { labelKey: "stat_skus", value: 12000 },
-  { labelKey: "stat_countries", value: 22 },
-  { labelKey: "stat_accuracy", value: 99.5, suffix: "%" },
-];
+// --- Testimonials, feature cards and hero stats --------------------------
+//
+// All three lists were deleted in the redesign.
+//   TESTIMONIALS  — four invented customers ("Budi Santoso, Mitra Motor"),
+//                   rendered under a "Verified Partner" badge. Collect real
+//                   quotes first; docs/TESTIMONI.md says how.
+//   FEATURE_ITEMS — "Global Shipping", "100% Genuine Parts", "Large
+//                   Inventory", "Technical Support": four icons saying
+//                   nothing a buyer can act on. Replaced by the trade-terms
+//                   table, which answers the same questions with numbers.
+//   STAT_CARDS    — 12,000+ SKUs / 22+ countries / 99.5% accuracy, none of
+//                   them confirmed by the owner.
 
 export const BRANDS = [
   { name: "Suzuki", key: "suzuki", logo: "/logos/logo_suzuki.svg" },

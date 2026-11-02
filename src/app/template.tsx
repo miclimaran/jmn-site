@@ -1,16 +1,11 @@
 /**
- * Route transition.
+ * Route wrapper.
  *
- * `template.tsx` (rather than `layout.tsx`) remounts on every navigation, which
- * is what replays the entrance per page.
- *
- * Plain CSS, and a server component: putting framer-motion here would drag the
- * whole library into the shared bundle for every route. The keyframes live in
- * globals.css and are disabled under `prefers-reduced-motion`.
- *
- * Entrance only — Next's App Router does not keep the outgoing tree around for
- * an exit, and faking one delays every navigation by the length of the fade.
+ * This used to replay a fade-and-rise on every navigation. It was removed: the
+ * site is a parts catalog, and someone who clicks a part number should find the
+ * number already on screen, not arriving. Animation is kept for interaction
+ * only — hover, open/close.
  */
 export default function Template({ children }: { children: React.ReactNode }) {
-  return <div className="page-enter">{children}</div>;
+  return <>{children}</>;
 }

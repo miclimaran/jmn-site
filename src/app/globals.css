@@ -1,273 +1,339 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 @plugin "@tailwindcss/typography";
 
-@custom-variant dark (&:is(.dark *));
+/* ---------------------------------------------------------------------------
+   JMN — parts-counter palette
+   ---------------------------------------------------------------------------
+   Taken from the logo: #2b2b2b (the wordmark) and #ff3131 (the N). The red is
+   darkened to #c71f1f so it passes contrast as link and button text on white;
+   the logo keeps its own brighter red.
+
+   One accent only. Everything else is paper, ink, and a hairline. Status
+   colours (stock, warning) are the single exception and appear as 8px dots,
+   never as a surface.
+   --------------------------------------------------------------------------- */
+
+:root {
+  --paper: #ffffff;
+  --paper-2: #f6f6f4;
+  --paper-3: #ededea;
+  --ink: #171716;
+  --ink-2: #55544f;
+  --ink-3: #807e77;
+  --line: #ddddd7;
+  --line-strong: #c4c3bc;
+  --accent: #c71f1f;
+  --accent-hover: #a51919;
+  --accent-wash: #fbeceb;
+  --ok: #1a7f4b;
+
+  --radius: 0.125rem;
+
+  /* shadcn token names, kept so the ui/* primitives still resolve — pointed at
+     the palette above rather than the stock neutral grey. */
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: var(--paper);
+  --card-foreground: var(--ink);
+  --popover: var(--paper);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: var(--paper);
+  --secondary: var(--paper-2);
+  --secondary-foreground: var(--ink);
+  --muted: var(--paper-2);
+  --muted-foreground: var(--ink-2);
+  --accent-foreground: var(--ink);
+  --destructive: var(--accent);
+  --border: var(--line);
+  --input: var(--line-strong);
+  --ring: var(--ink-3);
+}
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-}
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
 
-:root {
-  --radius: 0.75rem;
-  --background: oklch(0.985 0.004 250);
-  --foreground: oklch(0.2 0.018 255);
-  --card: oklch(0.997 0.002 250);
-  --card-foreground: oklch(0.2 0.018 255);
-  --popover: oklch(0.997 0.002 250);
-  --popover-foreground: oklch(0.2 0.018 255);
-  --primary: oklch(0.58 0.22 30);
-  --primary-foreground: oklch(0.99 0.004 75);
-  --secondary: oklch(0.94 0.008 250);
-  --secondary-foreground: oklch(0.24 0.016 255);
-  --muted: oklch(0.945 0.007 250);
-  --muted-foreground: oklch(0.5 0.02 252);
-  --accent: oklch(0.93 0.035 205);
-  --accent-foreground: oklch(0.2 0.018 255);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.89 0.012 250);
-  --input: oklch(0.91 0.01 250);
-  --ring: oklch(0.58 0.22 30 / 45%);
-  --chart-1: oklch(0.58 0.22 30);
-  --chart-2: oklch(0.42 0.03 250);
-  --chart-3: oklch(0.68 0.11 210);
-  --chart-4: oklch(0.66 0.16 150);
-  --chart-5: oklch(0.55 0.12 255);
-  --sidebar: oklch(0.98 0.004 250);
-  --sidebar-foreground: oklch(0.2 0.018 255);
-  --sidebar-primary: oklch(0.58 0.22 30);
-  --sidebar-primary-foreground: oklch(0.99 0.004 75);
-  --sidebar-accent: oklch(0.94 0.008 250);
-  --sidebar-accent-foreground: oklch(0.24 0.016 255);
-  --sidebar-border: oklch(0.89 0.012 250);
-  --sidebar-ring: oklch(0.58 0.22 30 / 45%);
-}
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-paper-3: var(--paper-3);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ok: var(--ok);
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
+
+  --radius-sm: 0.0625rem;
+  --radius-md: var(--radius);
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.25rem;
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    border-color: var(--line);
   }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
 
-@layer base {
+  html {
+    box-sizing: border-box;
+    max-width: 100vw;
+    overflow-x: hidden;
+    scroll-padding-top: 6rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
   body {
-    background-image:
-      radial-gradient(circle at top left, rgba(225, 47, 16, 0.08), transparent 30%),
-      radial-gradient(circle at 86% 16%, rgba(14, 165, 233, 0.08), transparent 28%),
-      linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(244, 247, 251, 0.98));
-    background-attachment: fixed;
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-feature-settings: "cv05" 1;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+    letter-spacing: -0.015em;
   }
 
   ::selection {
-    background: rgba(196, 76, 27, 0.18);
-    color: inherit;
+    background: var(--accent-wash);
+    color: var(--ink);
   }
-}
 
-
-
-/* Ensure flag emojis render using a color-emoji font on all platforms */
-.emoji-flag {
-  font-family:
-    "Apple Color Emoji",
-    "Segoe UI Emoji",
-    "Noto Color Emoji",
-    "Twemoji Mozilla",
-    "EmojiOne Color",
-    "Segoe UI Symbol",
-    sans-serif;
-}
-
-
-.no-scrollbar { scrollbar-width: none; }
-.no-scrollbar::-webkit-scrollbar { display: none; }
-
-.bg-site {
-  background-image:
-    linear-gradient(180deg, rgba(248, 250, 252, 0.96), rgba(241, 245, 249, 0.98));
-}
-
-.bg-grid {
-  background-image:
-    linear-gradient(rgba(15, 23, 42, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
-  background-size: 28px 28px;
-  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.28), transparent 78%);
-}
-
-
-/* globals.css */
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 7rem;
-}
-
-/* optional tapi membantu di iOS Safari */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+  :focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
 }
 
 /* ---------------------------------------------------------------------------
-   Motion
+   Catalog primitives
+   ---------------------------------------------------------------------------
+   Written as plain classes rather than components: the same hairline box and
+   the same 11px uppercase label show up in a dozen places, and a utility string
+   repeated a dozen times is how a site ends up with twelve slightly different
+   boxes.
+
+   They live in @layer components on purpose. Unlayered CSS beats every cascade
+   layer, so a bare `.btn { display: inline-flex }` would quietly defeat
+   `hidden`, `px-3` and every other utility sitting beside it in the class
+   attribute. Inside the components layer, utilities win — which is what anyone
+   writing `className="btn hidden sm:inline-flex"` expects.
    --------------------------------------------------------------------------- */
 
-/* Slow drifting colour field for hero/section backgrounds. Animating only
-   transform keeps this off the main thread; the blobs are decorative and sit
-   behind a blur, so precision does not matter. */
-@keyframes aurora-drift {
-  0%   { transform: translate3d(0, 0, 0) scale(1); }
-  33%  { transform: translate3d(4%, -3%, 0) scale(1.08); }
-  66%  { transform: translate3d(-3%, 4%, 0) scale(0.96); }
-  100% { transform: translate3d(0, 0, 0) scale(1); }
+@layer components {
+
+/* Small all-caps label above a block. */
+.eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
 }
 
-@keyframes shimmer-sweep {
-  from { transform: translateX(-120%); }
-  to   { transform: translateX(220%); }
+/* Part numbers, quantities, ports — anything a buyer copies or compares. */
+.pn {
+  font-family: var(--font-mono), monospace;
+  font-variant-ligatures: none;
+  letter-spacing: -0.01em;
 }
 
-.aurora-blob {
-  animation: aurora-drift 22s ease-in-out infinite;
-  will-change: transform;
+/* Specification table. Rules only, no card, no shadow. */
+.spec {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+.spec caption {
+  text-align: start;
+}
+.spec th,
+.spec td {
+  padding: 0.75rem 1rem 0.75rem 0;
+  text-align: start;
+  vertical-align: top;
+  border-bottom: 1px solid var(--line);
+}
+.spec thead th {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  border-bottom: 1px solid var(--line-strong);
+  padding-bottom: 0.5rem;
+}
+.spec tbody th {
+  font-weight: 500;
+  color: var(--ink);
+  width: 34%;
+  padding-right: 1.5rem;
+}
+.spec tbody td {
+  color: var(--ink-2);
+}
+.spec tr:last-child th,
+.spec tr:last-child td {
+  border-bottom: 0;
 }
 
-.aurora-blob--slow  { animation-duration: 34s; animation-direction: reverse; }
-.aurora-blob--fast  { animation-duration: 17s; }
-
-/* Sweeping highlight used on primary buttons. */
-.sheen::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    100deg,
-    transparent 20%,
-    rgba(255, 255, 255, 0.28) 50%,
-    transparent 80%
-  );
-  transform: translateX(-120%);
+/* Buttons. Square, flat, no gradient and no shadow. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  padding: 0.6875rem 1.125rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.1;
+  border-radius: var(--radius);
+  transition:
+    background-color 120ms linear,
+    color 120ms linear,
+    border-color 120ms linear;
+}
+.btn:hover {
+  background: var(--paper-3);
+}
+.btn--accent {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.btn--accent:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+.btn--ink {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+.btn--ink:hover {
+  background: #000;
+}
+.btn--quiet {
+  border-color: var(--line-strong);
+}
+.btn[disabled] {
+  opacity: 0.45;
   pointer-events: none;
 }
-.sheen:hover::after {
-  animation: shimmer-sweep 0.9s ease-out;
-}
 
-/* Animated underline for nav links. */
-.link-sweep {
-  position: relative;
-}
-.link-sweep::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -2px;
-  height: 1.5px;
+/* Text input / select / textarea. */
+.field {
   width: 100%;
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid var(--line-strong);
+  background: var(--paper);
+  color: var(--ink);
+  padding: 0.625rem 0.75rem;
+  font-size: 0.9375rem;
+  border-radius: var(--radius);
 }
-.link-sweep:hover::after,
-.link-sweep:focus-visible::after {
-  transform: scaleX(1);
-  transform-origin: left;
+.field::placeholder {
+  color: var(--ink-3);
 }
-
-/* Smooth anchor scrolling, offset so headings clear the sticky navbar. */
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
+.field:focus {
+  outline: 2px solid var(--ink);
+  outline-offset: -1px;
+  border-color: var(--ink);
 }
 
-/* One global escape hatch. Anything decorative that slipped through a
-   component-level check still stops here — including the CSS animations above,
-   which framer-motion's useReducedMotion cannot reach. */
+.field-label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--ink-2);
+}
+
+/* Hairline box used for photo frames and side notes. */
+.hair {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+/* Stock dot. */
+.dot {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: var(--ok);
+}
+.dot--ask {
+  background: var(--ink-3);
+}
+
+/* Marks copy the owner still has to supply. Loud on purpose — it must never
+   survive to production unnoticed. */
+.needs-data {
+  background: #fff4c2;
+  border-bottom: 1px solid #d9b300;
+  color: #4a3a00;
+  padding: 0 0.25rem;
+  font-size: 0.8125em;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Flag emojis still need a colour-emoji font on Windows. */
+.emoji-flag {
+  font-family:
+    "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji",
+    "Twemoji Mozilla", "Segoe UI Symbol", sans-serif;
+}
+
+} /* @layer components */
+
+/* ---------------------------------------------------------------------------
+   Motion
+   ---------------------------------------------------------------------------
+   Interaction only: hover, open/close, focus. Nothing animates on scroll and
+   nothing animates on page entry — a buyer scanning for a part number should
+   never be waiting for text to arrive.
+   --------------------------------------------------------------------------- */
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -276,24 +342,5 @@ html {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-  .aurora-blob {
-    animation: none !important;
-  }
-}
-
-/* Route entrance, applied by app/template.tsx on every navigation. */
-@keyframes page-enter {
-  from { opacity: 0; transform: translate3d(0, 8px, 0); }
-  to   { opacity: 1; transform: translate3d(0, 0, 0); }
-}
-
-.page-enter {
-  animation: page-enter 0.34s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .page-enter {
-    animation: none !important;
   }
 }

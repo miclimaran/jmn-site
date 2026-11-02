@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
+import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 
 import "./globals.css";
 import ClientRoot from "@/components/site/ClientRoot";
-import ScrollProgress from "@/components/site/ui/ScrollProgress";
 import {
   DEFAULT_LANG,
   LANG_COOKIE_NAME,
@@ -18,6 +18,26 @@ import {
 
 const SITE_URL = "https://jmnautoparts.com";
 
+/**
+ * IBM Plex: one upright sans for everything, with the matching mono reserved
+ * for part numbers, quantities and ports — the strings buyers copy, compare
+ * and read back over the phone. A proportional font turns 16510-61A21-000 into
+ * a word; the mono keeps it a number.
+ */
+const plexSans = IBM_Plex_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-plex-sans",
+});
+
+const plexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
+  variable: "--font-plex-mono",
+});
+
 const ORGANIZATION_JSON_LD = {
   "@context": "https://schema.org",
   "@type": "AutoPartsStore",
@@ -28,7 +48,9 @@ const ORGANIZATION_JSON_LD = {
   logo: `${SITE_URL}/branding/logo_jmn2.svg`,
   image: `${SITE_URL}/opengraph-image`,
   description:
-    "Authorized Suzuki genuine parts distributor in Indonesia, exporting OEM auto parts (Suzuki, Toyota, Daihatsu, Mitsubishi) worldwide with FOB, CIF, and DAP terms.",
+    "Authorized distributor of Suzuki Genuine Parts in Jakarta since October 1989. Supplies Suzuki, Toyota, Daihatsu and Mitsubishi parts to importers, distributors and parts shops abroad.",
+  // No `founder` entry: the owner has confirmed the founding date and who runs
+  // the company today, but not who founded it. Left out rather than guessed.
   foundingDate: "1989-10",
   email: COMPANY_EMAIL,
   telephone: WHATSAPP_CONTACTS.map((c) => c.phone),
@@ -40,10 +62,9 @@ const ORGANIZATION_JSON_LD = {
     postalCode: "10740",
     addressCountry: "ID",
   },
-  areaServed: {
-    "@type": "GeoShape",
-    name: "Worldwide export — Middle East, Africa, Southeast Asia",
-  },
+  // Named regions used to be listed here. Which countries JMN has actually
+  // shipped to is still unconfirmed, so this stays at the one claim that holds.
+  areaServed: "Worldwide",
   sameAs: [SOCIALS.instagram],
   makesOffer: {
     "@type": "Offer",
@@ -140,8 +161,12 @@ export default async function RootLayout({
   const initialDir = getDir(initialLang);
 
   return (
-    <html lang={initialLang} dir={initialDir} className="h-full">
-      <body className="h-full overflow-x-hidden bg-background text-foreground antialiased">
+    <html
+      lang={initialLang}
+      dir={initialDir}
+      className={`h-full ${plexSans.variable} ${plexMono.variable}`}
+    >
+      <body className="h-full overflow-x-hidden bg-background font-sans text-foreground antialiased">
         {/* Hoisted into <head> by React. Declared here rather than in the
             metadata export so it survives pages that set their own
             `alternates`. */}
@@ -155,7 +180,6 @@ export default async function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZATION_JSON_LD) }}
         />
-        <ScrollProgress />
         <ClientRoot initialLang={initialLang}>{children}</ClientRoot>
       </body>
     </html>
