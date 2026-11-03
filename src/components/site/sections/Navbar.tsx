@@ -41,7 +41,7 @@ export default function Navbar({
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/branding/logo_jmn2.svg"
-            alt="JMN logo"
+            alt="JMN Auto Parts"
             className={`w-auto transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${scrolled ? "h-12" : "h-16"}`}
           />
         </Link>

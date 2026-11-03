@@ -22,8 +22,19 @@ const ORGANIZATION_JSON_LD = {
   "@context": "https://schema.org",
   "@type": "AutoPartsStore",
   "@id": `${SITE_URL}/#organization`,
-  name: "PT. Jaya Makmur Nugraha (JMN Parts)",
-  alternateName: "JMN Parts",
+  name: "PT. Jaya Makmur Nugraha (JMN Auto Parts)",
+  // The company trades under several short forms, and the domain is the one
+  // buyers type into Google. Listing every form here is how the search engine
+  // learns that "jmn auto parts", "jmnautoparts" and "JMN Parts" are one
+  // business; without it a search for the domain name matched nothing on this
+  // site and Google offered an unrelated shop instead.
+  alternateName: [
+    "JMN Auto Parts",
+    "JMN Autoparts",
+    "JMN Parts",
+    "JMN",
+    "Jaya Makmur Nugraha",
+  ],
   url: SITE_URL,
   logo: `${SITE_URL}/branding/logo_jmn2.svg`,
   image: `${SITE_URL}/opengraph-image`,
@@ -57,8 +68,8 @@ const ORGANIZATION_JSON_LD = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "JMN Parts — Suzuki Genuine Parts Distributor Since 1989",
-    template: "%s | JMN Parts",
+    default: "JMN Auto Parts — Suzuki Genuine Parts Distributor Since 1989",
+    template: "%s | JMN Auto Parts",
   },
   // Leads with the founding year: it is the strongest claim on this site that
   // a buyer can actually verify, and unlike the SKU and accuracy figures it is
@@ -66,6 +77,12 @@ export const metadata: Metadata = {
   description:
     "Authorized Suzuki Genuine Parts distributor in Jakarta since 1989. OEM parts for Suzuki, Toyota, Daihatsu and Mitsubishi, exported worldwide.",
   keywords: [
+    // Brand terms first. These are what an existing customer types when they
+    // are looking for this company by name rather than for a part.
+    "JMN Auto Parts",
+    "JMN Autoparts",
+    "JMN Parts",
+    "PT Jaya Makmur Nugraha",
     "Suzuki genuine parts",
     "OEM spare parts Indonesia",
     "auto parts exporter Indonesia",
@@ -81,8 +98,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: SITE_URL,
-    siteName: "JMN Parts",
-    title: "JMN Parts — Suzuki Genuine Parts Distributor Since 1989",
+    siteName: "JMN Auto Parts",
+    title: "JMN Auto Parts — Suzuki Genuine Parts Distributor Since 1989",
     description:
       "Authorized Suzuki Genuine Parts distributor in Jakarta since 1989. Suzuki, Toyota, Daihatsu and Mitsubishi OEM parts, exported worldwide.",
     images: [
@@ -90,13 +107,13 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "JMN Parts — authorized Suzuki Genuine Parts distributor in Jakarta since 1989",
+        alt: "JMN Auto Parts — authorized Suzuki Genuine Parts distributor in Jakarta since 1989",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "JMN Parts — Suzuki Genuine Parts Distributor Since 1989",
+    title: "JMN Auto Parts — Suzuki Genuine Parts Distributor Since 1989",
     description:
       "Authorized Suzuki Genuine Parts distributor in Jakarta since 1989. OEM parts exported worldwide.",
     images: ["/opengraph-image"],

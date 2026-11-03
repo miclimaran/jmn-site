@@ -29,13 +29,18 @@ export default function Footer() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/branding/logo_jmn2.svg"
-                alt="JMN logo"
+                alt="JMN Auto Parts"
                 className="h-15 w-auto"
               />
-              <span className="sr-only">JMN</span>
             </Link>
           </div>
+          {/* The short name is spelled out here on purpose: it is what
+              buyers type into a search box, and until it appeared somewhere
+              in the page text a search for it returned nothing from this
+              site. */}
           <p className="text-sm text-muted-foreground">
+            <span className="font-medium">JMN Auto Parts</span>
+            <br />
             Suzuki Genuine Parts distributor based in Jakarta, Indonesia.
             Multi-brand export supplier.
           </p>

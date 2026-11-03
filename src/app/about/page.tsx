@@ -21,7 +21,7 @@ import { SITE_URL } from "@/components/site/constants";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "PT. Jaya Makmur Nugraha (JMN Parts) has been an authorized Suzuki Genuine Parts distributor in Jakarta since October 1989, exporting OEM auto parts for Suzuki, Toyota, Daihatsu, and Mitsubishi worldwide.",
+    "PT. Jaya Makmur Nugraha (JMN Auto Parts) has been an authorized Suzuki Genuine Parts distributor in Jakarta since October 1989, exporting OEM auto parts for Suzuki, Toyota, Daihatsu, and Mitsubishi worldwide.",
   alternates: {
     canonical: `${SITE_URL}/about`,
   },
