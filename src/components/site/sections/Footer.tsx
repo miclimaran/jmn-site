@@ -29,8 +29,17 @@ export default function Footer() {
         <div>
           {/* Vector SVG logo — next/image offers no optimization for vector art */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/branding/logo_jmn2.svg" alt="JMN" className="h-10 w-auto" />
+          <img
+            src="/branding/logo_jmn2.svg"
+            alt="JMN Auto Parts"
+            className="h-10 w-auto"
+          />
+          {/* The short name sits above the legal one: it is what buyers type
+              into a search box, and until it appeared somewhere in the page
+              text a search for it returned nothing from this site. */}
           <p className="mt-3 text-xs leading-relaxed text-ink-2">
+            JMN Auto Parts
+            <br />
             {SITE_NAME}
             <br />
             Suzuki Genuine Parts · {FOUNDED_LABEL}

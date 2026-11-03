@@ -39,7 +39,11 @@ export default function Navbar({
         <Link href="/" className="flex shrink-0 items-center" aria-label="JMN Parts">
           {/* Vector SVG logo — next/image offers no optimization for vector art */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/branding/logo_jmn2.svg" alt="JMN" className="h-10 w-auto" />
+          <img
+            src="/branding/logo_jmn2.svg"
+            alt="JMN Auto Parts"
+            className="h-10 w-auto"
+          />
         </Link>
 
         <nav className="hidden items-center gap-7 lg:flex">

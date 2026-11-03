@@ -59,7 +59,7 @@ const en: AboutCopy = {
   breadcrumbHome: "Home",
   eyebrow: "Our Story",
   title: "Genuine parts, global trust",
-  lead: "{company} (JMN Parts) is an authorized distributor of Suzuki Genuine Parts based in Jakarta, Indonesia — supplying OEM auto parts for Suzuki, Toyota, Daihatsu, and Mitsubishi to buyers around the world.",
+  lead: "{company} (JMN Auto Parts) is an authorized distributor of Suzuki Genuine Parts based in Jakarta, Indonesia — supplying OEM auto parts for Suzuki, Toyota, Daihatsu, and Mitsubishi to buyers around the world.",
   intro: [
     "{company} opened in Central Jakarta in {founded} and was appointed an authorized distributor of Suzuki Genuine Parts in the same month. For {years} years the focus has not changed: genuine parts, accurate part numbers, and delivery you can plan around.",
     "In 2010 we shipped our first order abroad. In 2015 the catalog grew beyond Suzuki to Toyota, Daihatsu, and Mitsubishi, so buyers could consolidate several brands into a single shipment. Today we supply importers, distributors, and workshops here and overseas — with the export documentation to move the goods across borders.",
@@ -132,7 +132,7 @@ const id: AboutCopy = {
   breadcrumbHome: "Beranda",
   eyebrow: "Kisah Kami",
   title: "Suku cadang asli, kepercayaan global",
-  lead: "{company} (JMN Parts) adalah distributor resmi Suzuki Genuine Parts yang berbasis di Jakarta, Indonesia — memasok suku cadang OEM untuk Suzuki, Toyota, Daihatsu, dan Mitsubishi ke pembeli di seluruh dunia.",
+  lead: "{company} (JMN Auto Parts) adalah distributor resmi Suzuki Genuine Parts yang berbasis di Jakarta, Indonesia — memasok suku cadang OEM untuk Suzuki, Toyota, Daihatsu, dan Mitsubishi ke pembeli di seluruh dunia.",
   intro: [
     "{company} berdiri di Jakarta Pusat pada {founded} dan pada bulan yang sama ditunjuk sebagai distributor resmi Suzuki Genuine Parts. Selama {years} tahun fokusnya tidak berubah: suku cadang asli, nomor part yang akurat, dan pengiriman yang bisa Anda andalkan.",
     "Pada 2010 kami mengirim pesanan pertama ke luar negeri. Pada 2015 katalog berkembang melampaui Suzuki ke Toyota, Daihatsu, dan Mitsubishi, sehingga pembeli bisa menggabungkan beberapa merek dalam satu pengiriman. Kini kami memasok importir, distributor, dan bengkel di dalam maupun luar negeri — lengkap dengan dokumen ekspor untuk melintas batas negara.",
@@ -205,7 +205,7 @@ const vi: AboutCopy = {
   breadcrumbHome: "Trang chủ",
   eyebrow: "Câu chuyện của chúng tôi",
   title: "Phụ tùng chính hãng, niềm tin toàn cầu",
-  lead: "{company} (JMN Parts) là nhà phân phối được ủy quyền của Suzuki Genuine Parts, có trụ sở tại Jakarta, Indonesia — cung cấp phụ tùng OEM cho Suzuki, Toyota, Daihatsu và Mitsubishi tới khách hàng trên toàn thế giới.",
+  lead: "{company} (JMN Auto Parts) là nhà phân phối được ủy quyền của Suzuki Genuine Parts, có trụ sở tại Jakarta, Indonesia — cung cấp phụ tùng OEM cho Suzuki, Toyota, Daihatsu và Mitsubishi tới khách hàng trên toàn thế giới.",
   intro: [
     "{company} thành lập tại Trung tâm Jakarta vào {founded} và ngay trong tháng đó được chỉ định làm nhà phân phối ủy quyền của Suzuki Genuine Parts. Suốt {years} năm, trọng tâm không thay đổi: phụ tùng chính hãng, mã phụ tùng chính xác và giao hàng đúng kế hoạch.",
     "Năm 2010, chúng tôi xuất khẩu đơn hàng đầu tiên. Năm 2015, danh mục mở rộng ngoài Suzuki sang Toyota, Daihatsu và Mitsubishi, giúp người mua gộp nhiều thương hiệu vào một lô hàng. Ngày nay chúng tôi cung cấp cho nhà nhập khẩu, nhà phân phối và gara trong nước lẫn nước ngoài — kèm đầy đủ chứng từ xuất khẩu.",
@@ -278,7 +278,7 @@ const ar: AboutCopy = {
   breadcrumbHome: "الرئيسية",
   eyebrow: "قصتنا",
   title: "قطع غيار أصلية، ثقة عالمية",
-  lead: "{company} (JMN Parts) موزّع معتمد لقطع غيار سوزوكي الأصلية ومقرها جاكرتا، إندونيسيا — تورّد قطع غيار OEM لسيارات سوزوكي وتويوتا ودايهاتسو وميتسوبيشي لمشترين حول العالم.",
+  lead: "{company} (JMN Auto Parts) موزّع معتمد لقطع غيار سوزوكي الأصلية ومقرها جاكرتا، إندونيسيا — تورّد قطع غيار OEM لسيارات سوزوكي وتويوتا ودايهاتسو وميتسوبيشي لمشترين حول العالم.",
   intro: [
     "تأسست {company} في وسط جاكرتا في {founded}، وعُيّنت في الشهر نفسه موزّعاً معتمداً لقطع غيار سوزوكي الأصلية. وعلى مدى {years} عاماً لم يتغيّر التركيز: قطع غيار أصلية، وأرقام قطع دقيقة، وتسليم يمكن الاعتماد عليه.",
     "في عام 2010 شحنّا أول طلبية إلى الخارج. وفي عام 2015 توسّع الكتالوج من سوزوكي ليشمل تويوتا ودايهاتسو وميتسوبيشي، ليتمكّن المشترون من دمج عدة علامات في شحنة واحدة. واليوم نورّد للمستوردين والموزّعين والورش داخل البلاد وخارجها — مع مستندات التصدير اللازمة لعبور الحدود.",
@@ -351,7 +351,7 @@ const th: AboutCopy = {
   breadcrumbHome: "หน้าแรก",
   eyebrow: "เรื่องราวของเรา",
   title: "อะไหล่แท้ ความไว้วางใจระดับโลก",
-  lead: "{company} (JMN Parts) เป็นผู้จัดจำหน่ายอะไหล่แท้ Suzuki ที่ได้รับการแต่งตั้ง ตั้งอยู่ในจาการ์ตา ประเทศอินโดนีเซีย — จัดหาอะไหล่ OEM สำหรับ Suzuki, Toyota, Daihatsu และ Mitsubishi ให้ผู้ซื้อทั่วโลก",
+  lead: "{company} (JMN Auto Parts) เป็นผู้จัดจำหน่ายอะไหล่แท้ Suzuki ที่ได้รับการแต่งตั้ง ตั้งอยู่ในจาการ์ตา ประเทศอินโดนีเซีย — จัดหาอะไหล่ OEM สำหรับ Suzuki, Toyota, Daihatsu และ Mitsubishi ให้ผู้ซื้อทั่วโลก",
   intro: [
     "{company} ก่อตั้งขึ้นในใจกลางจาการ์ตาเมื่อ {founded} และได้รับแต่งตั้งเป็นผู้จัดจำหน่ายอะไหล่แท้ Suzuki ในเดือนเดียวกัน ตลอด {years} ปีที่ผ่านมา จุดมุ่งหมายไม่เคยเปลี่ยน: อะไหล่แท้ หมายเลขอะไหล่ที่ถูกต้อง และการจัดส่งที่วางแผนได้",
     "ในปี 2010 เราส่งออกคำสั่งซื้อแรกไปต่างประเทศ ปี 2015 แคตตาล็อกขยายจาก Suzuki ไปสู่ Toyota, Daihatsu และ Mitsubishi ทำให้ผู้ซื้อรวมหลายแบรนด์ไว้ในการจัดส่งเดียวได้ ปัจจุบันเราจัดหาให้ผู้นำเข้า ผู้จัดจำหน่าย และอู่ซ่อมทั้งในและต่างประเทศ พร้อมเอกสารส่งออกครบถ้วน",
